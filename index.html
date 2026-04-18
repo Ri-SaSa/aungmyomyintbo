@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        /* --- VARIABLES & BASE (Dark/Blue Theme) --- */
+        /* --- VARIABLES & BASE (True Blue & Solid Black Theme) --- */
         :root {
-            --bg-dark: #050505;
-            --bg-card: #111111;
+            --bg-dark: #000000; /* Pure Black Background */
+            --bg-card: #080808;
             --text-main: #f3f3f3;
             --text-muted: #a0a0a0;
-            --accent: #0088ff; /* Blue Accent */
-            --accent-glow: rgba(0, 136, 255, 0.4);
+            --accent: #0000ff; /* Pure Blue Accent */
+            --accent-glow: rgba(0, 0, 255, 0.4);
             --border: rgba(255, 255, 255, 0.08);
             --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -23,61 +23,67 @@
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg-dark); /* Solid Black Background */
+            background-color: var(--bg-dark); 
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
             overflow-x: hidden;
         }
 
+        /* --- LOADING SCREEN ANIMATION --- */
+        #loader {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-color: var(--accent); z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+        }
+        #loader h1 { 
+            color: #ffffff; font-family: 'Space Grotesk', sans-serif; 
+            font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 2px; 
+            text-transform: uppercase; margin-bottom: 5px; text-align: center; 
+        }
+        #loader p { 
+            color: #ffffff; font-family: 'Inter', sans-serif; 
+            font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; 
+            opacity: 0.9; text-align: center;
+        }
+        #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
         h1, h2, h3, h4, .logo { font-family: 'Space Grotesk', sans-serif; }
         a { text-decoration: none; color: var(--text-main); transition: var(--transition); }
         section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; overflow: hidden; }
 
         /* --- TYPOGRAPHY & BUTTONS --- */
-        h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; text-transform: uppercase; }
-        .text-accent { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
+        h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 2.5rem; font-weight: 700; letter-spacing: -1px; text-transform: uppercase; }
+        .text-accent { color: var(--accent); text-shadow: 0 0 20px var(--accent-glow); }
 
         .btn {
-            display: inline-block;
-            padding: 14px 32px;
-            background: transparent;
-            color: var(--text-main);
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            transition: var(--transition);
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-            position: relative;
-            overflow: hidden;
+            display: inline-block; padding: 14px 32px; background: transparent;
+            color: var(--text-main); border: 1px solid var(--border); border-radius: 30px;
+            font-family: 'Space Grotesk', sans-serif; font-weight: 500; letter-spacing: 1px;
+            text-transform: uppercase; font-size: 0.9rem; transition: var(--transition);
+            cursor: pointer; backdrop-filter: blur(5px); position: relative; overflow: hidden;
         }
-
         .btn::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
             transition: left 0.5s ease;
         }
         .btn:hover::before { left: 100%; }
-        .btn:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); background: rgba(0, 136, 255, 0.1); transform: translateY(-3px); }
+        .btn:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); background: rgba(0, 0, 255, 0.15); transform: translateY(-3px); }
 
         /* --- 1. NAVBAR --- */
         nav {
             position: fixed; top: 0; width: 100%; padding: 20px 5%; display: flex;
             justify-content: space-between; align-items: center; z-index: 1000; transition: var(--transition);
         }
-        nav.scrolled { background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); padding: 15px 5%; }
+        nav.scrolled { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); padding: 15px 5%; }
         .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; z-index: 1001; }
         
         .nav-links { display: flex; gap: 30px; }
         .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
         .nav-links a:hover { color: var(--text-main); text-shadow: 0 0 10px var(--accent-glow); }
 
-        /* Mobile Menu Toggle */
         .menu-btn { display: none; cursor: pointer; z-index: 1001; width: 30px; height: 20px; position: relative; }
         .menu-btn span { display: block; position: absolute; height: 2px; width: 100%; background: var(--text-main); border-radius: 2px; transition: var(--transition); }
         .menu-btn span:nth-child(1) { top: 0; }
@@ -87,86 +93,80 @@
         .menu-btn.open span:nth-child(2) { opacity: 0; }
         .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
 
-        /* --- 2. HERO SECTION (Animated Blue Orbs Overlay) --- */
+        /* --- 2. HERO SECTION (Blue Glowing Orbs on Black) --- */
         .hero { 
             height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            text-align: center; position: relative; padding: 0 20px; overflow: hidden;
-            background-color: var(--bg-dark);
+            text-align: center; position: relative; padding: 0 20px; overflow: hidden; background: #000000;
         }
         
         .hero::before, .hero::after {
             content: ''; position: absolute; border-radius: 50%;
-            filter: blur(120px); z-index: 0; opacity: 0.6;
-            animation: floatGlow 12s infinite alternate ease-in-out;
+            filter: blur(140px); z-index: 0; opacity: 0.35;
+            animation: floatGlow 10s infinite alternate ease-in-out;
         }
-        .hero::before {
-            width: 60vw; height: 60vw; background: rgba(0, 136, 255, 0.25);
-            top: -10%; left: -10%;
-        }
-        .hero::after {
-            width: 50vw; height: 50vw; background: rgba(0, 80, 200, 0.2);
-            bottom: -10%; right: -10%; animation-delay: -6s;
-        }
-        @keyframes floatGlow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(15%, 15%) scale(1.2); }
-        }
+        .hero::before { width: 50vw; height: 50vw; background: #0000ff; top: -10%; left: -10%; }
+        .hero::after { width: 40vw; height: 40vw; background: rgba(0, 0, 255, 0.6); bottom: -10%; right: -10%; animation-delay: -5s; }
+        @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(10%, 10%) scale(1.1); } }
         
         .hero h1, .hero p, .hero a { position: relative; z-index: 2; }
         .hero h1 { font-size: clamp(2.5rem, 6vw, 6rem); line-height: 1.1; margin-bottom: 1rem; letter-spacing: -2px; min-height: 1.2em; }
         #name-swap { transition: opacity 0.5s ease; display: inline-block; }
         .hero p { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-muted); margin-bottom: 2.5rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; min-height: 1.5em; }
-        
         .typewrite::after { content: '|'; animation: blink 1s step-start infinite; color: var(--accent); }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* --- 3. LOGO MARQUEE (Transparent Overlay) --- */
+        /* --- 3. LOGO MARQUEE --- */
         .marquee-container {
-            width: 100%; overflow: hidden; padding: 60px 0;
-            background: transparent; border: none;
-            display: flex; white-space: nowrap; align-items: center;
-            position: relative; z-index: 10;
+            width: 100%; overflow: hidden; padding: 50px 0; background: transparent; border: none;
+            display: flex; white-space: nowrap; align-items: center; position: relative; z-index: 10;
         }
-        /* Fade edges to blend smoothly into background */
         .marquee-container::before, .marquee-container::after {
             content: ''; position: absolute; top: 0; width: 15%; height: 100%; z-index: 2; pointer-events: none;
         }
         .marquee-container::before { left: 0; background: linear-gradient(to right, var(--bg-dark), transparent); }
         .marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-dark), transparent); }
 
-        .marquee-track {
-            display: inline-flex; animation: scrollMarquee 25s linear infinite; gap: 80px; padding-left: 80px;
+        .marquee-track { display: inline-flex; animation: scrollMarquee 25s linear infinite; gap: 80px; padding-left: 80px; }
+        
+        /* Placeholder styling for before you add images */
+        .marquee-img-placeholder { 
+            width: 140px; height: 60px; background: #0a0a0a; border: 1px dashed #333; 
+            border-radius: 6px; display: flex; align-items: center; justify-content: center; 
+            color: #555; font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1px; text-transform: uppercase;
         }
-        .marquee-item {
-            color: #444; /* Dark Grey color */
-            font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 2px; transition: var(--transition); cursor: default;
+        /* Styling for when you add real <img> tags */
+        .marquee-img-placeholder img { 
+            width: 100%; height: 100%; object-fit: contain; 
+            filter: grayscale(100%) opacity(0.6); transition: var(--transition); 
         }
-        .marquee-item:hover { color: var(--text-main); text-shadow: 0 0 15px rgba(255,255,255,0.2); }
+        .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); }
+
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- 4. ABOUT SECTION --- */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-        .about-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 12px; }
-        .tag { padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; color: var(--text-main); transition: var(--transition); }
-        .tag:hover { border-color: var(--accent); background: rgba(0, 136, 255, 0.1); transform: translateY(-3px); }
+        /* --- 4. ABOUT SECTION (Balanced Proportions) --- */
+        /* Changed Grid: 1.5fr (text) to 1fr (image) makes image smaller and text less wide */
+        .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; }
         
-        /* 1x1 Balanced Profile Image */
+        .about-text { max-width: 600px; } /* Prevents text from becoming too wide */
+        .about-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
+        .tag { padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; color: var(--text-main); transition: var(--transition); }
+        .tag:hover { border-color: var(--accent); background: rgba(0, 0, 255, 0.15); transform: translateY(-3px); }
+        
+        /* 1x1 Balanced Profile Image Container (Max width applied) */
         .about-image { 
-            width: 100%; aspect-ratio: 1 / 1; 
-            background: linear-gradient(45deg, var(--bg-card), #1a1a1a); border-radius: 12px; 
+            width: 100%; max-width: 400px; aspect-ratio: 1 / 1; background: var(--bg-card); border-radius: 12px; 
             border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; 
-            color: var(--text-muted); position: relative; overflow: hidden; 
+            color: var(--text-muted); position: relative; overflow: hidden; margin: 0 auto;
         }
         .about-image img { width: 100%; height: 100%; object-fit: cover; }
 
         /* --- 5. SHOWCASE SECTION --- */
         .category-title { font-size: 1.5rem; margin-top: 50px; margin-bottom: 20px; color: var(--text-main); border-bottom: 1px solid var(--border); padding-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-        .horizontal-scroller { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scroll-snap-type: x mandatory; scrollbar-width: none; transition: transform 0.1s linear; }
+        .horizontal-scroller { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .horizontal-scroller::-webkit-scrollbar { display: none; }
         
-        /* Custom Sizes */
         .scroll-item { scroll-snap-align: start; flex-shrink: 0; position: relative; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); cursor: pointer; transition: var(--transition); display: block; }
         .item-1x1 { aspect-ratio: 1 / 1; min-width: 300px; }
         .item-9x16 { aspect-ratio: 9 / 16; min-width: 280px; }
@@ -174,20 +174,19 @@
         .scroll-item:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
         .scroll-item img, .scroll-item .placeholder { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .scroll-item:hover img { transform: scale(1.05); }
-        .placeholder { display: flex; align-items: center; justify-content: center; background: #1a1a1a; width: 100%; height: 100%; }
+        .placeholder { display: flex; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; }
 
         /* --- 6. CV POPUP MODAL --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px);
-            display: flex; justify-content: center; align-items: center;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center;
             z-index: 2000; opacity: 0; pointer-events: none; transition: var(--transition);
         }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
         .modal-content {
-            background: var(--bg-card); padding: 50px; border-radius: 16px;
-            border: 1px solid var(--accent); text-align: center; max-width: 400px; width: 90%;
-            transform: translateY(30px); transition: var(--transition); position: relative;
+            background: var(--bg-card); padding: 50px; border-radius: 16px; border: 1px solid var(--accent);
+            text-align: center; max-width: 400px; width: 90%; transform: translateY(30px); transition: var(--transition); position: relative;
+            box-shadow: 0 0 40px rgba(0, 0, 255, 0.15);
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
         .modal-content h3 { font-size: 1.8rem; margin-bottom: 20px; }
@@ -198,18 +197,20 @@
 
         /* --- 7. CONTACT SECTION --- */
         .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-card); padding: 50px; border-radius: 12px; border: 1px solid var(--border); }
-        .contact-info p { font-size: 1.1rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 15px; }
-        .contact-info a { color: var(--text-muted); }
-        .contact-info a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+        .contact-info p { font-size: 1rem; margin-bottom: 1.2rem; display: flex; align-items: center; }
+        .contact-info a { color: var(--text-muted); display: flex; align-items: center; gap: 12px; }
+        /* Fixed icon widths so text aligns perfectly */
+        .contact-info a i { font-size: 1.2rem; color: var(--accent); width: 25px; text-align: center; }
+        .contact-info a:hover { color: var(--text-main); text-shadow: 0 0 10px var(--accent-glow); }
+        
         .contact-form { display: flex; flex-direction: column; gap: 20px; }
         input, textarea { width: 100%; padding: 18px; background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; font-family: 'Inter', sans-serif; transition: var(--transition); }
-        input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 136, 255, 0.2); }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 0, 255, 0.3); }
         textarea { height: 150px; resize: vertical; }
 
         /* --- 8. FOOTER --- */
         footer { border-top: 1px solid var(--border); padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); font-size: 1rem; flex-wrap: wrap; gap: 20px; }
         .social-icons { display: flex; gap: 25px; align-items: center; }
-        /* Adjusted icons to be bigger and cleaner */
         .social-icons a { color: var(--text-muted); transition: var(--transition); font-size: 1.4rem; }
         .social-icons a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); transform: translateY(-3px); }
 
@@ -222,10 +223,11 @@
         /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 900px) {
             .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
+            .about-image { max-width: 100%; } /* Restores full width on mobile */
             .menu-btn { display: block; }
             .nav-links {
                 position: fixed; top: 0; right: -100%; height: 100vh; width: 100%; max-width: 300px;
-                background: rgba(5,5,5,0.98); backdrop-filter: blur(20px); flex-direction: column;
+                background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); flex-direction: column;
                 justify-content: center; align-items: center; gap: 40px; transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
                 border-left: 1px solid var(--border);
             }
@@ -240,6 +242,11 @@
     </style>
 </head>
 <body>
+
+    <div id="loader">
+        <h1>Aung Myo Myint Bo</h1>
+        <p>Portfolio</p>
+    </div>
 
     <nav id="navbar">
         <a href="#home" class="logo">Portfolio</a>
@@ -282,12 +289,13 @@
             </div>
             <div class="about-image reveal delay-2">
                 <div class="placeholder">
-                    </div>
+                    [ Profile Image 1x1 ]
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="showcase" style="overflow: visible;">
+    <section id="showcase">
         <h2 class="reveal">Showcase</h2>
         
         <h3 class="category-title reveal">Marketing Campaigns</h3>
@@ -310,8 +318,10 @@
         <h2 class="reveal">Contact</h2>
         <div class="contact-wrapper reveal delay-1">
             <div class="contact-info">
-                <p><a href="mailto:ri.aungmyomyintbo@gmail.com"><i class="fas fa-envelope" style="margin-right: 10px;"></i> ri.aungmyomyintbo@gmail.com</a></p>
-                <p><a href="tel:+959669915726"><i class="fas fa-phone-alt" style="margin-right: 10px;"></i> +959669915726</a></p>
+                <p><a href="mailto:ri.aungmyomyintbo@gmail.com"><i class="fas fa-envelope"></i> ri.aungmyomyintbo@gmail.com</a></p>
+                <p><a href="tel:+959669915726"><i class="fas fa-phone-alt"></i> +959669915726</a></p>
+                <p><a href="viber://chat?number=%2B959669915726"><i class="fab fa-viber"></i> +959669915726</a></p>
+                <p><a href="https://t.me/aungmyomyintbo" target="_blank"><i class="fab fa-telegram"></i> @aungmyomyintbo</a></p>
                 <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">Available for freelance branding, video editing, and visual design projects.</p>
             </div>
             <form class="contact-form" onsubmit="event.preventDefault();">
@@ -346,6 +356,13 @@
     </div>
 
     <script>
+        // --- LOADING SCREEN FADE OUT ---
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 800); // Wait 0.8 seconds before fading out
+        });
+
         // --- MOBILE MENU LOGIC ---
         const menuBtn = document.getElementById('menuBtn');
         const navLinks = document.getElementById('navLinks');
@@ -445,30 +462,20 @@
         window.addEventListener("scroll", reveal);
         reveal(); 
 
-        // --- SHOWCASE HORIZONTAL PARALLAX ON SCROLL ---
-        window.addEventListener('scroll', () => {
-            document.querySelectorAll('.horizontal-scroller').forEach((scroller, index) => {
-                const rect = scroller.getBoundingClientRect();
-                // Only animate if section is in viewport to save performance
-                if(rect.top < window.innerHeight && rect.bottom > 0) {
-                    // Alternate left/right direction based on row index
-                    const direction = index % 2 === 0 ? 1 : -1;
-                    const speed = 0.08;
-                    const offset = (window.innerHeight - rect.top) * speed * direction;
-                    scroller.style.transform = `translateX(${offset}px)`;
-                }
-            });
-        });
-
-        // --- POPULATE LOGO MARQUEE ---
+        // --- POPULATE LOGO MARQUEE (PNG READY) ---
         const marqueeTrack = document.getElementById('marqueeTrack');
-        const logos = ["Brand Identity", "Social Media", "Video Editing", "Print Layout", "Motion Graphics", "Web UI"];
+        // NOTE: Change these file names to your actual logo PNG files once uploaded to GitHub
+        const logoFiles = ["logo1.png", "logo2.png", "logo3.png", "logo4.png", "logo5.png", "logo6.png"];
+        
         // Duplicate array to make it a seamless infinite loop
-        const allLogos = [...logos, ...logos, ...logos]; 
-        allLogos.forEach(logoText => {
+        const allLogos = [...logoFiles, ...logoFiles, ...logoFiles, ...logoFiles]; 
+        allLogos.forEach(logoSrc => {
             let div = document.createElement('div');
-            div.className = 'marquee-item';
-            div.innerText = logoText;
+            div.className = 'marquee-img-placeholder';
+            
+            // This creates an image tag. If the file is missing, it shows the "[ LOGO ]" text
+            div.innerHTML = `<img src="${logoSrc}" onerror="this.style.display='none'; this.parentElement.innerHTML='[ LOGO ]'" alt="Client Logo">`;
+            
             marqueeTrack.appendChild(div);
         });
 
@@ -476,7 +483,6 @@
         function generateBlocks(containerId, count, sizeClass) {
             const container = document.getElementById(containerId);
             for(let i = 1; i <= count; i++) {
-                // Generates blank placeholder blocks
                 container.innerHTML += `
                     <a href="#" class="scroll-item ${sizeClass}">
                         <div class="placeholder"></div>
@@ -491,7 +497,6 @@
         generateBlocks('scroller-print', 15, 'item-1x1');
         generateBlocks('scroller-branding', 7, 'item-1x1');
         generateBlocks('scroller-video', 7, 'item-9x16');
-
 
         // --- DRAGGABLE HORIZONTAL SCROLLERS ---
         const sliders = document.querySelectorAll('.horizontal-scroller');
