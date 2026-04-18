@@ -6,7 +6,7 @@
     <title>Aung Myo Myint Bo / Ri | Digital Designer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* --- VARIABLES & BASE (Updated to Blue Theme) --- */
+        /* --- VARIABLES & BASE (Blue Theme) --- */
         :root {
             --bg-dark: #050505;
             --bg-card: #111111;
@@ -107,7 +107,7 @@
         .typewrite::after { content: '|'; animation: blink 1s step-start infinite; color: var(--accent); }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* --- 3. LOGO MARQUEE (New) --- */
+        /* --- 3. LOGO MARQUEE --- */
         .marquee-container {
             width: 100%; overflow: hidden; background: #0a0a0a; padding: 40px 0;
             border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
@@ -447,7 +447,7 @@
             for(let i = 1; i <= count; i++) {
                 container.innerHTML += `
                     <a href="#" class="scroll-item ${sizeClass}">
-                        <div class="placeholder">Img ${i}</div>
+                        <div class="placeholder">${placeholderText} ${i}</div>
                     </a>
                 `;
             }
