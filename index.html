@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aung Myo Myint Bo / Ri | Digital Designer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        /* --- VARIABLES & BASE (Blue Theme) --- */
+        /* --- VARIABLES & BASE (Dark/Blue Theme) --- */
         :root {
             --bg-dark: #050505;
             --bg-card: #111111;
@@ -21,7 +23,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-dark); /* Solid Black Background */
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
@@ -85,21 +87,32 @@
         .menu-btn.open span:nth-child(2) { opacity: 0; }
         .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
 
-        /* --- 2. HERO SECTION (Blue Gradient Animated) --- */
+        /* --- 2. HERO SECTION (Animated Blue Orbs Overlay) --- */
         .hero { 
             height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            text-align: center; position: relative; padding: 0 20px;
-            background: linear-gradient(-45deg, #050505, #001a33, #003366, #020c18);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            text-align: center; position: relative; padding: 0 20px; overflow: hidden;
+            background-color: var(--bg-dark);
         }
         
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .hero::before, .hero::after {
+            content: ''; position: absolute; border-radius: 50%;
+            filter: blur(120px); z-index: 0; opacity: 0.6;
+            animation: floatGlow 12s infinite alternate ease-in-out;
+        }
+        .hero::before {
+            width: 60vw; height: 60vw; background: rgba(0, 136, 255, 0.25);
+            top: -10%; left: -10%;
+        }
+        .hero::after {
+            width: 50vw; height: 50vw; background: rgba(0, 80, 200, 0.2);
+            bottom: -10%; right: -10%; animation-delay: -6s;
+        }
+        @keyframes floatGlow {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(15%, 15%) scale(1.2); }
         }
         
+        .hero h1, .hero p, .hero a { position: relative; z-index: 2; }
         .hero h1 { font-size: clamp(2.5rem, 6vw, 6rem); line-height: 1.1; margin-bottom: 1rem; letter-spacing: -2px; min-height: 1.2em; }
         #name-swap { transition: opacity 0.5s ease; display: inline-block; }
         .hero p { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-muted); margin-bottom: 2.5rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; min-height: 1.5em; }
@@ -107,21 +120,29 @@
         .typewrite::after { content: '|'; animation: blink 1s step-start infinite; color: var(--accent); }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* --- 3. LOGO MARQUEE --- */
+        /* --- 3. LOGO MARQUEE (Transparent Overlay) --- */
         .marquee-container {
-            width: 100%; overflow: hidden; background: #0a0a0a; padding: 40px 0;
-            border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+            width: 100%; overflow: hidden; padding: 60px 0;
+            background: transparent; border: none;
             display: flex; white-space: nowrap; align-items: center;
+            position: relative; z-index: 10;
         }
+        /* Fade edges to blend smoothly into background */
+        .marquee-container::before, .marquee-container::after {
+            content: ''; position: absolute; top: 0; width: 15%; height: 100%; z-index: 2; pointer-events: none;
+        }
+        .marquee-container::before { left: 0; background: linear-gradient(to right, var(--bg-dark), transparent); }
+        .marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-dark), transparent); }
+
         .marquee-track {
             display: inline-flex; animation: scrollMarquee 25s linear infinite; gap: 80px; padding-left: 80px;
         }
         .marquee-item {
-            color: #555; /* Grey color */
+            color: #444; /* Dark Grey color */
             font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700;
-            text-transform: uppercase; letter-spacing: 2px; transition: var(--transition);
+            text-transform: uppercase; letter-spacing: 2px; transition: var(--transition); cursor: default;
         }
-        .marquee-item:hover { color: var(--text-main); }
+        .marquee-item:hover { color: var(--text-main); text-shadow: 0 0 15px rgba(255,255,255,0.2); }
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* --- 4. ABOUT SECTION --- */
@@ -142,7 +163,7 @@
 
         /* --- 5. SHOWCASE SECTION --- */
         .category-title { font-size: 1.5rem; margin-top: 50px; margin-bottom: 20px; color: var(--text-main); border-bottom: 1px solid var(--border); padding-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-        .horizontal-scroller { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .horizontal-scroller { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scroll-snap-type: x mandatory; scrollbar-width: none; transition: transform 0.1s linear; }
         .horizontal-scroller::-webkit-scrollbar { display: none; }
         
         /* Custom Sizes */
@@ -153,7 +174,7 @@
         .scroll-item:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
         .scroll-item img, .scroll-item .placeholder { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .scroll-item:hover img { transform: scale(1.05); }
-        .placeholder { display: flex; align-items: center; justify-content: center; color: var(--text-muted); background: #1a1a1a; font-family: 'Space Grotesk'; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;}
+        .placeholder { display: flex; align-items: center; justify-content: center; background: #1a1a1a; width: 100%; height: 100%; }
 
         /* --- 6. CV POPUP MODAL --- */
         .modal-overlay {
@@ -187,9 +208,10 @@
 
         /* --- 8. FOOTER --- */
         footer { border-top: 1px solid var(--border); padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); font-size: 1rem; flex-wrap: wrap; gap: 20px; }
-        .social-icons { display: flex; gap: 20px; align-items: center; }
-        .social-icons a { color: var(--text-muted); transition: var(--transition); font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; }
-        .social-icons a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+        .social-icons { display: flex; gap: 25px; align-items: center; }
+        /* Adjusted icons to be bigger and cleaner */
+        .social-icons a { color: var(--text-muted); transition: var(--transition); font-size: 1.4rem; }
+        .social-icons a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); transform: translateY(-3px); }
 
         /* --- ADVANCED ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
@@ -259,41 +281,37 @@
                 </div>
             </div>
             <div class="about-image reveal delay-2">
-                <div class="placeholder">[ Profile Image 1x1 ]</div>
+                <div class="placeholder">
+                    </div>
             </div>
         </div>
     </section>
 
-    <section id="showcase">
+    <section id="showcase" style="overflow: visible;">
         <h2 class="reveal">Showcase</h2>
         
         <h3 class="category-title reveal">Marketing Campaigns</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-marketing">
-            </div>
+        <div class="horizontal-scroller reveal delay-1" id="scroller-marketing"></div>
 
         <h3 class="category-title reveal">Social Media Design</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-social">
-            </div>
+        <div class="horizontal-scroller reveal delay-1" id="scroller-social"></div>
 
-        <h3 class="category-title reveal">Print Designs</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-print">
-            </div>
+        <h3 class="category-title reveal">Print Design</h3>
+        <div class="horizontal-scroller reveal delay-1" id="scroller-print"></div>
 
         <h3 class="category-title reveal">Logo & Branding</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-branding">
-            </div>
+        <div class="horizontal-scroller reveal delay-1" id="scroller-branding"></div>
 
         <h3 class="category-title reveal">Video Editing</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-video">
-            </div>
+        <div class="horizontal-scroller reveal delay-1" id="scroller-video"></div>
     </section>
 
     <section id="contact">
         <h2 class="reveal">Contact</h2>
         <div class="contact-wrapper reveal delay-1">
             <div class="contact-info">
-                <p><a href="mailto:ri.aungmyomyintbo@gmail.com">Email: ri.aungmyomyintbo@gmail.com</a></p>
-                <p><a href="tel:+959669915726">Phone: +959669915726</a></p>
+                <p><a href="mailto:ri.aungmyomyintbo@gmail.com"><i class="fas fa-envelope" style="margin-right: 10px;"></i> ri.aungmyomyintbo@gmail.com</a></p>
+                <p><a href="tel:+959669915726"><i class="fas fa-phone-alt" style="margin-right: 10px;"></i> +959669915726</a></p>
                 <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">Available for freelance branding, video editing, and visual design projects.</p>
             </div>
             <form class="contact-form" onsubmit="event.preventDefault();">
@@ -306,12 +324,12 @@
     </section>
 
     <footer>
-        <div class="reveal">Thank You So Much For reaching me out</div>
+        <div class="reveal" style="font-family: 'Space Grotesk', sans-serif;">Thank You So Much For reaching me out</div>
         <div class="social-icons reveal delay-1">
-            <a href="https://t.me/+959669915726" target="_blank">Telegram</a>
-            <a href="viber://chat?number=%2B959669915726" target="_blank">Viber</a>
-            <a href="#" target="_blank">Instagram</a>
-            <a href="#" target="_blank">Behance</a>
+            <a href="https://t.me/aungmyomyintbo" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
+            <a href="viber://chat?number=%2B959669915726" target="_blank" title="Viber"><i class="fab fa-viber"></i></a>
+            <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
         </div>
     </footer>
 
@@ -406,7 +424,6 @@
             cvModal.classList.remove('active');
         });
 
-        // Close when clicking outside the box
         cvModal.addEventListener('click', (e) => {
             if (e.target === cvModal) {
                 cvModal.classList.remove('active');
@@ -428,9 +445,24 @@
         window.addEventListener("scroll", reveal);
         reveal(); 
 
+        // --- SHOWCASE HORIZONTAL PARALLAX ON SCROLL ---
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('.horizontal-scroller').forEach((scroller, index) => {
+                const rect = scroller.getBoundingClientRect();
+                // Only animate if section is in viewport to save performance
+                if(rect.top < window.innerHeight && rect.bottom > 0) {
+                    // Alternate left/right direction based on row index
+                    const direction = index % 2 === 0 ? 1 : -1;
+                    const speed = 0.08;
+                    const offset = (window.innerHeight - rect.top) * speed * direction;
+                    scroller.style.transform = `translateX(${offset}px)`;
+                }
+            });
+        });
+
         // --- POPULATE LOGO MARQUEE ---
         const marqueeTrack = document.getElementById('marqueeTrack');
-        const logos = ["Client Logo 1", "Client Logo 2", "Client Logo 3", "Client Logo 4", "Client Logo 5", "Client Logo 6"];
+        const logos = ["Brand Identity", "Social Media", "Video Editing", "Print Layout", "Motion Graphics", "Web UI"];
         // Duplicate array to make it a seamless infinite loop
         const allLogos = [...logos, ...logos, ...logos]; 
         allLogos.forEach(logoText => {
@@ -440,25 +472,25 @@
             marqueeTrack.appendChild(div);
         });
 
-        // --- POPULATE SHOWCASE BLOCKS ---
-        // Helper function to generate blocks so HTML isn't 500 lines long
-        function generateBlocks(containerId, count, sizeClass, placeholderText) {
+        // --- POPULATE SHOWCASE BLOCKS WITHOUT TEXT ---
+        function generateBlocks(containerId, count, sizeClass) {
             const container = document.getElementById(containerId);
             for(let i = 1; i <= count; i++) {
+                // Generates blank placeholder blocks
                 container.innerHTML += `
                     <a href="#" class="scroll-item ${sizeClass}">
-                        <div class="placeholder">${placeholderText} ${i}</div>
+                        <div class="placeholder"></div>
                     </a>
                 `;
             }
         }
 
-        // Generate exactly the requested numbers
-        generateBlocks('scroller-marketing', 10, 'item-1x1', 'Image');
-        generateBlocks('scroller-social', 20, 'item-1x1', 'Image');
-        generateBlocks('scroller-print', 15, 'item-1x1', 'Image');
-        generateBlocks('scroller-branding', 7, 'item-1x1', 'Image');
-        generateBlocks('scroller-video', 7, 'item-9x16', 'Video');
+        // Generate the exact requested counts and sizes
+        generateBlocks('scroller-marketing', 10, 'item-1x1');
+        generateBlocks('scroller-social', 20, 'item-1x1');
+        generateBlocks('scroller-print', 15, 'item-1x1');
+        generateBlocks('scroller-branding', 7, 'item-1x1');
+        generateBlocks('scroller-video', 7, 'item-9x16');
 
 
         // --- DRAGGABLE HORIZONTAL SCROLLERS ---
