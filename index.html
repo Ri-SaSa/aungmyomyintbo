@@ -35,19 +35,27 @@
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: var(--accent); z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); 
         }
         #loader h1 { 
             color: #ffffff; font-family: 'Space Grotesk', sans-serif; 
             font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 2px; 
             text-transform: uppercase; margin-bottom: 5px; text-align: center; 
+            animation: flashText 0.8s infinite alternate; 
+        }
+        @keyframes flashText {
+            0% { opacity: 1; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
+            100% { opacity: 0.2; text-shadow: none; }
         }
         #loader p { 
             color: #ffffff; font-family: 'Inter', sans-serif; 
             font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; 
             opacity: 0.9; text-align: center;
         }
-        #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #loader.hidden { 
+            transform: translateY(-100%); 
+            pointer-events: none; 
+        }
 
         h1, h2, h3, h4, .logo { font-family: 'Space Grotesk', sans-serif; }
         a { text-decoration: none; color: var(--text-main); transition: var(--transition); }
@@ -123,7 +131,7 @@
             width: 140px; height: 60px; background: #0a0a0a; border: 1px dashed #333; 
             border-radius: 6px; display: flex; align-items: center; justify-content: center; 
             color: #555; font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: 1px; text-transform: uppercase;
+            letter-spacing: 1px; text-transform: uppercase; overflow: hidden;
         }
         .marquee-img-placeholder img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(100%) opacity(0.6); transition: var(--transition); }
         .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); }
@@ -318,7 +326,6 @@
                 <input type="email" name="email" placeholder="Email" required>
                 <textarea name="message" placeholder="Message" required></textarea>
                 <button type="submit" class="btn" style="width: fit-content;">Send Message</button>
-                <div style="margin-top: 10px; font-size: 1.1rem; color: var(--text-main); font-family: 'Space Grotesk', sans-serif;">Thank You So Much</div>
             </form>
 
         </div>
@@ -352,11 +359,11 @@
     </div>
 
     <script>
-        // --- LOADING SCREEN FADE OUT ---
+        // --- LOADING SCREEN SLIDE OUT ---
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 800);
+            }, 1200); 
         });
 
         // --- MOBILE MENU LOGIC ---
@@ -452,14 +459,32 @@
         window.addEventListener("scroll", reveal);
         reveal(); 
 
-        // --- POPULATE LOGO MARQUEE (JPG READY) ---
+        // --- POPULATE LOGO MARQUEE (EXACTLY 8 JPGs) ---
         const marqueeTrack = document.getElementById('marqueeTrack');
-        const logoFiles = ["logo1.jpg", "logo2.jpg", "logo3.jpg", "logo4.jpg", "logo5.jpg", "logo6.jpg"];
+        
+        // Defining the 8 specific logos with their fallback text names
+        const logoFiles = [
+            { file: "logo1.jpg", text: "Logo 1" },
+            { file: "logo2.jpg", text: "Logo 2" },
+            { file: "logo3.jpg", text: "Logo 3" },
+            { file: "logo4.jpg", text: "Logo 4" },
+            { file: "logo5.jpg", text: "Logo 5" },
+            { file: "logo6.jpg", text: "Logo 6" },
+            { file: "logo7.jpg", text: "Logo 7" },
+            { file: "logo8.jpg", text: "Logo 8" }
+        ];
+
+        // Duplicate array to make it a seamless infinite loop
         const allLogos = [...logoFiles, ...logoFiles, ...logoFiles, ...logoFiles]; 
-        allLogos.forEach(logoSrc => {
+        
+        allLogos.forEach(logo => {
             let div = document.createElement('div');
             div.className = 'marquee-img-placeholder';
-            div.innerHTML = `<img src="${logoSrc}" onerror="this.style.display='none'; this.parentElement.innerHTML='[ LOGO ]'" alt="Client Logo">`;
+            
+            // If the image fails to load, it deletes the <img> tag and places the fallback text. 
+            // Once you upload the correct image, the text will not appear.
+            div.innerHTML = `<img src="${logo.file}" onerror="this.style.display='none'; this.parentElement.innerHTML='[ ${logo.text} ]'" alt="Client Logo">`;
+            
             marqueeTrack.appendChild(div);
         });
 
