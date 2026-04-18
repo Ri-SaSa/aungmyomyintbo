@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aung Myo Myint Bo / Ri | Digital Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- VARIABLES & BASE --- */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #111111;
+            --text-main: #f3f3f3;
+            --text-muted: #a0a0a0;
+            --accent: #7b2cbf; 
+            --accent-glow: rgba(123, 44, 191, 0.4);
+            --border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .logo { font-family: 'Space Grotesk', sans-serif; }
+        a { text-decoration: none; color: var(--text-main); }
+        section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; overflow: hidden; }
+
+        /* --- TYPOGRAPHY & BUTTONS --- */
+        h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 3rem; font-weight: 700; letter-spacing: -1px; text-transform: uppercase; }
+        .text-accent { color: var(--accent); text-shadow: 0 0 15px var(--accent-glow); }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        .btn:hover::before { left: 100%; }
+        .btn:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); background: rgba(123, 44, 191, 0.1); transform: translateY(-3px); }
+
+        /* --- 1. NAVBAR --- */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 20px 5%; display: flex;
+            justify-content: space-between; align-items: center; z-index: 1000; transition: var(--transition);
+        }
+        nav.scrolled { background: rgba(5, 5, 5, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); padding: 15px 5%; }
+        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; z-index: 1001; }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); transition: var(--transition); text-transform: uppercase; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--text-main); text-shadow: 0 0 10px var(--accent-glow); }
+
+        /* Mobile Menu Toggle */
+        .menu-btn { display: none; cursor: pointer; z-index: 1001; width: 30px; height: 20px; position: relative; }
+        .menu-btn span { display: block; position: absolute; height: 2px; width: 100%; background: var(--text-main); border-radius: 2px; transition: var(--transition); }
+        .menu-btn span:nth-child(1) { top: 0; }
+        .menu-btn span:nth-child(2) { top: 9px; }
+        .menu-btn span:nth-child(3) { top: 18px; }
+        .menu-btn.open span:nth-child(1) { transform: rotate(45deg); top: 9px; }
+        .menu-btn.open span:nth-child(2) { opacity: 0; }
+        .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
+
+        /* --- 2. HERO SECTION --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; position: relative; padding: 0 20px; }
+        .hero::before {
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 60vw; height: 60vw; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+            z-index: -1; filter: blur(100px); animation: pulseGlow 6s infinite alternate; opacity: 0.6;
+        }
+        @keyframes pulseGlow { 0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.4; } 100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; } }
+        
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 6rem); line-height: 1.1; margin-bottom: 1rem; letter-spacing: -2px; min-height: 1.2em; }
+        #name-swap { transition: opacity 0.5s ease; display: inline-block; }
+        .hero p { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-muted); margin-bottom: 2.5rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; min-height: 1.5em; }
+        
+        .typewrite::after { content: '|'; animation: blink 1s step-start infinite; color: var(--accent); }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* --- 3. ABOUT SECTION --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 12px; }
+        .tag { padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; color: var(--text-main); transition: var(--transition); }
+        .tag:hover { border-color: var(--accent); background: rgba(123, 44, 191, 0.1); transform: translateY(-3px); }
+        .about-image { width: 100%; aspect-ratio: 4/5; background: linear-gradient(45deg, var(--bg-card), #1a1a1a); border-radius: 12px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-muted); position: relative; overflow: hidden; }
+        .about-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent, rgba(123, 44, 191, 0.1)); pointer-events: none; }
+
+        /* --- 4. SHOWCASE SECTION --- */
+        .category-title { font-size: 1.5rem; margin-top: 50px; margin-bottom: 20px; color: var(--text-main); border-bottom: 1px solid var(--border); padding-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
+        .horizontal-scroller { display: flex; gap: 30px; overflow-x: auto; padding-bottom: 30px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+        .horizontal-scroller::-webkit-scrollbar { display: none; }
+        .scroll-item { min-width: 400px; scroll-snap-align: start; flex-shrink: 0; position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 16/9; background: var(--bg-card); border: 1px solid var(--border); cursor: pointer; transition: var(--transition); }
+        
+        .scroll-item:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.2); }
+        .scroll-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); filter: grayscale(80%); }
+        .scroll-item:hover img { transform: scale(1.1); filter: grayscale(0%); }
+        
+        .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(5,5,5,0.95), rgba(5,5,5,0.2)); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; opacity: 0; transition: var(--transition); }
+        .scroll-item:hover .project-overlay { opacity: 1; }
+        .project-overlay h3 { font-size: 1.4rem; margin-bottom: 5px; transform: translateY(20px); transition: var(--transition); }
+        .project-overlay p { color: var(--accent); font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase; transform: translateY(20px); transition: var(--transition); transition-delay: 0.1s; }
+        .scroll-item:hover .project-overlay h3, .scroll-item:hover .project-overlay p { transform: translateY(0); }
+
+        /* --- 5. RESUME SECTION --- */
+        .resume-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .resume-block { background: var(--bg-card); padding: 40px; border-radius: 12px; border: 1px solid var(--border); transition: var(--transition); }
+        .resume-block:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-5px); }
+        .resume-block h3 { font-size: 1.5rem; margin-bottom: 2rem; color: var(--text-main); border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .experience-item { margin-bottom: 2rem; position: relative; padding-left: 20px; border-left: 2px solid var(--border); transition: var(--transition); }
+        .experience-item:hover { border-left-color: var(--accent); }
+        .experience-item h4 { font-size: 1.2rem; margin-bottom: 5px; }
+        .experience-item span { color: var(--accent); font-size: 0.9rem; display: block; margin-bottom: 10px; font-family: 'Space Grotesk', sans-serif; }
+        .experience-item p { color: var(--text-muted); font-size: 0.95rem; }
+        .tools-list { color: var(--text-muted); line-height: 2.2; margin-bottom: 30px; }
+        .tools-list strong { color: var(--text-main); font-weight: 500; }
+
+        /* --- 6. CONTACT SECTION --- */
+        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-card); padding: 50px; border-radius: 12px; border: 1px solid var(--border); }
+        .contact-info p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 15px; transition: var(--transition); }
+        .contact-info p:hover { color: var(--text-main); }
+        .contact-form { display: flex; flex-direction: column; gap: 20px; }
+        input, textarea { width: 100%; padding: 18px; background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; font-family: 'Inter', sans-serif; transition: var(--transition); }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 15px rgba(123, 44, 191, 0.2); }
+        textarea { height: 150px; resize: vertical; }
+
+        /* --- 7. FOOTER --- */
+        footer { border-top: 1px solid var(--border); padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.9rem; flex-wrap: wrap; gap: 20px; }
+        .social-icons a { margin-left: 20px; color: var(--text-muted); transition: var(--transition); font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem; }
+        .social-icons a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); }
+
+        /* --- ADVANCED ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .about-grid, .resume-grid, .contact-wrapper { grid-template-columns: 1fr; }
+            .menu-btn { display: block; }
+            .nav-links {
+                position: fixed; top: 0; right: -100%; height: 100vh; width: 100%; max-width: 300px;
+                background: rgba(5,5,5,0.98); backdrop-filter: blur(20px); flex-direction: column;
+                justify-content: center; align-items: center; gap: 40px; transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+                border-left: 1px solid var(--border);
+            }
+            .nav-links.open { right: 0; }
+            .nav-links a { font-size: 1.2rem; }
+            .scroll-item { min-width: 80vw; }
+            section { padding: 80px 5%; }
+            .contact-wrapper { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="#home" class="logo">Portfolio</a>
+        <div class="menu-btn" id="menuBtn">
+            <span></span><span></span><span></span>
+        </div>
+        <div class="nav-links" id="navLinks">
+            <a href="#home" class="nav-item">Home</a>
+            <a href="#about" class="nav-item">About</a>
+            <a href="#showcase" class="nav-item">Showcase</a>
+            <a href="#resume" class="nav-item">Resume</a>
+            <a href="#contact" class="nav-item">Contact</a>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <h1 class="reveal"><span id="name-swap" class="text-accent">Aung Myo Myint Bo</span></h1>
+        <p class="reveal delay-1">I am a <span class="typewrite text-accent"></span></p>
+        <a href="#showcase" class="btn reveal delay-2">View Work</a>
+    </header>
+
+    <section id="about">
+        <h2 class="reveal">About</h2>
+        <div class="about-grid">
+            <div class="about-text reveal delay-1">
+                <p>Creative and detail-oriented Graphic Designer with strong experience in branding, digital marketing, print media, video editing, and web design. Skilled in developing impactful visual content that enhances brand identity and drives engagement.</p>
+                <p>Currently handling end-to-end creative production, including social media campaigns, advertising materials, and website visuals, with a career focus on growing as a Multimedia Designer delivering strategic and results-driven design solutions.</p>
+                <div class="skill-tags">
+                    <span class="tag">Branding</span>
+                    <span class="tag">Social Media Design</span>
+                    <span class="tag">Video Editing</span>
+                    <span class="tag">Web Design</span>
+                    <span class="tag">Motion Graphics</span>
+                </div>
+            </div>
+            <div class="about-image reveal delay-2">
+                [ Profile Image ]
+            </div>
+        </div>
+    </section>
+
+    <section id="showcase">
+        <h2 class="reveal">Showcase</h2>
+        
+        <h3 class="category-title reveal">Social Media Design I</h3>
+        <div class="horizontal-scroller reveal delay-1">
+            <div class="scroll-item"><div style="width:100%;height:100%;background:#1a1a1a;"></div><div class="project-overlay"><h3>Campaign 01</h3><p>View Project</p></div></div>
+            <div class="scroll-item"><div style="width:100%;height:100%;background:#1a1a1a;"></div><div class="project-overlay"><h3>Campaign 02</h3><p>View Project</p></div></div>
+            <div class="scroll-item"><div style="width:100%;height:100%;background:#1a1a1a;"></div><div class="project-overlay"><h3>Campaign 03</h3><p>View Project</p></div></div>
+        </div>
+
+        <h3 class="category-title reveal">Print & Motion Layouts</h3>
+        <div class="horizontal-scroller reveal delay-1">
+            <div class="scroll-item"><div style="width:100%;height:100%;background:#1a1a1a;"></div><div class="project-overlay"><h3>Promo Set A</h3><p>View Project</p></div></div>
+            <div class="scroll-item"><div style="width:100%;height:100%;background:#1a1a1a;"></div><div class="project-overlay"><h3>Event Recap</h3><p>View Project</p></div></div>
+            <div class="scroll-item"><div style="width:100%;height:100%;background:#1a1a1a;"></div><div class="project-overlay"><h3>VJ Visuals</h3><p>View Project</p></div></div>
+        </div>
+    </section>
+
+    <section id="resume">
+        <h2 class="reveal">Resume</h2>
+        <div class="resume-grid">
+            <div class="resume-block reveal delay-1">
+                <h3>Experience</h3>
+                <div class="experience-item">
+                    <h4>Graphic & Digital Designer</h4>
+                    <span>Present</span>
+                    <p>Handling end-to-end creative production, social media campaigns, and brand identity development.</p>
+                </div>
+                <div class="experience-item">
+                    <h4>Video Editor / Visual Designer</h4>
+                    <span>Previous</span>
+                    <p>Developing video content, motion graphics, and high-resolution visual layouts for digital and print.</p>
+                </div>
+            </div>
+            
+            <div class="resume-block reveal delay-2">
+                <h3>Technical Arsenal</h3>
+                <p class="tools-list">
+                    <strong>Design & Illustration:</strong> Adobe Photoshop, Illustrator, Figma<br>
+                    <strong>Video & Motion:</strong> Premiere Pro, After Effects, Resolume Arena<br>
+                    <strong>Audio Production:</strong> FL Studio<br>
+                    <strong>Web & Output:</strong> Webflow, HTML/CSS, 8K Rendering
+                </p>
+                <div class="resume-action" style="margin-top: 20px;">
+                    <button class="btn">Download CV</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="reveal">Contact</h2>
+        <div class="contact-wrapper reveal delay-1">
+            <div class="contact-info">
+                <p>Email: hello@aungmyomyintbo.com</p>
+                <p>Phone: +95 XXXXXXXX</p>
+                <p>WhatsApp: Available upon request</p>
+                <p style="margin-top: 2rem; font-size: 0.9rem;">Available for freelance branding, video editing, and visual design projects.</p>
+            </div>
+            <form class="contact-form" onsubmit="event.preventDefault();">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea placeholder="Message" required></textarea>
+                <button type="submit" class="btn" style="width: fit-content;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="reveal">&copy; 2026 Aung Myo Myint Bo / Ri. All rights reserved.</div>
+        <div class="social-icons reveal delay-1">
+            <a href="#">Instagram</a>
+            <a href="#">Behance</a>
+            <a href="#">LinkedIn</a>
+        </div>
+    </footer>
+
+    <script>
+        // --- MOBILE MENU LOGIC ---
+        const menuBtn = document.getElementById('menuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        menuBtn.addEventListener('click', () => {
+            menuBtn.classList.toggle('open');
+            navLinks.classList.toggle('open');
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                menuBtn.classList.remove('open');
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // --- NAME SWAPPING ANIMATION ---
+        const names = ["Aung Myo Myint Bo", "Ri"];
+        let nameIndex = 0;
+        const nameElement = document.getElementById('name-swap');
+
+        setInterval(() => {
+            nameElement.style.opacity = 0;
+            setTimeout(() => {
+                nameIndex = (nameIndex + 1) % names.length;
+                nameElement.innerText = names[nameIndex];
+                nameElement.style.opacity = 1;
+            }, 500); 
+        }, 4000);
+
+        // --- TYPEWRITER ANIMATION ---
+        const roles = ["Graphic Designer", "Digital Designer", "Video Editor"];
+        let roleIndex = 0, charIndex = 0, isDeleting = false;
+        const typeElement = document.querySelector('.typewrite');
+
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
+            if (isDeleting) {
+                typeElement.innerText = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeElement.innerText = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+            setTimeout(typeEffect, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', typeEffect);
+
+        // --- STICKY NAVBAR ---
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // --- ADVANCED SCROLL REVEAL ANIMATION ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Trigger point
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
+
+        // --- DRAGGABLE HORIZONTAL SCROLLERS ---
+        const sliders = document.querySelectorAll('.horizontal-scroller');
+        sliders.forEach(slider => {
+            let isDown = false, startX, scrollLeft;
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true; slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'pointer'; });
+            slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'pointer'; });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2.5; 
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+</body>
+</html>
