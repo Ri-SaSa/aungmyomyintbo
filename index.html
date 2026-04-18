@@ -318,6 +318,7 @@
                 <input type="email" name="email" placeholder="Email" required>
                 <textarea name="message" placeholder="Message" required></textarea>
                 <button type="submit" class="btn" style="width: fit-content;">Send Message</button>
+                <div style="margin-top: 10px; font-size: 1.1rem; color: var(--text-main); font-family: 'Space Grotesk', sans-serif;">Thank You So Much</div>
             </form>
 
         </div>
@@ -451,9 +452,9 @@
         window.addEventListener("scroll", reveal);
         reveal(); 
 
-        // --- POPULATE LOGO MARQUEE (PNG READY) ---
+        // --- POPULATE LOGO MARQUEE (JPG READY) ---
         const marqueeTrack = document.getElementById('marqueeTrack');
-        const logoFiles = ["logo1.png", "logo2.png", "logo3.png", "logo4.png", "logo5.png", "logo6.png"];
+        const logoFiles = ["logo1.jpg", "logo2.jpg", "logo3.jpg", "logo4.jpg", "logo5.jpg", "logo6.jpg"];
         const allLogos = [...logoFiles, ...logoFiles, ...logoFiles, ...logoFiles]; 
         allLogos.forEach(logoSrc => {
             let div = document.createElement('div');
