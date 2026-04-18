@@ -10,11 +10,11 @@
     <style>
         /* --- VARIABLES & BASE (True Blue & Solid Black Theme) --- */
         :root {
-            --bg-dark: #000000; 
+            --bg-dark: #000000; /* Pure Black Background */
             --bg-card: #0a0a0a;
             --text-main: #f3f3f3;
             --text-muted: #a0a0a0;
-            --accent: #0000ff; 
+            --accent: #0000ff; /* Pure Blue Accent */
             --accent-glow: rgba(0, 0, 255, 0.4);
             --border: rgba(255, 255, 255, 0.08);
             --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
@@ -96,16 +96,8 @@
         /* --- 2. HERO SECTION --- */
         .hero { 
             height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            text-align: center; position: relative; padding: 0 20px; overflow: hidden; background: #000000;
+            text-align: center; position: relative; padding: 0 20px; background: #000000;
         }
-        
-        .hero::before, .hero::after {
-            content: ''; position: absolute; border-radius: 50%; filter: blur(140px); z-index: 0; opacity: 0.35;
-            animation: floatGlow 10s infinite alternate ease-in-out;
-        }
-        .hero::before { width: 50vw; height: 50vw; background: #0000ff; top: -10%; left: -10%; }
-        .hero::after { width: 40vw; height: 40vw; background: rgba(0, 0, 255, 0.6); bottom: -10%; right: -10%; animation-delay: -5s; }
-        @keyframes floatGlow { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(10%, 10%) scale(1.1); } }
         
         .hero h1, .hero p, .hero a { position: relative; z-index: 2; }
         .hero h1 { font-size: clamp(2.5rem, 6vw, 6rem); line-height: 1.1; margin-bottom: 1rem; letter-spacing: -2px; min-height: 1.2em; }
@@ -164,7 +156,7 @@
         .scroll-item:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
         .scroll-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .scroll-item:hover img { transform: scale(1.05); }
-        .placeholder { display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; } /* Hidden by default, shown if image fails */
+        .placeholder { display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; } 
 
         /* --- 6. CV & LIGHTBOX MODALS --- */
         .modal-overlay {
@@ -285,7 +277,7 @@
             </div>
             <div class="about-image reveal delay-2">
                 <img src="profile.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Profile Image">
-                <div class="placeholder">[ Profile Image 1x1 ]</div>
+                <div class="placeholder" style="display: flex; background: #0a0a0a;">[ Profile Image 1x1 ]</div>
             </div>
         </div>
     </section>
@@ -319,12 +311,15 @@
                 <p><a href="https://t.me/aungmyomyintbo" target="_blank"><i class="fab fa-telegram"></i> @aungmyomyintbo</a></p>
                 <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">Available for freelance branding, video editing, and visual design projects.</p>
             </div>
-            <form class="contact-form" onsubmit="event.preventDefault();">
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Message" required></textarea>
+
+            <form class="contact-form" action="https://formsubmit.co/ri.aungmyomyintbo@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="New Contact Form Submission - Portfolio">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <textarea name="message" placeholder="Message" required></textarea>
                 <button type="submit" class="btn" style="width: fit-content;">Send Message</button>
             </form>
+
         </div>
     </section>
 
@@ -468,17 +463,16 @@
         });
 
         // --- GLOBAL DRAG CHECKER ---
-        let isDraggingCarousel = false; // Tells the blocks if you are dragging or clicking
+        let isDraggingCarousel = false; 
 
         // --- LIGHTBOX LOGIC FOR CLICKING SHOWCASE BLOCKS ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
 
         function openLightbox(element) {
-            if (isDraggingCarousel) return; // Prevent clicking if you were just dragging
+            if (isDraggingCarousel) return; 
 
             const img = element.querySelector('img');
-            // Only open if the image successfully loaded (not showing the placeholder)
             if(img && img.style.display !== 'none') {
                 lightboxImg.src = img.src;
                 lightboxImg.style.display = 'block';
@@ -487,7 +481,6 @@
         }
 
         function closeLightbox(e) {
-            // Close if clicking the background or the 'X'
             if(e.target === lightbox || e.target.classList.contains('close-lightbox')) {
                 lightbox.classList.remove('active');
                 setTimeout(() => { lightboxImg.src = ''; lightboxImg.style.display = 'none'; }, 300);
@@ -498,22 +491,16 @@
         function generateBlocks(containerId, count, sizeClass, filePrefix) {
             const container = document.getElementById(containerId);
             for(let i = 1; i <= count; i++) {
-                /*
-                 * Instructions for adding images:
-                 * To make these blocks show real images, simply upload files to your GitHub repository
-                 * named like: "marketing-1.jpg", "marketing-2.jpg", "social-1.jpg", etc.
-                 */
                 const fileSrc = `${filePrefix}-${i}.jpg`;
                 container.innerHTML += `
                     <div class="scroll-item ${sizeClass}" onclick="openLightbox(this)">
                         <img src="${fileSrc}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Work">
-                        <div class="placeholder"></div>
+                        <div class="placeholder" style="display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%;"></div>
                     </div>
                 `;
             }
         }
 
-        // Generate the exact requested counts, sizes, and file prefixes
         generateBlocks('scroller-marketing', 10, 'item-1x1', 'marketing');
         generateBlocks('scroller-social', 20, 'item-1x1', 'social');
         generateBlocks('scroller-print', 15, 'item-1x1', 'print');
@@ -533,7 +520,7 @@
             slider.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 e.preventDefault();
-                isDraggingCarousel = true; // Signals that user is swiping, not clicking
+                isDraggingCarousel = true; 
                 const x = e.pageX - slider.offsetLeft;
                 const walk = (x - startX) * 2.5; 
                 slider.scrollLeft = scrollLeft - walk;
