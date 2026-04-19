@@ -133,8 +133,9 @@
             color: #555; font-size: 0.8rem; font-family: 'Space Grotesk', sans-serif;
             letter-spacing: 1px; text-transform: uppercase; overflow: hidden;
         }
-        .marquee-img-placeholder img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(100%) opacity(0.6); transition: var(--transition); }
-        .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); }
+        /* --- ESTHETIC CHANGE: LOW OPACITY GRAY LOGOS --- */
+        .marquee-img-placeholder img { width: 100%; height: 100%; object-fit: contain; filter: grayscale(100%) opacity(0.3); /* Low opacity gray */ transition: var(--transition); }
+        .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); } /* Back to color on hover */
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* --- 4. ABOUT SECTION --- */
@@ -459,19 +460,19 @@
         window.addEventListener("scroll", reveal);
         reveal(); 
 
-        // --- POPULATE LOGO MARQUEE (EXACTLY 8 JPGs) ---
+        // --- POPULATE LOGO MARQUEE (PNG FILES) ---
         const marqueeTrack = document.getElementById('marqueeTrack');
         
-        // Defining the 8 specific logos with their fallback text names
+        // Code strictly expects .png based on your recent GitHub uploads
         const logoFiles = [
-            { file: "logo1.jpg", text: "Logo 1" },
-            { file: "logo2.jpg", text: "Logo 2" },
-            { file: "logo3.jpg", text: "Logo 3" },
-            { file: "logo4.jpg", text: "Logo 4" },
-            { file: "logo5.jpg", text: "Logo 5" },
-            { file: "logo6.jpg", text: "Logo 6" },
-            { file: "logo7.jpg", text: "Logo 7" },
-            { file: "logo8.jpg", text: "Logo 8" }
+            { file: "logo1.png", text: "Logo 1" },
+            { file: "logo2.png", text: "Logo 2" },
+            { file: "logo3.png", text: "Logo 3" },
+            { file: "logo4.png", text: "Logo 4" },
+            { file: "logo5.png", text: "Logo 5" },
+            { file: "logo6.png", text: "Logo 6" },
+            { file: "logo7.png", text: "Logo 7" },
+            { file: "logo8.png", text: "Logo 8" }
         ];
 
         // Duplicate array to make it a seamless infinite loop
@@ -481,8 +482,6 @@
             let div = document.createElement('div');
             div.className = 'marquee-img-placeholder';
             
-            // If the image fails to load, it deletes the <img> tag and places the fallback text. 
-            // Once you upload the correct image, the text will not appear.
             div.innerHTML = `<img src="${logo.file}" onerror="this.style.display='none'; this.parentElement.innerHTML='[ ${logo.text} ]'" alt="Client Logo">`;
             
             marqueeTrack.appendChild(div);
