@@ -126,23 +126,19 @@
         .marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-dark), transparent); }
 
         .marquee-track { 
-            display: inline-flex; animation: scrollMarquee 25s linear infinite; 
-            gap: 50px; /* Reduced gap so they sit closer */
-            padding-left: 50px; 
+            display: inline-flex; animation: scrollMarquee 25s linear infinite; gap: 50px; padding-left: 50px; 
         }
         
         .marquee-img-placeholder { 
-            height: 80px; /* Increased height for bigger logos */
-            display: flex; align-items: center; justify-content: center; 
+            height: 80px; display: flex; align-items: center; justify-content: center; 
             color: #444; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;
             letter-spacing: 2px; text-transform: uppercase; 
         }
         .marquee-img-placeholder img { 
             height: 100%; width: auto; max-width: 250px; object-fit: contain; 
-            filter: grayscale(100%) opacity(0.25); /* Very low opacity gray */
-            transition: var(--transition); 
+            filter: grayscale(100%) opacity(0.25); transition: var(--transition); 
         }
-        .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); } /* Lights up on hover */
+        .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); } 
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* --- 4. ABOUT SECTION --- */
@@ -177,7 +173,7 @@
         /* --- 6. CV & LIGHTBOX MODALS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center;
+            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center;
             z-index: 2000; opacity: 0; pointer-events: none; transition: var(--transition);
         }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
@@ -196,8 +192,10 @@
         /* Lightbox specific styling */
         #lightbox { z-index: 3000; flex-direction: column; }
         #lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); display: none;}
-        #lightbox.active #lightbox-img { transform: scale(1); }
-        .close-lightbox { position: absolute; top: 30px; right: 40px; font-size: 2.5rem; color: #fff; cursor: pointer; text-shadow: 0 0 10px rgba(0,0,0,0.5); transition: var(--transition); }
+        #lightbox-video { width: 90vw; height: 85vh; max-width: 450px; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); border: none; display: none; }
+        
+        #lightbox.active #lightbox-img, #lightbox.active #lightbox-video { transform: scale(1); }
+        .close-lightbox { position: absolute; top: 30px; right: 40px; font-size: 2.5rem; color: #fff; cursor: pointer; text-shadow: 0 0 10px rgba(0,0,0,0.5); transition: var(--transition); z-index: 3001; }
         .close-lightbox:hover { color: var(--accent); transform: scale(1.1); }
 
         /* --- 7. CONTACT SECTION --- */
@@ -315,6 +313,7 @@
 
         <h3 class="category-title reveal">Video Editing</h3>
         <div class="horizontal-scroller reveal delay-1" id="scroller-video"></div>
+
     </section>
 
     <section id="contact">
@@ -364,6 +363,7 @@
     <div class="modal-overlay" id="lightbox" onclick="closeLightbox(event)">
         <span class="close-lightbox" onclick="closeLightbox(event)">&times;</span>
         <img src="" alt="Enlarged View" id="lightbox-img">
+        <iframe id="lightbox-video" src="" allow="autoplay; fullscreen" frameborder="0"></iframe>
     </div>
 
     <script>
@@ -469,8 +469,6 @@
 
         // --- POPULATE LOGO MARQUEE (PNG FILES) ---
         const marqueeTrack = document.getElementById('marqueeTrack');
-        
-        // Ensure you upload the files to your GitHub as exactly logo1.png, logo2.png, etc.
         const logoFiles = [
             { file: "logo1.png", text: "Logo 1" },
             { file: "logo2.png", text: "Logo 2" },
@@ -482,30 +480,38 @@
             { file: "logo8.png", text: "Logo 8" }
         ];
 
-        // Duplicate array to make it a seamless infinite loop
         const allLogos = [...logoFiles, ...logoFiles, ...logoFiles, ...logoFiles]; 
-        
         allLogos.forEach(logo => {
             let div = document.createElement('div');
             div.className = 'marquee-img-placeholder';
-            
             div.innerHTML = `<img src="${logo.file}" onerror="this.style.display='none'; this.parentElement.innerHTML='[ ${logo.text} ]'" alt="Client Logo">`;
-            
             marqueeTrack.appendChild(div);
         });
 
         // --- GLOBAL DRAG CHECKER ---
         let isDraggingCarousel = false; 
 
-        // --- LIGHTBOX LOGIC FOR CLICKING SHOWCASE BLOCKS ---
+        // --- LIGHTBOX LOGIC FOR CLICKING SHOWCASE BLOCKS & VIDEOS ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxVideo = document.getElementById('lightbox-video');
 
         function openLightbox(element) {
             if (isDraggingCarousel) return; 
 
+            const videoUrl = element.getAttribute('data-video');
             const img = element.querySelector('img');
-            if(img && img.style.display !== 'none') {
+
+            if (videoUrl) {
+                // If it's a video block (like TikTok)
+                lightboxImg.style.display = 'none';
+                lightboxVideo.src = videoUrl;
+                lightboxVideo.style.display = 'block';
+                lightbox.classList.add('active');
+            } else if(img && img.style.display !== 'none') {
+                // If it's a standard image block
+                lightboxVideo.style.display = 'none';
+                lightboxVideo.src = '';
                 lightboxImg.src = img.src;
                 lightboxImg.style.display = 'block';
                 lightbox.classList.add('active');
@@ -515,7 +521,12 @@
         function closeLightbox(e) {
             if(e.target === lightbox || e.target.classList.contains('close-lightbox')) {
                 lightbox.classList.remove('active');
-                setTimeout(() => { lightboxImg.src = ''; lightboxImg.style.display = 'none'; }, 300);
+                setTimeout(() => { 
+                    lightboxImg.src = ''; 
+                    lightboxImg.style.display = 'none'; 
+                    lightboxVideo.src = '';
+                    lightboxVideo.style.display = 'none';
+                }, 300);
             }
         }
 
@@ -533,11 +544,40 @@
             }
         }
 
+        // --- POPULATE VIDEO BLOCKS SEPARATELY TO ALLOW LINKS ---
+        function generateVideoBlocks(containerId, count) {
+            const container = document.getElementById(containerId);
+            
+            // Video Block 1 (Your TikTok Link)
+            container.innerHTML += `
+                <div class="scroll-item item-9x16" onclick="openLightbox(this)" data-video="https://www.tiktok.com/embed/v2/7622269379291483412">
+                    <img src="video-1.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Work">
+                    <div class="placeholder" style="display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; flex-direction: column; color: #555;">
+                        <i class="fas fa-play" style="font-size: 2.5rem; color: var(--accent); margin-bottom: 15px;"></i>
+                        <span style="font-family: 'Space Grotesk'; font-size: 0.8rem; letter-spacing: 1px;">Play TikTok</span>
+                    </div>
+                </div>
+            `;
+
+            // Video Blocks 2 through 7
+            for(let i = 2; i <= count; i++) {
+                const fileSrc = `video-${i}.jpg`;
+                container.innerHTML += `
+                    <div class="scroll-item item-9x16" onclick="openLightbox(this)">
+                        <img src="${fileSrc}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Work">
+                        <div class="placeholder" style="display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%;"></div>
+                    </div>
+                `;
+            }
+        }
+
         generateBlocks('scroller-marketing', 10, 'item-1x1', 'marketing');
         generateBlocks('scroller-social', 20, 'item-1x1', 'social');
         generateBlocks('scroller-print', 15, 'item-1x1', 'print');
         generateBlocks('scroller-branding', 7, 'item-1x1', 'branding');
-        generateBlocks('scroller-video', 7, 'item-9x16', 'video');
+        
+        // Use the special video generation function here:
+        generateVideoBlocks('scroller-video', 7);
 
         // --- DRAGGABLE HORIZONTAL SCROLLERS ---
         const sliders = document.querySelectorAll('.horizontal-scroller');
