@@ -30,7 +30,7 @@
             overflow-x: hidden;
         }
 
-        /* --- LOADING SCREEN & DINO ANIMATION --- */
+        /* --- LOADING SCREEN & GHOST ANIMATION --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: var(--accent); z-index: 9999;
@@ -38,12 +38,22 @@
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); 
             overflow: hidden;
         }
+        
+        /* EXACT NAME SIZE MATCH FOR BOTH LOADING & HOME SCREEN */
+        .exact-name-match {
+            font-family: 'Space Grotesk', sans-serif; 
+            /* This clamp ensures it matches on all devices and fits perfectly in margins */
+            font-size: clamp(1.4rem, 6.5vw, 4rem); 
+            letter-spacing: -1px; 
+            text-transform: uppercase; 
+            margin-bottom: 5px; 
+            text-align: center; 
+            white-space: nowrap; /* Forces one line */
+        }
+
         #loader h1 { 
-            color: #ffffff; font-family: 'Space Grotesk', sans-serif; 
-            font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 2px; 
-            text-transform: uppercase; margin-bottom: 5px; text-align: center; 
+            color: #ffffff; z-index: 2;
             animation: flashText 0.8s infinite alternate; 
-            z-index: 2;
         }
         @keyframes flashText {
             0% { opacity: 1; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
@@ -59,22 +69,22 @@
             pointer-events: none; 
         }
         
-        /* The Running Chrome Dino! */
-        .dino-track {
-            position: absolute; bottom: 8%; left: 0; width: 100%; height: 50px; z-index: 1; pointer-events: none;
+        /* The Floating Cloth Ghost! */
+        .ghost-track {
+            position: absolute; bottom: 8%; left: 0; width: 100%; height: 60px; z-index: 1; pointer-events: none;
         }
-        .dino-runner {
-            position: absolute; bottom: 0; left: -10%;
-            animation: runDino 1.8s linear infinite;
+        .ghost-runner {
+            position: absolute; bottom: 0; left: -15%;
+            animation: runGhost 4.5s linear infinite; /* Slower, smooth floating speed */
         }
-        .dino-runner svg {
+        .ghost-runner svg {
             width: 45px; height: 45px; fill: #ffffff;
-            animation: bounceDino 0.2s infinite alternate ease-in-out;
+            animation: floatGhost 0.6s infinite alternate ease-in-out;
         }
-        @keyframes runDino { 0% { left: -10%; } 100% { left: 110%; } }
-        @keyframes bounceDino { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
+        @keyframes runGhost { 0% { left: -15%; } 100% { left: 115%; } }
+        @keyframes floatGhost { 0% { transform: translateY(0); } 100% { transform: translateY(-15px); } }
 
-        h1, h2, h3, h4, .logo { font-family: 'Space Grotesk', sans-serif; }
+        h2, h3, h4, .logo { font-family: 'Space Grotesk', sans-serif; }
         a { text-decoration: none; color: var(--text-main); transition: var(--transition); }
         section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; overflow: hidden; }
 
@@ -120,32 +130,29 @@
 
         /* --- 2. HERO SECTION --- */
         .hero { 
-            min-height: 100vh;
-            min-height: 100dvh; /* Ignores mobile search bars perfectly */
+            height: 100vh;
+            height: 100dvh; /* Strict dynamic viewport height */
             display: flex; flex-direction: column; justify-content: space-between; align-items: center; 
             text-align: center; position: relative; background: #000000;
-            padding-top: 80px; 
+            padding-top: 80px; /* Accounts for navbar */
+            box-sizing: border-box;
+            overflow: hidden;
         }
         
         .hero-content {
             flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            width: 100%; padding: 0 10px; /* Small padding lets the name get right to the edge */
+            width: 100%; padding: 0 5%;
         }
 
-        .hero h1 { 
-            font-size: clamp(2rem, 7.5vw, 6rem); line-height: 1.1; margin-bottom: 1rem; 
-            letter-spacing: -2px; min-height: 1.2em; white-space: nowrap; 
-        }
         #name-swap { transition: opacity 0.5s ease; display: inline-block; white-space: nowrap; }
         .hero p { font-size: clamp(0.9rem, 2vw, 1.2rem); color: var(--text-muted); margin-bottom: 2.5rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; min-height: 1.5em; }
         .typewrite::after { content: '|'; animation: blink 1s step-start infinite; color: var(--accent); }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* --- 3. LOGO MARQUEE (Now fully supported on mobile via Flexbox) --- */
+        
+        /* --- 3. LOGO MARQUEE (Never pushed off screen) --- */
         .marquee-container {
-            width: 100%; overflow: hidden; padding: 25px 0 25px 0; background: transparent; border: none;
+            width: 100%; overflow: hidden; padding: 15px 0 25px 0; background: transparent; border: none;
             display: flex; white-space: nowrap; align-items: center; position: relative; z-index: 10;
-            margin-top: auto; /* Pushes the logos perfectly to the bottom of the screen */
+            flex-shrink: 0; /* Prevents it from getting squished or hidden */
         }
         .marquee-container::before, .marquee-container::after {
             content: ''; position: absolute; top: 0; width: 15%; height: 100%; z-index: 2; pointer-events: none;
@@ -156,13 +163,12 @@
         .marquee-track { display: inline-flex; animation: scrollMarquee 25s linear infinite; gap: 50px; padding-left: 50px; }
         
         .marquee-img-placeholder { 
-            height: 80px; display: flex; align-items: center; justify-content: center; 
+            height: 70px; display: flex; align-items: center; justify-content: center; 
             color: #444; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;
             letter-spacing: 2px; text-transform: uppercase; 
         }
         .marquee-img-placeholder img { 
             height: 100%; width: auto; max-width: 250px; object-fit: contain; 
-            /* Brighter opacity added here (0.6) */
             filter: grayscale(100%) opacity(0.6); transition: var(--transition); 
         }
         .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); } 
@@ -188,13 +194,53 @@
         .horizontal-scroller { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .horizontal-scroller::-webkit-scrollbar { display: none; }
         
-        .scroll-item { scroll-snap-align: start; flex-shrink: 0; position: relative; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); cursor: pointer; transition: var(--transition); display: block; }
+        .scroll-item { scroll-snap-align: start; flex-shrink: 0; position: relative; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); transition: var(--transition); display: block; }
         .item-1x1 { aspect-ratio: 1 / 1; min-width: 300px; }
         .item-9x16 { aspect-ratio: 9 / 16; min-width: 280px; }
         
         .scroll-item:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
         .scroll-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
         .scroll-item:hover img { transform: scale(1.05); }
+
+        /* --- TIKTOK VIDEO OVERLAY & INTERACTIONS --- */
+        .tiktok-block {
+            position: relative; background-color: #000; cursor: pointer; overflow: hidden;
+            border: 1px solid var(--border); border-radius: 12px; transition: var(--transition);
+        }
+        .tiktok-thumbnail {
+            width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); opacity: 0.6; transition: var(--transition);
+        }
+        .tiktok-block:hover .tiktok-thumbnail { filter: grayscale(0%); opacity: 1; }
+
+        .tiktok-overlay {
+            position: absolute; inset: 0; padding: 20px; display: flex; flex-direction: column;
+            justify-content: space-between; color: #fff; pointer-events: none;
+        }
+        .overlay-top { display: flex; justify-content: space-between; align-items: flex-start; }
+        .epic-logo { width: 100px; height: auto; object-fit: contain; }
+        .tiktok-t-logo { width: 35px; height: auto; object-fit: contain; }
+        
+        .overlay-center-play {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            display: flex; align-items: center; justify-content: center; opacity: 0.8; transition: var(--transition);
+        }
+        .tiktok-block:hover .overlay-center-play { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        .overlay-center-play i { font-size: 3.5rem; filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); }
+
+        .overlay-bottom { display: flex; flex-direction: column; gap: 15px; }
+        .interaction-footer { display: flex; align-items: center; justify-content: space-between; background-color: rgba(0,0,0,0.4); border-radius: 50px; padding: 8px 15px; gap: 20px; }
+        .interaction-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; }
+        .interaction-item i { font-size: 1.1rem; }
+        .burmese-title { font-family: 'Inter', sans-serif; font-size: 1.2rem; line-height: 1.3; color: rgba(255,255,255,0.9); text-align: left; margin-bottom: 5px; }
+
+        .action-buttons { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 20px; pointer-events: auto; }
+        .action-btn { width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border-radius: 8px; font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; border: 1px solid var(--border); transition: var(--transition); cursor: pointer; backdrop-filter: blur(5px); }
+        .btn-play-here { background-color: rgba(0,0,255,0.1); color: var(--accent); border-color: rgba(0,0,255,0.3); }
+        .btn-play-here:hover { background-color: rgba(0,0,255,0.25); border-color: var(--accent); box-shadow: 0 0 15px rgba(0,0,255,0.3); transform: translateY(-2px); }
+        .btn-goto-tiktok { background-color: rgba(0,0,0,0.4); color: #fff; }
+        .btn-goto-tiktok:hover { background-color: rgba(255,255,255,0.1); border-color: #fff; transform: translateY(-2px); }
+        .btn-goto-tiktok i { color: #fff; font-size: 1.1rem; }
+
         .placeholder { display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; } 
 
         /* --- 6. CV & LIGHTBOX MODALS --- */
@@ -216,7 +262,6 @@
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
         .close-modal:hover { color: var(--text-main); }
 
-        /* Lightbox specific styling */
         #lightbox { z-index: 3000; flex-direction: column; }
         #lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); display: none;}
         #lightbox-video { width: 90vw; height: 85vh; max-width: 450px; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); border: none; display: none; }
@@ -249,19 +294,13 @@
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
 
-        /* --- MOBILE RESPONSIVE FIXES --- */
+        /* --- MOBILE RESPONSIVE --- */
         @media (max-width: 900px) {
-            /* EXACT EDGE-TO-EDGE NAME FIX */
-            .hero h1 { 
-                font-size: 11.5vw; /* This magically fits the width perfectly */
-                letter-spacing: -1px; 
-            }
-            .hero p { font-size: 0.9rem; }
-            .marquee-img-placeholder { height: 50px; } /* Scales logos down so they fit mobile nice */
-            
             .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
             .about-image { max-width: 100%; } 
             .menu-btn { display: block; }
+            .marquee-img-placeholder { height: 45px; } /* Scales logos properly for mobile */
+            
             .nav-links {
                 position: fixed; top: 0; right: -100%; height: 100vh; width: 100%; max-width: 300px;
                 background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); flex-direction: column;
@@ -281,12 +320,13 @@
 <body>
 
     <div id="loader">
-        <h1>Aung Myo Myint Bo</h1>
+        <h1 class="exact-name-match">Aung Myo Myint Bo</h1>
         <p>Portfolio</p>
-        <div class="dino-track">
-            <div class="dino-runner">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-                    <path d="M54.2 24.3V11h29.1v5.8h4.2V26h-4.2v4.2h-4.2v4.2h-4.2V26h-4.2v8.3h-4.2v4.2h-8.3v4.2h-4.2v12.5H25v4.2h-4.2v4.2h-4.2v4.2H8.3v-4.2H4.2v-4.2H0V46.8h8.3v4.2h4.2v-4.2h4.2V38.5h4.2v-4.2h4.2v-4.2h8.3v4.2h4.2v4.2h4.2v-4.2h4.2V24.3H54.2z M66.7 19.3v-4.2h-4.2v4.2H66.7z M33.3 71.8v8.3h-4.2v4.2h-4.2V91h8.3v-4.2h4.2V71.8H33.3z M54.2 71.8v8.3h-4.2v4.2h-4.2V91h8.3v-4.2h4.2V71.8H54.2z" />
+        
+        <div class="ghost-track">
+            <div class="ghost-runner">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M12 2C8.13 2 5 5.13 5 9v13l2.5-2.5 2.5 2.5 2-2 2 2 2.5-2.5L19 22V9c0-3.87-3.13-7-7-7zm-2 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm4 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
                 </svg>
             </div>
         </div>
@@ -308,7 +348,7 @@
 
     <header id="home" class="hero">
         <div class="hero-content">
-            <h1 class="reveal"><span id="name-swap" class="text-accent">Aung Myo Myint Bo</span></h1>
+            <h1 class="reveal exact-name-match"><span id="name-swap" class="text-accent">Aung Myo Myint Bo</span></h1>
             <p class="reveal delay-1">I am a <span class="typewrite text-accent"></span></p>
             <a href="#showcase" class="btn reveal delay-2">View Work</a>
         </div>
@@ -414,7 +454,7 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1500); // Gives time to see the Dino run across!
+            }, 1200); 
         });
 
         // --- MOBILE MENU LOGIC ---
@@ -513,7 +553,6 @@
         // --- POPULATE LOGO MARQUEE (PNG FILES) ---
         const marqueeTrack = document.getElementById('marqueeTrack');
         
-        // Ensure you upload the files to your GitHub as exactly logo1.png, logo2.png, etc.
         const logoFiles = [
             { file: "logo1.png", text: "Logo 1" },
             { file: "logo2.png", text: "Logo 2" },
@@ -548,7 +587,7 @@
             const img = element.querySelector('img');
 
             if (videoUrl) {
-                // If it's a video block (like TikTok)
+                // If it's a video block
                 lightboxImg.style.display = 'none';
                 lightboxVideo.src = videoUrl;
                 lightboxVideo.style.display = 'block';
@@ -591,7 +630,7 @@
             }
         }
 
-        // --- POPULATE VIDEO BLOCKS (DIRECT TIKTOK EMBED) ---
+        // --- POPULATE VIDEO BLOCKS ---
         function generateVideoBlocks(containerId) {
             const container = document.getElementById(containerId);
             
@@ -605,13 +644,23 @@
                 "7589559994949881108"
             ];
 
-            videoIds.forEach((id) => {
-                const embedUrl = `https://www.tiktok.com/embed/v2/${id}?lang=en-US`;
+            videoIds.forEach((id, index) => {
+                const blockNum = index + 1;
+                const fileSrc = `video-${blockNum}.jpg`;
+                const embedUrl = `https://www.tiktok.com/embed/v2/${id}`;
 
                 container.innerHTML += `
-                    <div class="scroll-item item-9x16" onclick="openLightbox(this)" data-video="${embedUrl}" style="position: relative; overflow: hidden; background: #000;">
-                        <iframe src="${embedUrl}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: none;" allowfullscreen scrolling="no"></iframe>
-                        <div style="position: absolute; inset: 0; z-index: 10; cursor: pointer;"></div>
+                    <div class="scroll-item item-9x16" onclick="openLightbox(this)" data-video="${embedUrl}">
+                        <img src="${fileSrc}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'; this.parentElement.querySelector('.play-overlay').style.display='none';" alt="Video Thumbnail">
+                        
+                        <div class="placeholder" style="display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; flex-direction: column; color: #555; text-align: center; padding: 20px;">
+                            <i class="fas fa-video" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                            <span style="font-family: 'Space Grotesk'; font-size: 0.8rem; letter-spacing: 1px;">UPLOAD ${fileSrc.toUpperCase()}</span>
+                        </div>
+                        
+                        <div class="play-overlay" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); transition: var(--transition); pointer-events: none;">
+                            <i class="fas fa-play" style="font-size: 3rem; color: rgba(255,255,255,0.8); filter: drop-shadow(0 0 10px rgba(0,0,0,0.5)); transition: var(--transition);"></i>
+                        </div>
                     </div>
                 `;
             });
@@ -621,7 +670,8 @@
         generateBlocks('scroller-social', 20, 'item-1x1', 'social');
         generateBlocks('scroller-print', 15, 'item-1x1', 'print');
         generateBlocks('scroller-branding', 7, 'item-1x1', 'branding');
-        generateVideoBlocks('scroller-video'); 
+        
+        generateVideoBlocks('scroller-video');
 
         // --- DRAGGABLE HORIZONTAL SCROLLERS ---
         const sliders = document.querySelectorAll('.horizontal-scroller');
