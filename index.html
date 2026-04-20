@@ -30,18 +30,20 @@
             overflow-x: hidden;
         }
 
-        /* --- LOADING SCREEN ANIMATION --- */
+        /* --- LOADING SCREEN & DINO ANIMATION --- */
         #loader {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background-color: var(--accent); z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); 
+            overflow: hidden;
         }
         #loader h1 { 
             color: #ffffff; font-family: 'Space Grotesk', sans-serif; 
             font-size: clamp(2rem, 5vw, 4rem); letter-spacing: 2px; 
             text-transform: uppercase; margin-bottom: 5px; text-align: center; 
             animation: flashText 0.8s infinite alternate; 
+            z-index: 2;
         }
         @keyframes flashText {
             0% { opacity: 1; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
@@ -50,19 +52,33 @@
         #loader p { 
             color: #ffffff; font-family: 'Inter', sans-serif; 
             font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; 
-            opacity: 0.9; text-align: center;
+            opacity: 0.9; text-align: center; z-index: 2;
         }
         #loader.hidden { 
             transform: translateY(-100%); 
             pointer-events: none; 
         }
+        
+        /* The Running Chrome Dino! */
+        .dino-track {
+            position: absolute; bottom: 8%; left: 0; width: 100%; height: 50px; z-index: 1; pointer-events: none;
+        }
+        .dino-runner {
+            position: absolute; bottom: 0; left: -10%;
+            animation: runDino 1.8s linear infinite;
+        }
+        .dino-runner svg {
+            width: 45px; height: 45px; fill: #ffffff;
+            animation: bounceDino 0.2s infinite alternate ease-in-out;
+        }
+        @keyframes runDino { 0% { left: -10%; } 100% { left: 110%; } }
+        @keyframes bounceDino { 0% { transform: translateY(0); } 100% { transform: translateY(-12px); } }
 
         h1, h2, h3, h4, .logo { font-family: 'Space Grotesk', sans-serif; }
         a { text-decoration: none; color: var(--text-main); transition: var(--transition); }
         section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; overflow: hidden; }
 
         /* --- TYPOGRAPHY & BUTTONS --- */
-        /* Updated h1 clamp to ensure the name fits on mobile */
         h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 2.5rem; font-weight: 700; letter-spacing: -1px; text-transform: uppercase; }
         .text-accent { color: var(--accent); text-shadow: 0 0 20px var(--accent-glow); }
 
@@ -104,26 +120,32 @@
 
         /* --- 2. HERO SECTION --- */
         .hero { 
-            height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            text-align: center; position: relative; padding: 0 20px; background: #000000;
+            min-height: 100vh;
+            min-height: 100dvh; /* Ignores mobile search bars perfectly */
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center; 
+            text-align: center; position: relative; background: #000000;
+            padding-top: 80px; 
         }
         
-        .hero h1, .hero p, .hero a { position: relative; z-index: 2; }
-        
-        /* Adjusted clamp so it perfectly fits mobile screens, and white-space: nowrap forces 1 line */
-        .hero h1 { font-size: clamp(1.2rem, 7.5vw, 6rem); line-height: 1.1; margin-bottom: 1rem; letter-spacing: -1px; min-height: 1.2em; white-space: nowrap; }
+        .hero-content {
+            flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            width: 100%; padding: 0 10px; /* Small padding lets the name get right to the edge */
+        }
+
+        .hero h1 { 
+            font-size: clamp(2rem, 7.5vw, 6rem); line-height: 1.1; margin-bottom: 1rem; 
+            letter-spacing: -2px; min-height: 1.2em; white-space: nowrap; 
+        }
         #name-swap { transition: opacity 0.5s ease; display: inline-block; white-space: nowrap; }
         .hero p { font-size: clamp(0.9rem, 2vw, 1.2rem); color: var(--text-muted); margin-bottom: 2.5rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; min-height: 1.5em; }
         .typewrite::after { content: '|'; animation: blink 1s step-start infinite; color: var(--accent); }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* --- 3. LOGO MARQUEE (Pinned to bottom of Hero) --- */
+        /* --- 3. LOGO MARQUEE (Now fully supported on mobile via Flexbox) --- */
         .marquee-container {
-            position: absolute;
-            bottom: 0; /* Anchors it to the bottom of the home screen */
-            left: 0;
             width: 100%; overflow: hidden; padding: 25px 0 25px 0; background: transparent; border: none;
-            display: flex; white-space: nowrap; align-items: center; z-index: 10;
+            display: flex; white-space: nowrap; align-items: center; position: relative; z-index: 10;
+            margin-top: auto; /* Pushes the logos perfectly to the bottom of the screen */
         }
         .marquee-container::before, .marquee-container::after {
             content: ''; position: absolute; top: 0; width: 15%; height: 100%; z-index: 2; pointer-events: none;
@@ -134,14 +156,14 @@
         .marquee-track { display: inline-flex; animation: scrollMarquee 25s linear infinite; gap: 50px; padding-left: 50px; }
         
         .marquee-img-placeholder { 
-            height: 60px; display: flex; align-items: center; justify-content: center; 
+            height: 80px; display: flex; align-items: center; justify-content: center; 
             color: #444; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;
             letter-spacing: 2px; text-transform: uppercase; 
         }
         .marquee-img-placeholder img { 
             height: 100%; width: auto; max-width: 250px; object-fit: contain; 
-            /* Opacity brightened to 0.60 */
-            filter: grayscale(100%) opacity(0.60); transition: var(--transition); 
+            /* Brighter opacity added here (0.6) */
+            filter: grayscale(100%) opacity(0.6); transition: var(--transition); 
         }
         .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); } 
         @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
@@ -166,14 +188,13 @@
         .horizontal-scroller { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .horizontal-scroller::-webkit-scrollbar { display: none; }
         
-        .scroll-item { scroll-snap-align: start; flex-shrink: 0; position: relative; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); transition: var(--transition); display: block; }
+        .scroll-item { scroll-snap-align: start; flex-shrink: 0; position: relative; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); cursor: pointer; transition: var(--transition); display: block; }
         .item-1x1 { aspect-ratio: 1 / 1; min-width: 300px; }
         .item-9x16 { aspect-ratio: 9 / 16; min-width: 280px; }
         
         .scroll-item:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
-        .scroll-item > img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-        .scroll-item:hover > img { transform: scale(1.05); }
-
+        .scroll-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .scroll-item:hover img { transform: scale(1.05); }
         .placeholder { display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; } 
 
         /* --- 6. CV & LIGHTBOX MODALS --- */
@@ -228,8 +249,16 @@
         .delay-1 { transition-delay: 0.1s; }
         .delay-2 { transition-delay: 0.2s; }
 
-        /* --- MOBILE RESPONSIVE --- */
+        /* --- MOBILE RESPONSIVE FIXES --- */
         @media (max-width: 900px) {
+            /* EXACT EDGE-TO-EDGE NAME FIX */
+            .hero h1 { 
+                font-size: 11.5vw; /* This magically fits the width perfectly */
+                letter-spacing: -1px; 
+            }
+            .hero p { font-size: 0.9rem; }
+            .marquee-img-placeholder { height: 50px; } /* Scales logos down so they fit mobile nice */
+            
             .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
             .about-image { max-width: 100%; } 
             .menu-btn { display: block; }
@@ -254,6 +283,13 @@
     <div id="loader">
         <h1>Aung Myo Myint Bo</h1>
         <p>Portfolio</p>
+        <div class="dino-track">
+            <div class="dino-runner">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+                    <path d="M54.2 24.3V11h29.1v5.8h4.2V26h-4.2v4.2h-4.2v4.2h-4.2V26h-4.2v8.3h-4.2v4.2h-8.3v4.2h-4.2v12.5H25v4.2h-4.2v4.2h-4.2v4.2H8.3v-4.2H4.2v-4.2H0V46.8h8.3v4.2h4.2v-4.2h4.2V38.5h4.2v-4.2h4.2v-4.2h8.3v4.2h4.2v4.2h4.2v-4.2h4.2V24.3H54.2z M66.7 19.3v-4.2h-4.2v4.2H66.7z M33.3 71.8v8.3h-4.2v4.2h-4.2V91h8.3v-4.2h4.2V71.8H33.3z M54.2 71.8v8.3h-4.2v4.2h-4.2V91h8.3v-4.2h4.2V71.8H54.2z" />
+                </svg>
+            </div>
+        </div>
     </div>
 
     <nav id="navbar">
@@ -271,23 +307,17 @@
     </nav>
 
     <header id="home" class="hero">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; transform: translateY(-40px);">
+        <div class="hero-content">
             <h1 class="reveal"><span id="name-swap" class="text-accent">Aung Myo Myint Bo</span></h1>
             <p class="reveal delay-1">I am a <span class="typewrite text-accent"></span></p>
             <a href="#showcase" class="btn reveal delay-2">View Work</a>
         </div>
 
-        <div class="marquee-container" style="opacity: 0; animation: fadeInMarquee 1s forwards 0.5s;">
+        <div class="marquee-container reveal delay-2">
             <div class="marquee-track" id="marqueeTrack">
                 </div>
         </div>
     </header>
-
-    <style>
-        @keyframes fadeInMarquee {
-            to { opacity: 1; }
-        }
-    </style>
 
     <section id="about">
         <h2 class="reveal">About</h2>
@@ -384,7 +414,7 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
-            }, 1200); 
+            }, 1500); // Gives time to see the Dino run across!
         });
 
         // --- MOBILE MENU LOGIC ---
@@ -561,11 +591,10 @@
             }
         }
 
-        // --- POPULATE VIDEO BLOCKS (NO IMAGE UPLOADS REQUIRED) ---
+        // --- POPULATE VIDEO BLOCKS (DIRECT TIKTOK EMBED) ---
         function generateVideoBlocks(containerId) {
             const container = document.getElementById(containerId);
             
-            // The 7 TikTok video IDs
             const videoIds = [
                 "7622269379291483412",
                 "7615437097800862997",
@@ -592,7 +621,7 @@
         generateBlocks('scroller-social', 20, 'item-1x1', 'social');
         generateBlocks('scroller-print', 15, 'item-1x1', 'print');
         generateBlocks('scroller-branding', 7, 'item-1x1', 'branding');
-        generateVideoBlocks('scroller-video'); // No count needed, driven by the array of IDs
+        generateVideoBlocks('scroller-video'); 
 
         // --- DRAGGABLE HORIZONTAL SCROLLERS ---
         const sliders = document.querySelectorAll('.horizontal-scroller');
