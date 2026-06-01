@@ -1,729 +1,822 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aung Myo Myint Bo / Ri | Digital Designer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Aung Myo Myint Bo (Ri) | Lead Multimedia Designer</title>
     
-    <style>
-        /* --- VARIABLES & BASE (True Blue & Solid Black Theme) --- */
-        :root {
-            --bg-dark: #000000; 
-            --bg-card: #0a0a0a;
-            --text-main: #f3f3f3;
-            --text-muted: #a0a0a0;
-            --accent: #0000ff; 
-            --accent-glow: rgba(0, 0, 255, 0.4);
-            --border: rgba(255, 255, 255, 0.08);
-            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons via JSDelivr CDN for extreme stability -->
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    <!-- Google Fonts: Syne for premium headings, Inter for high-density reading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
 
-        body {
-            background-color: var(--bg-dark); 
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* --- LOADING SCREEN ANIMATION WITH SLOW GHOST --- */
-        #loader {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background-color: var(--accent); z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); 
-            overflow: hidden;
-        }
-        
-        /* Loading Screen Name (Exact match to Home Page) */
-        #loader h1 { 
-            color: #ffffff; font-family: 'Space Grotesk', sans-serif; 
-            font-size: clamp(1.6rem, 8vw, 4rem); 
-            letter-spacing: -1px; white-space: nowrap;
-            text-transform: uppercase; margin-bottom: 5px; text-align: center; 
-            animation: flashText 0.8s infinite alternate; 
-            z-index: 2; padding: 0 10px;
-        }
-        @keyframes flashText {
-            0% { opacity: 1; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
-            100% { opacity: 0.2; text-shadow: none; }
-        }
-        #loader p { 
-            color: #ffffff; font-family: 'Inter', sans-serif; 
-            font-size: 1rem; letter-spacing: 5px; text-transform: uppercase; 
-            opacity: 0.9; text-align: center; z-index: 2;
-        }
-        #loader.hidden { 
-            transform: translateY(-100%); 
-            pointer-events: none; 
-        }
-
-        /* Slow Floating Cloth Ghost */
-        .ghost-track {
-            position: absolute; bottom: 12%; left: 0; width: 100%; height: 50px; z-index: 1; pointer-events: none;
-        }
-        .ghost-runner {
-            position: absolute; bottom: 0; left: -10%;
-            animation: runGhost 5.5s linear infinite; 
-        }
-        .ghost-runner svg {
-            width: 45px; height: 45px; fill: #ffffff; opacity: 0.8;
-            animation: floatGhost 1.5s infinite alternate ease-in-out; 
-        }
-        @keyframes runGhost { 0% { left: -10%; } 100% { left: 110%; } }
-        @keyframes floatGhost { 0% { transform: translateY(0); } 100% { transform: translateY(-18px); } }
-
-        h1, h2, h3, h4, .logo { font-family: 'Space Grotesk', sans-serif; }
-        a { text-decoration: none; color: var(--text-main); transition: var(--transition); }
-        section { padding: 100px 5%; max-width: 1400px; margin: 0 auto; overflow: hidden; }
-
-        /* --- TYPOGRAPHY & BUTTONS --- */
-        h2 { font-size: clamp(2rem, 4vw, 2.5rem); margin-bottom: 2.5rem; font-weight: 700; letter-spacing: -1px; text-transform: uppercase; }
-        .text-accent { color: var(--accent); text-shadow: 0 0 20px var(--accent-glow); }
-
-        .btn {
-            display: inline-block; padding: 14px 32px; background: transparent;
-            color: var(--text-main); border: 1px solid var(--border); border-radius: 30px;
-            font-family: 'Space Grotesk', sans-serif; font-weight: 500; letter-spacing: 1px;
-            text-transform: uppercase; font-size: 0.9rem; transition: var(--transition);
-            cursor: pointer; backdrop-filter: blur(5px); position: relative; overflow: hidden;
-        }
-        .btn::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-            transition: left 0.5s ease;
-        }
-        .btn:hover::before { left: 100%; }
-        .btn:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); background: rgba(0, 0, 255, 0.15); transform: translateY(-3px); }
-
-        /* --- 1. NAVBAR --- */
-        nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 5%; display: flex;
-            justify-content: space-between; align-items: center; z-index: 1000; transition: var(--transition);
-        }
-        nav.scrolled { background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(15px); border-bottom: 1px solid var(--border); padding: 15px 5%; }
-        .logo { font-size: 1.2rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; z-index: 1001; }
-        
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
-        .nav-links a:hover { color: var(--text-main); text-shadow: 0 0 10px var(--accent-glow); }
-
-        .menu-btn { display: none; cursor: pointer; z-index: 1001; width: 30px; height: 20px; position: relative; }
-        .menu-btn span { display: block; position: absolute; height: 2px; width: 100%; background: var(--text-main); border-radius: 2px; transition: var(--transition); }
-        .menu-btn span:nth-child(1) { top: 0; }
-        .menu-btn span:nth-child(2) { top: 9px; }
-        .menu-btn span:nth-child(3) { top: 18px; }
-        .menu-btn.open span:nth-child(1) { transform: rotate(45deg); top: 9px; }
-        .menu-btn.open span:nth-child(2) { opacity: 0; }
-        .menu-btn.open span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
-
-        /* --- 2. HERO SECTION --- */
-        .hero { 
-            height: 100vh;
-            height: 100dvh; 
-            display: flex; flex-direction: column; justify-content: center; align-items: center; 
-            text-align: center; position: relative; background: #000000;
-            padding-bottom: 80px; 
-            overflow: hidden;
-        }
-        
-        /* Home Page Name (Exact match to Loading Screen) */
-        .hero h1 { 
-            font-size: clamp(1.6rem, 8vw, 4rem); 
-            line-height: 1.1; margin-bottom: 1rem; 
-            letter-spacing: -1px; min-height: 1.2em; white-space: nowrap; width: 100%;
-        }
-        #name-swap { transition: opacity 0.5s ease; display: inline-block; white-space: nowrap; }
-        .hero p { font-size: clamp(0.9rem, 2vw, 1.2rem); color: var(--text-muted); margin-bottom: 2.5rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; min-height: 1.5em; }
-        .typewrite::after { content: '|'; animation: blink 1s step-start infinite; color: var(--accent); }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* --- 3. LOGO MARQUEE (NO SCROLL NEEDED) --- */
-        .marquee-container {
-            position: absolute; bottom: 0; left: 0; width: 100%; 
-            overflow: hidden; padding: 25px 0; background: transparent; border: none;
-            display: flex; white-space: nowrap; align-items: center; z-index: 10;
-        }
-        .marquee-container::before, .marquee-container::after {
-            content: ''; position: absolute; top: 0; width: 15%; height: 100%; z-index: 2; pointer-events: none;
-        }
-        .marquee-container::before { left: 0; background: linear-gradient(to right, var(--bg-dark), transparent); }
-        .marquee-container::after { right: 0; background: linear-gradient(to left, var(--bg-dark), transparent); }
-
-        .marquee-track { display: inline-flex; animation: scrollMarquee 25s linear infinite; gap: 50px; padding-left: 50px; }
-        
-        .marquee-img-placeholder { 
-            height: 60px; display: flex; align-items: center; justify-content: center; 
-            color: #444; font-size: 0.9rem; font-family: 'Space Grotesk', sans-serif;
-            letter-spacing: 2px; text-transform: uppercase; 
-        }
-        .marquee-img-placeholder img { 
-            height: 100%; width: auto; max-width: 250px; object-fit: contain; 
-            filter: grayscale(100%) opacity(0.60); transition: var(--transition); 
-        }
-        .marquee-img-placeholder:hover img { filter: grayscale(0%) opacity(1); } 
-        @keyframes scrollMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-        /* --- 4. ABOUT SECTION --- */
-        .about-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: center; }
-        .about-text { max-width: 600px; }
-        .about-text p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem; line-height: 1.7; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
-        .tag { padding: 8px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; font-size: 0.85rem; color: var(--text-main); transition: var(--transition); }
-        .tag:hover { border-color: var(--accent); background: rgba(0, 0, 255, 0.15); transform: translateY(-3px); }
-        
-        .about-image { 
-            width: 100%; max-width: 400px; aspect-ratio: 1 / 1; background: var(--bg-card); border-radius: 12px; 
-            border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; 
-            color: var(--text-muted); position: relative; overflow: hidden; margin: 0 auto;
-        }
-        .about-image img { width: 100%; height: 100%; object-fit: cover; }
-
-        /* --- 5. SHOWCASE SECTION --- */
-        .category-title { font-size: 1.5rem; margin-top: 50px; margin-bottom: 20px; color: var(--text-main); border-bottom: 1px solid var(--border); padding-bottom: 10px; letter-spacing: 1px; text-transform: uppercase; }
-        .horizontal-scroller { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 30px; scroll-snap-type: x mandatory; scrollbar-width: none; }
-        .horizontal-scroller::-webkit-scrollbar { display: none; }
-        
-        .scroll-item { scroll-snap-align: start; flex-shrink: 0; position: relative; border-radius: 12px; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); transition: var(--transition); display: block; }
-        .item-1x1 { aspect-ratio: 1 / 1; min-width: 300px; }
-        .item-9x16 { aspect-ratio: 9 / 16; min-width: 280px; }
-        
-        .scroll-item:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.5); border-color: var(--accent); }
-        .scroll-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-        .scroll-item:hover img { transform: scale(1.05); }
-
-        /* --- TIKTOK VIDEO OVERLAY & INTERACTIONS --- */
-        .tiktok-block {
-            position: relative;
-            background-color: #111;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-        
-        .tiktok-overlay {
-            position: absolute;
-            inset: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            color: #fff;
-            pointer-events: none; 
-            z-index: 2;
-        }
-
-        .overlay-top { display: flex; justify-content: space-between; align-items: flex-start; }
-        .epic-logo { width: 90px; height: 30px; background: url('logo1.png') no-repeat left center/contain; }
-        .tiktok-t-logo { width: 30px; height: 30px; background: url('https://img.icons8.com/ios-filled/50/ffffff/tiktok.png') no-repeat right center/contain; filter: drop-shadow(0 0 5px rgba(0,0,0,0.8)); }
-
-        .overlay-bottom { display: flex; flex-direction: column; justify-content: flex-end; height: 100%; }
-
-        .action-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            margin-top: auto;
-            pointer-events: auto; 
-        }
-        
-        .action-btn {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            border: 1px solid var(--border);
-            transition: var(--transition);
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-        }
-        
-        .btn-play-here { background-color: rgba(0,0,255,0.7); color: #fff; border-color: var(--accent); }
-        .btn-play-here:hover { background-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); transform: translateY(-2px); }
-
-        .btn-goto-tiktok { background-color: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.2); }
-        .btn-goto-tiktok:hover { background-color: rgba(255,255,255,0.3); border-color: #fff; transform: translateY(-2px); }
-        .btn-goto-tiktok i { color: #fff; font-size: 1.1rem; }
-
-        .placeholder { display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; } 
-
-        /* --- 6. CV & LIGHTBOX MODALS --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); display: flex; justify-content: center; align-items: center;
-            z-index: 2000; opacity: 0; pointer-events: none; transition: var(--transition);
-        }
-        .modal-overlay.active { opacity: 1; pointer-events: all; }
-        .modal-content {
-            background: var(--bg-card); padding: 50px; border-radius: 16px; border: 1px solid var(--accent);
-            text-align: center; max-width: 400px; width: 90%; transform: translateY(30px); transition: var(--transition); position: relative;
-            box-shadow: 0 0 40px rgba(0, 0, 255, 0.15);
-        }
-        .modal-overlay.active .modal-content { transform: translateY(0); }
-        .modal-content h3 { font-size: 1.8rem; margin-bottom: 20px; }
-        .modal-content p { color: var(--text-muted); margin-bottom: 30px; }
-        .modal-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); }
-        .close-modal:hover { color: var(--text-main); }
-
-        /* Lightbox specific styling */
-        #lightbox { z-index: 3000; flex-direction: column; }
-        #lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); display: none;}
-        #lightbox-video { width: 90vw; height: 85vh; max-width: 450px; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transform: scale(0.9); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); border: none; display: none; }
-        
-        #lightbox.active #lightbox-img, #lightbox.active #lightbox-video { transform: scale(1); }
-        .close-lightbox { position: absolute; top: 30px; right: 40px; font-size: 2.5rem; color: #fff; cursor: pointer; text-shadow: 0 0 10px rgba(0,0,0,0.5); transition: var(--transition); z-index: 3001; }
-        .close-lightbox:hover { color: var(--accent); transform: scale(1.1); }
-
-        /* --- 7. CONTACT SECTION --- */
-        .contact-wrapper { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; background: var(--bg-card); padding: 50px; border-radius: 12px; border: 1px solid var(--border); }
-        .contact-info p { font-size: 1rem; margin-bottom: 1.2rem; display: flex; align-items: center; }
-        .contact-info a { color: var(--text-muted); display: flex; align-items: center; gap: 12px; }
-        .contact-info a i { font-size: 1.2rem; color: var(--accent); width: 25px; text-align: center; }
-        .contact-info a:hover { color: var(--text-main); text-shadow: 0 0 10px var(--accent-glow); }
-        
-        .contact-form { display: flex; flex-direction: column; gap: 20px; }
-        input, textarea { width: 100%; padding: 18px; background: var(--bg-dark); border: 1px solid var(--border); color: var(--text-main); border-radius: 8px; font-family: 'Inter', sans-serif; transition: var(--transition); }
-        input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 0, 255, 0.3); }
-        textarea { height: 150px; resize: vertical; }
-
-        /* --- 8. FOOTER --- */
-        footer { border-top: 1px solid var(--border); padding: 40px 5%; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); font-size: 1rem; flex-wrap: wrap; gap: 20px; }
-        .social-icons { display: flex; gap: 25px; align-items: center; }
-        .social-icons a { color: var(--text-muted); transition: var(--transition); font-size: 1.4rem; }
-        .social-icons a:hover { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); transform: translateY(-3px); }
-
-        /* --- ADVANCED ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .delay-1 { transition-delay: 0.1s; }
-        .delay-2 { transition-delay: 0.2s; }
-
-        /* --- MOBILE RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .marquee-img-placeholder { height: 50px; } 
-            .about-grid, .contact-wrapper { grid-template-columns: 1fr; }
-            .about-image { max-width: 100%; } 
-            .menu-btn { display: block; }
-            .nav-links {
-                position: fixed; top: 0; right: -100%; height: 100vh; width: 100%; max-width: 300px;
-                background: rgba(0,0,0,0.98); backdrop-filter: blur(20px); flex-direction: column;
-                justify-content: center; align-items: center; gap: 40px; transition: 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-                border-left: 1px solid var(--border);
-            }
-            .nav-links.open { right: 0; }
-            .nav-links a { font-size: 1.2rem; }
-            .item-1x1 { min-width: 250px; }
-            .item-9x16 { min-width: 220px; }
-            section { padding: 80px 5%; }
-            .contact-wrapper { padding: 30px 20px; }
-            footer { flex-direction: column; text-align: center; }
-        }
-    </style>
-</head>
-<body>
-
-    <div id="loader">
-        <h1>Aung Myo Myint Bo</h1>
-        <p>Portfolio</p>
-        
-        <div class="ghost-track">
-            <div class="ghost-runner">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-                    <path d="M192 0C86 0 0 86 0 192v288l48-48 48 48 48-48 48 48 48-48 48 48 48-48 48 48V192c0-106-86-192-192-192zm-64 224c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128 0c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-
-    <nav id="navbar">
-        <a href="#home" class="logo">Portfolio</a>
-        <div class="menu-btn" id="menuBtn">
-            <span></span><span></span><span></span>
-        </div>
-        <div class="nav-links" id="navLinks">
-            <a href="#home" class="nav-item">Home</a>
-            <a href="#about" class="nav-item">About</a>
-            <a href="#showcase" class="nav-item">Showcase</a>
-            <a id="cvTrigger" class="nav-item">CV</a>
-            <a href="#contact" class="nav-item">Contact</a>
-        </div>
-    </nav>
-
-    <header id="home" class="hero">
-        <div class="hero-content">
-            <h1 class="reveal"><span id="name-swap" class="text-accent">Aung Myo Myint Bo</span></h1>
-            <p class="reveal delay-1">I am a <span class="typewrite text-accent"></span></p>
-            <a href="#showcase" class="btn reveal delay-2">View Work</a>
-        </div>
-        
-        <div class="marquee-container">
-            <div class="marquee-track" id="marqueeTrack">
-                </div>
-        </div>
-    </header>
-
-    <section id="about">
-        <h2 class="reveal">About</h2>
-        <div class="about-grid">
-            <div class="about-text reveal delay-1">
-                <p>Creative and detail-oriented Graphic Designer with strong experience in branding, digital marketing, print media, video editing, and web design. Skilled in developing impactful visual content that enhances brand identity and drives engagement.</p>
-                <p>Currently handling end-to-end creative production, including social media campaigns, advertising materials, and website visuals, with a career focus on growing as a Multimedia Designer delivering strategic and results-driven design solutions.</p>
-                <div class="skill-tags">
-                    <span class="tag">Branding</span>
-                    <span class="tag">Social Media Design</span>
-                    <span class="tag">Video Editing</span>
-                    <span class="tag">Web Design</span>
-                    <span class="tag">Motion Graphics</span>
-                </div>
-            </div>
-            <div class="about-image reveal delay-2">
-                <img src="profile.jpg" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Profile Image">
-                <div class="placeholder" style="display: flex; background: #0a0a0a;">[ Profile Image 1x1 ]</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="showcase">
-        <h2 class="reveal">Showcase</h2>
-        
-        <h3 class="category-title reveal">Marketing Campaigns</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-marketing"></div>
-
-        <h3 class="category-title reveal">Social Media Design</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-social"></div>
-
-        <h3 class="category-title reveal">Print Design</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-print"></div>
-
-        <h3 class="category-title reveal">Logo & Branding</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-branding"></div>
-
-        <h3 class="category-title reveal">Video Editing</h3>
-        <div class="horizontal-scroller reveal delay-1" id="scroller-video"></div>
-    </section>
-
-    <section id="contact">
-        <h2 class="reveal">Contact</h2>
-        <div class="contact-wrapper reveal delay-1">
-            <div class="contact-info">
-                <p><a href="mailto:ri.aungmyomyintbo@gmail.com"><i class="fas fa-envelope"></i> ri.aungmyomyintbo@gmail.com</a></p>
-                <p><a href="tel:+959669915726"><i class="fas fa-phone-alt"></i> +959669915726</a></p>
-                <p><a href="viber://chat?number=%2B959669915726"><i class="fab fa-viber"></i> +959669915726</a></p>
-                <p><a href="https://t.me/aungmyomyintbo" target="_blank"><i class="fab fa-telegram"></i> @aungmyomyintbo</a></p>
-                <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted);">Available for freelance branding, video editing, and visual design projects.</p>
-            </div>
-
-            <form class="contact-form" action="https://formsubmit.co/ri.aungmyomyintbo@gmail.com" method="POST">
-                <input type="hidden" name="_subject" value="New Contact Form Submission - Portfolio">
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="email" name="email" placeholder="Email" required>
-                <textarea name="message" placeholder="Message" required></textarea>
-                <button type="submit" class="btn" style="width: fit-content;">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <footer>
-        <div class="reveal" style="font-family: 'Space Grotesk', sans-serif;">Thank You So Much For reaching me out</div>
-        <div class="social-icons reveal delay-1">
-            <a href="https://t.me/aungmyomyintbo" target="_blank" title="Telegram"><i class="fab fa-telegram"></i></a>
-            <a href="viber://chat?number=%2B959669915726" target="_blank" title="Viber"><i class="fab fa-viber"></i></a>
-            <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" target="_blank" title="Behance"><i class="fab fa-behance"></i></a>
-        </div>
-    </footer>
-
-    <div class="modal-overlay" id="cvModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeModal">&times;</span>
-            <h3>View My CV</h3>
-            <p>Choose an option to view or download my resume.</p>
-            <div class="modal-buttons">
-                <a href="cv.pdf" target="_blank" class="btn">View PDF</a>
-                <a href="cv.pdf" download class="btn">Download CV</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-overlay" id="lightbox" onclick="closeLightbox(event)">
-        <span class="close-lightbox" onclick="closeLightbox(event)">&times;</span>
-        <img src="" alt="Enlarged View" id="lightbox-img">
-        <iframe id="lightbox-video" src="" allow="autoplay; fullscreen" frameborder="0"></iframe>
-    </div>
-
+    <!-- -->
     <script>
-        // --- LOADING SCREEN SLIDE OUT ---
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('loader').classList.add('hidden');
-            }, 1200); 
-        });
-
-        // --- MOBILE MENU LOGIC ---
-        const menuBtn = document.getElementById('menuBtn');
-        const navLinks = document.getElementById('navLinks');
-        const navItems = document.querySelectorAll('.nav-item');
-
-        menuBtn.addEventListener('click', () => {
-            menuBtn.classList.toggle('open');
-            navLinks.classList.toggle('open');
-        });
-
-        navItems.forEach(item => {
-            item.addEventListener('click', () => {
-                menuBtn.classList.remove('open');
-                navLinks.classList.remove('open');
-            });
-        });
-
-        // --- NAME SWAPPING ANIMATION ---
-        const names = ["Aung Myo Myint Bo", "Ri"];
-        let nameIndex = 0;
-        const nameElement = document.getElementById('name-swap');
-
-        setInterval(() => {
-            nameElement.style.opacity = 0;
-            setTimeout(() => {
-                nameIndex = (nameIndex + 1) % names.length;
-                nameElement.innerText = names[nameIndex];
-                nameElement.style.opacity = 1;
-            }, 500); 
-        }, 4000);
-
-        // --- TYPEWRITER ANIMATION ---
-        const roles = ["Graphic Designer", "Digital Designer", "Video Editor"];
-        let roleIndex = 0, charIndex = 0, isDeleting = false;
-        const typeElement = document.querySelector('.typewrite');
-
-        function typeEffect() {
-            const currentRole = roles[roleIndex];
-            if (isDeleting) {
-                typeElement.innerText = currentRole.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typeElement.innerText = currentRole.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            let typeSpeed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIndex === currentRole.length) {
-                typeSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                roleIndex = (roleIndex + 1) % roles.length;
-                typeSpeed = 500;
-            }
-            setTimeout(typeEffect, typeSpeed);
-        }
-        document.addEventListener('DOMContentLoaded', typeEffect);
-
-        // --- STICKY NAVBAR ---
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // --- CV MODAL LOGIC ---
-        const cvTrigger = document.getElementById('cvTrigger');
-        const cvModal = document.getElementById('cvModal');
-        const closeModal = document.getElementById('closeModal');
-
-        cvTrigger.addEventListener('click', (e) => {
-            e.preventDefault();
-            cvModal.classList.add('active');
-        });
-        closeModal.addEventListener('click', () => { cvModal.classList.remove('active'); });
-        cvModal.addEventListener('click', (e) => {
-            if (e.target === cvModal) cvModal.classList.remove('active');
-        });
-
-        // --- ADVANCED SCROLL REVEAL ANIMATION ---
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            DEFAULT: '#0000FF', // The official brand electric blue
+                        },
+                        dark: {
+                            bg: '#000000', // Absolute pitch black background
+                            surface: '#0a0a0a',
+                            border: '#1a1a1a'
+                        }
+                    }
                 }
             }
         }
-        window.addEventListener("scroll", reveal);
-        reveal(); 
+    </script>
 
-        // --- POPULATE LOGO MARQUEE ---
-        const marqueeTrack = document.getElementById('marqueeTrack');
-        const logoFiles = [
-            { file: "logo1.png", text: "Logo 1" },
-            { file: "logo2.png", text: "Logo 2" },
-            { file: "logo3.png", text: "Logo 3" },
-            { file: "logo4.png", text: "Logo 4" },
-            { file: "logo5.png", text: "Logo 5" },
-            { file: "logo6.png", text: "Logo 6" },
-            { file: "logo7.png", text: "Logo 7" },
-            { file: "logo8.png", text: "Logo 8" }
-        ];
-
-        const allLogos = [...logoFiles, ...logoFiles, ...logoFiles, ...logoFiles]; 
-        allLogos.forEach(logo => {
-            let div = document.createElement('div');
-            div.className = 'marquee-img-placeholder';
-            div.innerHTML = `<img src="${logo.file}" onerror="this.style.display='none'; this.parentElement.innerHTML='[ ${logo.text} ]'" alt="Client Logo">`;
-            marqueeTrack.appendChild(div);
-        });
-
-        // --- GLOBAL DRAG CHECKER ---
-        let isDraggingCarousel = false; 
-
-        // --- LIGHTBOX LOGIC FOR CLICKING SHOWCASE BLOCKS & VIDEOS ---
-        const lightbox = document.getElementById('lightbox');
-        const lightboxImg = document.getElementById('lightbox-img');
-        const lightboxVideo = document.getElementById('lightbox-video');
-
-        function openLightbox(element) {
-            if (isDraggingCarousel) return; 
-
-            const videoUrl = element.getAttribute('data-video');
-            const img = element.querySelector('img');
-
-            if (videoUrl) {
-                // If it's a video block (like TikTok)
-                lightboxImg.style.display = 'none';
-                lightboxVideo.src = videoUrl;
-                lightboxVideo.style.display = 'block';
-                lightbox.classList.add('active');
-            } else if(img && img.style.display !== 'none') {
-                // If it's a standard image block
-                lightboxVideo.style.display = 'none';
-                lightboxVideo.src = '';
-                lightboxImg.src = img.src;
-                lightboxImg.style.display = 'block';
-                lightbox.classList.add('active');
-            }
+    <!-- -->
+    <style>
+        body {
+            background-color: #000000;
+            color: #f5f5f5;
+            overflow-x: hidden;
         }
 
-        function closeLightbox(e) {
-            if(e.target === lightbox || e.target.classList.contains('close-lightbox')) {
-                lightbox.classList.remove('active');
-                setTimeout(() => { 
-                    lightboxImg.src = ''; 
-                    lightboxImg.style.display = 'none'; 
-                    lightboxVideo.src = '';
-                    lightboxVideo.style.display = 'none';
-                }, 300);
-            }
+        /* Glass Box Role Animations */
+        @keyframes roleEnter {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-
-        // --- POPULATE STATIC IMAGE BLOCKS ---
-        function generateBlocks(containerId, count, sizeClass, filePrefix) {
-            const container = document.getElementById(containerId);
-            for(let i = 1; i <= count; i++) {
-                const fileSrc = `${filePrefix}-${i}.jpg`;
-                container.innerHTML += `
-                    <div class="scroll-item ${sizeClass}" onclick="openLightbox(this)">
-                        <img src="${fileSrc}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" alt="Work">
-                        <div class="placeholder" style="display: none; align-items: center; justify-content: center; background: #0a0a0a; width: 100%; height: 100%; color: #555; font-family: 'Space Grotesk'; font-size: 0.8rem; letter-spacing: 1px; flex-direction: column; text-align: center; padding: 20px;">
-                            UPLOAD ${fileSrc.toUpperCase()}
-                        </div>
-                    </div>
-                `;
-            }
+        @keyframes roleExit {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
         }
-
-        // --- POPULATE VIDEO BLOCKS (DIRECT TIKTOK EMBED) ---
-        function generateVideoBlocks(containerId) {
-            const container = document.getElementById(containerId);
-            
-            const videoIds = [
-                "7622269379291483412",
-                "7615437097800862997",
-                "7603773761267010836",
-                "7605972979574525205",
-                "7595502284084137237",
-                "7594780037325327636",
-                "7589559994949881108"
-            ];
-
-            videoIds.forEach((id) => {
-                const embedUrl = `https://www.tiktok.com/embed/v2/${id}?lang=en-US`;
-                const directUrl = `https://www.tiktok.com/@epic_world_travelandtour/video/${id}`;
-
-                container.innerHTML += `
-                    <div class="scroll-item item-9x16 tiktok-block" data-video="${embedUrl}">
-                        
-                        <iframe src="${embedUrl}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; pointer-events: none;" allowfullscreen scrolling="no"></iframe>
-                        
-                        <div style="position: absolute; inset: 0; z-index: 1;"></div>
-
-                        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.8) 100%); pointer-events: none; z-index: 1;"></div>
-                        
-                        <div class="tiktok-overlay">
-                            <div class="overlay-top">
-                                <div class="epic-logo"></div>
-                                <div class="tiktok-t-logo"></div>
-                            </div>
-                            
-                            <div class="overlay-bottom">
-                                <div class="action-buttons">
-                                    <button class="action-btn btn-play-here" onclick="event.stopPropagation(); openLightbox(this.closest('.tiktok-block'));">
-                                        <i class="fas fa-play"></i>
-                                        <span>Play Here</span>
-                                    </button>
-                                    <a href="${directUrl}" target="_blank" class="action-btn btn-goto-tiktok" onclick="event.stopPropagation();">
-                                        <i class="fab fa-tiktok"></i>
-                                        <span>View on TikTok</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        generateBlocks('scroller-marketing', 10, 'item-1x1', 'marketing');
-        generateBlocks('scroller-social', 20, 'item-1x1', 'social');
-        generateBlocks('scroller-print', 15, 'item-1x1', 'print');
-        generateBlocks('scroller-branding', 7, 'item-1x1', 'branding');
         
-        // Generate the video blocks without upload requirements
-        generateVideoBlocks('scroller-video');
+        .role-enter-active {
+            animation: roleEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .role-exit-active {
+            animation: roleExit 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
 
-        // --- DRAGGABLE HORIZONTAL SCROLLERS ---
-        const sliders = document.querySelectorAll('.horizontal-scroller');
-        sliders.forEach(slider => {
-            let isDown = false, startX, scrollLeft;
-            slider.addEventListener('mousedown', (e) => {
-                isDown = true; isDraggingCarousel = false; slider.style.cursor = 'grabbing';
-                startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
+        /* Blinking Cursor for Typing Animation */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+            color: #0000FF; 
+        }
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Infinite Marquee Animation loop */
+        @keyframes scrollMarquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: scrollMarquee 30s linear infinite;
+        }
+
+        /* Levitating Animation for Core Toolkit Cards */
+        @keyframes levitate {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-levitate {
+            animation: levitate 5s ease-in-out infinite;
+        }
+        
+        /* Delays to ensure organic wave movement */
+        .delay-1 { animation-delay: 0s; }
+        .delay-2 { animation-delay: 0.3s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.9s; }
+        .delay-5 { animation-delay: 1.2s; }
+        .delay-6 { animation-delay: 1.5s; }
+        
+        /* Smooth Entrance scroll animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        ::selection {
+            background-color: #0000FF;
+            color: white;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand selection:text-white">
+
+    <!-- -->
+    <!-- 1. FLOATING GLASS NAVIGATION BAR -->
+    <!-- 1. THE FLOATING GLASS TASKBAR NAVIGATION -->
+    <div class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none">
+        <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300 hover:bg-white/10 hover:border-white/20">
+            <div class="w-full max-w-7xl px-4 md:px-8 flex items-center justify-between">
+                
+                <!-- Left: Portfolio in Blue with White Glow Hover -->
+                <a href="#" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
+                    Portfolio.
+                </a>
+                
+                <!-- Center Links -->
+                <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-300">
+                    <a href="#work" class="hover:text-[#0000FF] transition-colors duration-300">Work</a>
+                    <a href="#expertise" class="hover:text-[#0000FF] transition-colors duration-300">Expertise</a>
+                    <a href="#showcase" class="hover:text-[#0000FF] transition-colors duration-300">Showcase</a>
+                    <a href="#about" class="hover:text-[#0000FF] transition-colors duration-300">About</a>
+                </div>
+
+                <!-- Right: Hire Me in Blue with White Glow Hover -->
+                <a href="#contact" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
+                    Hire Me.
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- 2. HERO LANDING SECTION -->
+    <section class="relative min-h-screen flex flex-col pt-24 overflow-hidden">
+        
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full z-10 flex-grow flex flex-col justify-end pb-36 md:pb-44">
+            <!-- Reduced max width to keep lines beautifully constrained -->
+            <div class="max-w-3xl reveal active">
+                <p class="text-base md:text-lg text-neutral-400 font-light mb-0">Hello, I'm</p>
+                
+                <!-- Dynamic High-Impact Typing Header (Scaled down text sizes and min-heights) -->
+                <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white min-h-[48px] md:min-h-[80px] flex items-center leading-none mt-1 mb-1">
+                    <span id="typing-text" class="typing-cursor"></span>
+                </h1>
+                
+                <!-- Role Scroller Box (Scaled down, adjusted margins/heights) -->
+                <h2 class="text-2xl md:text-4xl lg:text-5xl font-display font-bold text-[#0000FF] mb-6 min-h-[40px] md:min-h-[60px] flex items-center overflow-visible pb-2 -mt-1 md:-mt-2">
+                    <span id="glass-role" class="role-enter-active inline-block">Graphic Designer</span>
+                </h2>
+
+                <!-- Updated Biography Copy & scaled down to base/lg -->
+                <p class="text-base md:text-lg text-neutral-400 max-w-2xl font-light leading-relaxed">
+                    Based in Yangon, Myanmar. I transform complex business strategies into striking visual ecosystems, spearheading end-to-end creative production from digital rollout to corporate environmental layout.
+                </p>
+            </div>
+        </div>
+
+        <!-- 3. INFINITE LOGO MARQUEE -->
+        <div class="absolute bottom-10 left-0 w-full overflow-hidden flex z-20">
+            <div class="flex w-max animate-marquee">
+                
+                <!-- Set 1 of 10 Logos -->
+                <div class="flex items-center gap-6 pr-6">
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo1.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo2.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo3.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo4.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo5.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo6.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo7.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo8.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo9.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo10.png</div>
+                </div>
+
+                <!-- Set 2 of 10 Logos (Duplicate for seamless looping) -->
+                <div class="flex items-center gap-6 pr-6">
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo1.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo2.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo3.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo4.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo5.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo6.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo7.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo8.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo9.png</div>
+                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo10.png</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SELECTED WORKS (CASE STUDIES) -->
+    <section id="work" class="py-24 relative z-10 bg-[#0a0a0a] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-16 reveal">Selected Works.</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                
+                <!-- CASE STUDY 1: EPIC WORLD TRAVEL & TOURS -->
+                <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
+                    
+                    <div class="flex flex-row items-stretch w-full mb-6">
+                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 p-3">
+                            <span class="text-neutral-500 font-mono text-[11px] md:text-xs text-center break-all">Epicworldlogo.jpg</span>
+                        </div>
+                        <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
+                            <h3 class="font-display text-2xl lg:text-3xl font-bold leading-tight mb-2">Epic World<br>Travel & Tours</h3>
+                            <p class="text-neutral-400 text-sm font-medium mb-1">Jun 2025 - Jun 2026</p>
+                            <p class="text-neutral-500 text-[11px] tracking-widest uppercase">Travel Industry</p>
+                        </div>
+                    </div>
+
+                    <!-- PERFORMANCE INSIGHTS LAYER -->
+                    <div class="grid grid-cols-3 gap-2 border-t border-b border-white/10 py-4 mb-6">
+                        <div class="text-center">
+                            <!-- Removed font-display to match Expertise headers -->
+                            <p id="epic-inquiry" class="text-xl font-bold text-white">+0%</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Inquiries Boost</p>
+                        </div>
+                        <div class="text-center border-x border-white/10">
+                            <!-- Removed font-display -->
+                            <p id="epic-brands" class="text-xl font-bold text-white">0 Brands</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Visual Ecosystem</p>
+                        </div>
+                        <div class="text-center">
+                            <!-- Removed font-display -->
+                            <p id="epic-engage" class="text-xl font-bold text-white">0k+</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Engagement</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full">
+                        <p class="text-neutral-300 text-sm leading-relaxed font-light min-h-[100px]">
+                            Directed 2 junior designers, managed a $3K monthly ad budget, and led end-to-end creative pipelines. Designed responsive corporate websites, high-conversion Facebook ads, and expansive physical deliverables including large-format signboards and brochures.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: YC Entertainment -->
+                <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
+                    
+                    <div class="flex flex-row items-stretch w-full mb-6">
+                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 p-3">
+                            <span class="text-neutral-500 font-mono text-[11px] md:text-xs text-center break-all">ycentertainment.jpg</span>
+                        </div>
+                        <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
+                            <h3 class="font-display text-2xl lg:text-3xl font-bold leading-tight mb-2">YC<br>Entertainment</h3>
+                            <p class="text-neutral-400 text-sm font-medium mb-1">Oct 2023 - Mar 2025</p>
+                            <p class="text-neutral-500 text-[11px] tracking-widest uppercase">Event Industry</p>
+                        </div>
+                    </div>
+
+                    <!-- PERFORMANCE INSIGHTS LAYER -->
+                    <div class="grid grid-cols-3 gap-2 border-t border-b border-white/10 py-4 mb-6">
+                        <div class="text-center">
+                            <!-- Removed font-display to match Expertise headers -->
+                            <p id="yc-attendance" class="text-xl font-bold text-white">+0%</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Attendance Lift</p>
+                        </div>
+                        <div class="text-center border-x border-white/10">
+                            <!-- Removed font-display -->
+                            <p id="yc-quality" class="text-xl font-bold text-white">Low-End</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Photo Retouch</p>
+                        </div>
+                        <div class="text-center">
+                            <!-- Removed font-display -->
+                            <p id="yc-prep" class="text-xl font-bold text-white">0%</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Prepress Prep</p>
+                        </div>
+                    </div>
+
+                    <!-- Combined, Shorter Body Text -->
+                    <div class="w-full">
+                        <p class="text-neutral-300 text-sm leading-relaxed font-light min-h-[100px]">
+                            Orchestrated the comprehensive visual marketing strategy for high-profile live music events. Executed direct social media ad campaigns, robust physical print assets like X-stands, alongside high-end creative portrait composite retouching for performing DJ artists.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <!-- 5. EXPERTISE & TEXT-ONLY CORE TOOLKIT -->
+    <section id="expertise" class="py-24 relative z-10 bg-[#000000] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-16 reveal">Expertise.</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal mb-24">
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
+                    <i data-lucide="pen-tool" class="w-8 h-8 text-[#0000FF] mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3">Graphic Design</h3>
+                    <p class="text-neutral-400 text-sm leading-relaxed">Corporate identities, signboards, print layouts, brochures, and environmental graphics designed for deep brand authority.</p>
+                </div>
+
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
+                    <i data-lucide="video" class="w-8 h-8 text-[#0000FF] mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3">Video Editing</h3>
+                    <p class="text-neutral-400 text-sm leading-relaxed">High-conversion promotional social advertisements, dynamic motion graphics, and full CapCut post-production loops.</p>
+                </div>
+                
+                <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
+                    <i data-lucide="monitor" class="w-8 h-8 text-[#0000FF] mb-6"></i>
+                    <h3 class="text-xl font-bold mb-3">Digital Design</h3>
+                    <p class="text-neutral-400 text-sm leading-relaxed">Interactive layout systems, professional UI/UX design, and cross-channel marketing collateral optimized for performance metrics.</p>
+                </div>
+            </div>
+
+            <!-- THE CORE TOOLKIT (Text-Only floating elements with high-end glows) -->
+            <div class="w-full flex flex-col items-center justify-center reveal">
+                <p class="text-neutral-500 text-xs font-medium tracking-[0.2em] uppercase mb-12">The Core Toolkit</p>
+                
+                <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10">
+                    
+                    <!-- Photoshop Card -->
+                    <div class="animate-levitate delay-1 group relative">
+                        <div class="absolute inset-0 bg-[#31A8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#31A8FF] hover:border-[#31A8FF]/40 transition-all duration-300 group-hover:scale-105">
+                            Photoshop.png
+                        </div>
+                    </div>
+
+                    <!-- Illustrator Card -->
+                    <div class="animate-levitate delay-2 group relative">
+                        <div class="absolute inset-0 bg-[#FF9A00] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#FF9A00] hover:border-[#FF9A00]/40 transition-all duration-300 group-hover:scale-105">
+                            Illustrator.png
+                        </div>
+                    </div>
+
+                    <!-- Premiere Pro Card -->
+                    <div class="animate-levitate delay-3 group relative">
+                        <div class="absolute inset-0 bg-[#EAA8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#EAA8FF] hover:border-[#EAA8FF]/40 transition-all duration-300 group-hover:scale-105">
+                            Premiere Pro.png
+                        </div>
+                    </div>
+
+                    <!-- After Effects Card -->
+                    <div class="animate-levitate delay-4 group relative">
+                        <div class="absolute inset-0 bg-[#9999FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#9999FF] hover:border-[#9999FF]/40 transition-all duration-300 group-hover:scale-105">
+                            Aftereffect.png
+                        </div>
+                    </div>
+
+                    <!-- CapCut Card -->
+                    <div class="animate-levitate delay-5 group relative">
+                        <div class="absolute inset-0 bg-white blur-[30px] opacity-5 group-hover:opacity-20 transition-opacity duration-500"></div>
+                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-white hover:border-white/40 transition-all duration-300 group-hover:scale-105">
+                            Capcut.png
+                        </div>
+                    </div>
+                    
+                    <!-- Figma Card -->
+                    <div class="animate-levitate delay-6 group relative">
+                        <div class="absolute inset-0 bg-[#F24E1E] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#F24E1E] hover:border-[#F24E1E]/40 transition-all duration-300 group-hover:scale-105">
+                            Figma.png
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- -->
+    <!-- 6. SHOWCASE SECTION -->
+    <section id="showcase" class="py-24 relative z-10 bg-dark-surface border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-16 reveal">Visual Showcase.</h2>
+            
+            <!-- 3-column layout matching the Expertise section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 reveal">
+                
+                <!-- BUTTON 1: Social Media Ads -->
+                <a href="#" class="relative aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] flex items-center justify-center">
+                    <span class="text-neutral-500 font-mono text-sm tracking-widest z-0 transition-colors duration-300 group-hover:text-white">Socialmediaads.jpg</span>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20 pointer-events-none">
+                        <h3 class="font-display text-lg md:text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#0000FF]">Social Media Ads</h3>
+                    </div>
+                </a>
+
+                <!-- BUTTON 2: Campaign Design -->
+                <a href="#" class="relative aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] flex items-center justify-center">
+                    <span class="text-neutral-500 font-mono text-sm tracking-widest z-0 transition-colors duration-300 group-hover:text-white">Campaigndesign.jpg</span>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20 pointer-events-none">
+                        <h3 class="font-display text-lg md:text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#0000FF]">Campaign Design</h3>
+                    </div>
+                </a>
+
+                <!-- BUTTON 3: Brand & Identity -->
+                <a href="#" class="relative aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] flex items-center justify-center">
+                    <span class="text-neutral-500 font-mono text-sm tracking-widest z-0 transition-colors duration-300 group-hover:text-white">Brandidentity.jpg</span>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20 pointer-events-none">
+                        <h3 class="font-display text-lg md:text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#0000FF]">Brand & Identity</h3>
+                    </div>
+                </a>
+
+                <!-- BUTTON 4: Print Design -->
+                <a href="#" class="relative aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] flex items-center justify-center">
+                    <span class="text-neutral-500 font-mono text-sm tracking-widest z-0 transition-colors duration-300 group-hover:text-white">Printdesign.jpg</span>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20 pointer-events-none">
+                        <h3 class="font-display text-lg md:text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#0000FF]">Print Design</h3>
+                    </div>
+                </a>
+
+                <!-- BUTTON 5: Video Editing -->
+                <a href="#" class="relative aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] flex items-center justify-center">
+                    <span class="text-neutral-500 font-mono text-sm tracking-widest z-0 transition-colors duration-300 group-hover:text-white">Videoediting.jpg</span>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent z-10 pointer-events-none"></div>
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20 pointer-events-none">
+                        <h3 class="font-display text-lg md:text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#0000FF]">Video Editing</h3>
+                    </div>
+                </a>
+                
+                <!-- BUTTON 6: See All (Links to showcase.html) -->
+                <a href="showcase.html" class="relative aspect-square bg-[#0000FF] rounded-2xl border border-[#0000FF] overflow-hidden group hover:bg-white transition-all duration-500 shadow-[0_0_20px_rgba(0,0,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] flex items-center justify-center">
+                    <!-- Static centered arrow -->
+                    <i data-lucide="arrow-right" class="w-10 h-10 text-white transition-colors duration-300 group-hover:text-[#0000FF]"></i>
+                    
+                    <!-- Bottom-left text matching the other boxes perfectly -->
+                    <div class="absolute bottom-0 left-0 w-full p-6 z-20 pointer-events-none">
+                        <h3 class="font-display text-lg md:text-xl font-bold text-white transition-colors duration-300 group-hover:text-[#0000FF]">See All</h3>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. THE HUMAN ABOUT ELEMENT -->
+    <section id="about" class="py-24 bg-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-16 items-center reveal">
+            <div class="w-full md:w-1/2">
+                <h2 class="font-display text-4xl font-bold mb-6 text-white">Behind the Canvas.</h2>
+                <p class="text-neutral-400 leading-relaxed mb-4">
+                    Based in Yangon, Myanmar, I am a Graphic Designer transitioning into Multimedia Design. I leverage my background in digital marketing, social media, and video creation to build visual content that drives core branding objectives.
+                </p>
+                <p class="text-neutral-400 leading-relaxed mb-6">
+                    Currently, I am expanding my skill set in motion graphics, video production, and UI/UX. I am passionate about crafting engaging, multi-channel digital experiences that connect brands effectively with their audiences.
+                </p>
+                <div class="flex gap-4">
+                    <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-xs px-3 py-1.5 rounded text-neutral-300">
+                        <span class="text-base leading-none">🇲🇲</span> Native
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-xs px-3 py-1.5 rounded text-neutral-300">
+                        <span class="text-base leading-none">🇬🇧</span> Intermediate
+                    </span>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-1/2 relative">
+                <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden group hover:bg-white/5 hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
+                     <span class="text-neutral-500 font-mono text-sm tracking-widest transition-colors duration-300 group-hover:text-white">profile.jpg</span>
+                     <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. THE FOOTER WITH DASHBOARD BUTTONS -->
+    <footer id="contact" class="bg-[#000000] border-t border-white/10 py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 reveal w-full">
+            <div class="w-full flex justify-center mb-16">
+                <!-- Removed Phone and Mail icons, kept the glowing blue box centered -->
+                <h2 class="font-display text-3xl md:text-5xl font-bold text-white bg-[#0000FF] px-8 py-3 md:px-12 md:py-4 rounded-full shadow-[0_0_30px_rgba(0,0,255,0.6)] hover:shadow-[0_0_50px_rgba(0,0,255,0.8)] transition-shadow duration-300 inline-flex items-center justify-center">
+                    Hire Me.
+                </h2>
+            </div>
+            
+            <!-- Changed to md:grid-cols-2 for robust Left/Right split on tablets and laptops -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 mb-20 w-full max-w-6xl mx-auto">
+                
+                <!-- Left Side: Vertical Contact Buttons -->
+                <div class="flex flex-col h-full">
+                    <h3 class="font-display text-2xl md:text-3xl font-bold text-white mb-2">Direct Contact.</h3>
+                    <p class="text-neutral-400 text-sm mb-4">Reach out instantly via phone, email, or socials.</p>
+                    
+                    <div class="flex flex-col gap-4 h-full">
+                        <!-- Email (Moved to first position) -->
+                        <a href="mailto:ri.aungmyomyintbo@gmail.com" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <i data-lucide="mail" class="w-5 h-5 group-hover:text-[#0000FF] transition-colors"></i>
+                            <span class="font-medium text-sm">ri.aungmyomyintbo@gmail.com</span>
+                        </a>
+
+                        <!-- Phone -->
+                        <a href="tel:+959669915726" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <i data-lucide="phone" class="w-5 h-5 group-hover:text-[#0000FF] transition-colors"></i>
+                            <span class="font-medium text-sm">+959 669 915 726</span>
+                        </a>
+
+                        <!-- WhatsApp Logo, but text says Viber -->
+                        <a href="viber://chat?number=%2B959669915726" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                            <span class="font-medium text-sm">+959 669 915 726</span>
+                        </a>
+
+                        <!-- Telegram -->
+                        <a href="https://t.me/aungmyomyintbo" target="_blank" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
+                            <span class="font-medium text-sm">@aungmyomyintbo</span>
+                        </a>
+
+                        <!-- LinkedIn (Moved to bottom) -->
+                        <a href="https://mm.linkedin.com/in/aung-myo-myint-bo-5a55542a4" target="_blank" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            <span class="font-medium text-sm">Aung Myo Myint Bo</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Side: Email Form -->
+                <div class="flex flex-col h-full">
+                    <h3 class="font-display text-2xl md:text-3xl font-bold text-white mb-2">Send a Message.</h3>
+                    <p class="text-neutral-400 text-sm mb-4">Tell me about your project and I'll get back to you.</p>
+                    
+                    <!-- Direct FormSubmit Integration -->
+                    <form action="https://formsubmit.co/ri.aungmyomyintbo@gmail.com" method="POST" class="flex flex-col gap-4 h-full">
+                        <!-- Disables the captcha puzzle for a smoother user experience -->
+                        <input type="hidden" name="_captcha" value="false">
+                        <!-- Redirects back to your page after sending instead of a blank success page -->
+                        <input type="hidden" name="_next" value="#">
+                        <!-- Email Subject Line -->
+                        <input type="hidden" name="_subject" value="New inquiry from Aung Myo Myint Bo Portfolio">
+                        
+                        <input type="text" name="name" placeholder="Your Name" required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full placeholder-neutral-600">
+                        
+                        <input type="email" name="email" placeholder="Your Email Address" required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full placeholder-neutral-600">
+                        
+                        <textarea name="message" rows="4" placeholder="Tell me about your project..." required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full flex-grow resize-none placeholder-neutral-600"></textarea>
+                        
+                        <button type="submit" class="bg-[#0000FF] text-white px-8 py-4 rounded-2xl font-bold hover:bg-white hover:text-[#0000FF] transition-all duration-300 w-full shadow-[0_0_20px_rgba(0,0,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] flex justify-center items-center gap-3 group mt-1">
+                            Send Message
+                            <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform group-hover:text-[#0000FF]"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 9. RATING & COPYRIGHT SECTION -->
+    <section class="bg-[#000000] border-t border-white/10 py-16 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center gap-6 reveal w-full">
+            
+            <span id="rating-text" class="text-base md:text-lg font-bold text-neutral-400 tracking-widest uppercase transition-colors">Rate my website</span>
+            
+            <!-- Interactive 5-Star Rating Block with Bigger Stars -->
+            <div id="rating-widget" class="flex items-center justify-center transition-colors duration-300">
+                <div class="flex gap-4 md:gap-6" id="star-container">
+                    <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                    <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                    <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                    <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                    <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                </div>
+            </div>
+
+            <p class="text-sm text-neutral-500 text-center mt-4">© 2026 Aung Myo Myint Bo. All rights reserved.</p>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // Initialize Icons
+        function safeInitIcons() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            } else {
+                setTimeout(safeInitIcons, 50);
+            }
+        }
+        safeInitIcons();
+
+        // 1. Intersection Observer for Scroll Reveals
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
             });
-            slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'pointer'; });
-            slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'pointer'; });
-            slider.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                isDraggingCarousel = true; 
-                const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 2.5; 
-                slider.scrollLeft = scrollLeft - walk;
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // --------------------------------------------------------
+        // 2. HERO ANIMATIONS (Typing Name & Scrolling Role)
+        // --------------------------------------------------------
+        
+        // Typing Animation Logic
+        const typeElement = document.getElementById('typing-text');
+        const name1 = "Aung Myo Myint Bo.";
+        const name2 = "Ri.";
+        
+        let currentText = "";
+        let isDeleting = false;
+        let isName2 = false; 
+        let charIndex = 0;
+        
+        function typeEffect() {
+            if (!typeElement) return;
+
+            const fullString = isName2 ? name2 : name1;
+            
+            if (isDeleting) {
+                currentText = fullString.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                currentText = fullString.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            
+            typeElement.textContent = currentText;
+            
+            let typingSpeed = isDeleting ? 40 : 100; 
+            
+            if (!isDeleting && charIndex === fullString.length) {
+                typingSpeed = 3000; // Pause when word is complete
+                isDeleting = true;
+            } 
+            else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                isName2 = !isName2; // Swap the name
+                typingSpeed = 500; // Brief pause before typing new name
+            }
+
+            setTimeout(typeEffect, typingSpeed);
+        }
+        
+        if (typeElement) {
+            setTimeout(typeEffect, 500);
+        }
+
+        // Role Animation Logic
+        const roles = ["Graphic Designer", "Video Editor", "Digital Designer"];
+        let roleIndex = 0;
+        const roleElement = document.getElementById('glass-role');
+        
+        if (roleElement) {
+            setInterval(() => {
+                roleElement.classList.remove('role-enter-active');
+                roleElement.classList.add('role-exit-active');
+                
+                setTimeout(() => {
+                    roleIndex = (roleIndex + 1) % roles.length;
+                    roleElement.textContent = roles[roleIndex];
+                    
+                    roleElement.classList.remove('role-exit-active');
+                    void roleElement.offsetWidth; // Force reflow
+                    roleElement.classList.add('role-enter-active');
+                }, 500); 
+                
+            }, 3500); 
+        }
+
+        // --------------------------------------------------------
+        // 3. Intersection Observer for Number Counter Animations
+        // --------------------------------------------------------
+        function animateValue(obj, start, end, duration, prefix = "", suffix = "") {
+            if (!obj) return; // Safety check
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                // Ease out cubic function for smoother deceleration
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                
+                let currentValue = Math.floor(easeProgress * (end - start) + start);
+                obj.innerHTML = prefix + currentValue + suffix;
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    // Ensure final value is exact
+                    obj.innerHTML = prefix + end + suffix; 
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Custom string animation for "Low-End" to "High-End"
+        function animateStringValue(obj, sequence, duration) {
+            if (!obj) return; // Safety check
+            let stepDuration = duration / sequence.length;
+            sequence.forEach((text, index) => {
+                setTimeout(() => {
+                    obj.innerHTML = text;
+                }, index * stepDuration);
+            });
+        }
+
+        const workSection = document.getElementById('work');
+        
+        // Wrap the counters in a reusable function so we can loop them
+        function triggerCounters() {
+            animateValue(document.getElementById('epic-inquiry'), 0, 90, 1500, "+", "%");
+            animateValue(document.getElementById('epic-brands'), 1, 3, 1500, "", " Brands");
+            animateValue(document.getElementById('epic-engage'), 0, 40, 1500, "", "k+");
+
+            animateValue(document.getElementById('yc-attendance'), 0, 70, 1500, "+", "%");
+            animateStringValue(document.getElementById('yc-quality'), ["Low-End", "Mid-End", "High-End"], 1500);
+            animateValue(document.getElementById('yc-prep'), 0, 100, 1500, "", "%");
+        }
+        
+        const counterObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    triggerCounters(); 
+                    setInterval(triggerCounters, 6000); 
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 }); 
+
+        if(workSection) {
+            counterObserver.observe(workSection);
+        }
+
+        // --------------------------------------------------------
+        // 5. Interactive 5-Star Rating Logic
+        // --------------------------------------------------------
+        const stars = document.querySelectorAll('.star-btn');
+        const ratingText = document.getElementById('rating-text');
+        let hasRated = false;
+
+        stars.forEach((star, index) => {
+            // Hover styling (Yellow)
+            star.addEventListener('mouseover', () => {
+                if (hasRated) return;
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.remove('text-neutral-600');
+                        s.classList.add('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                    } else {
+                        s.classList.add('text-neutral-600');
+                        s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                    }
+                });
+            });
+
+            // Remove hover styling
+            star.parentElement.addEventListener('mouseleave', () => {
+                if (hasRated) return;
+                stars.forEach(s => {
+                    s.classList.add('text-neutral-600');
+                    s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                });
+            });
+
+            // Click submission
+            star.addEventListener('click', () => {
+                if (hasRated) return;
+                hasRated = true;
+                const rating = index + 1;
+                
+                // UI Update
+                ratingText.innerText = "Sending...";
+                stars.forEach((s, i) => {
+                    s.style.pointerEvents = 'none'; // disable further clicks
+                    if (i <= index) {
+                        s.classList.add('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                    } else {
+                        s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                        s.classList.add('text-neutral-600');
+                    }
+                });
+
+                // Send silent background request to FormSubmit
+                fetch("https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        _subject: `New ${rating}-Star Portfolio Rating!`,
+                        rating: `${rating} out of 5 stars`,
+                        message: `A visitor just rated your website ${rating} out of 5 stars.`
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    ratingText.innerText = "Thank you!";
+                    ratingText.classList.add('text-[#FFD700]');
+                })
+                .catch(error => {
+                    ratingText.innerText = "Error sending.";
+                });
             });
         });
+
     </script>
 </body>
 </html>
