@@ -121,19 +121,18 @@
 </head>
 <body class="antialiased selection:bg-brand selection:text-white">
 
-    <!-- -->
-    <!-- 1. FLOATING GLASS NAVIGATION BAR -->
     <!-- 1. THE FLOATING GLASS TASKBAR NAVIGATION -->
     <div class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none">
-        <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300 hover:bg-white/10 hover:border-white/20">
+        <!-- Added relative z-50 to support mobile dropdown -->
+        <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300 hover:bg-white/10 hover:border-white/20 relative z-50">
             <div class="w-full max-w-7xl px-4 md:px-8 flex items-center justify-between">
                 
-                <!-- Left: Portfolio in Blue with White Glow Hover -->
-                <a href="#" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
+                <!-- Left: Portfolio (Smaller on mobile, default on md) -->
+                <a href="#" class="font-display font-bold text-xl md:text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
                     Portfolio.
                 </a>
                 
-                <!-- Center Links -->
+                <!-- Center Links (Hidden on mobile) -->
                 <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-300">
                     <a href="#work" class="hover:text-[#0000FF] transition-colors duration-300">Work</a>
                     <a href="#expertise" class="hover:text-[#0000FF] transition-colors duration-300">Expertise</a>
@@ -141,10 +140,24 @@
                     <a href="#about" class="hover:text-[#0000FF] transition-colors duration-300">About</a>
                 </div>
 
-                <!-- Right: Hire Me in Blue with White Glow Hover -->
-                <a href="#contact" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
+                <!-- Right: Hire Me (Hidden on mobile) -->
+                <a href="#contact" class="hidden md:block font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
                     Hire Me.
                 </a>
+
+                <!-- Mobile Menu Button (White Drop Box) -->
+                <button id="mobile-menu-btn" class="md:hidden flex items-center justify-center bg-white text-black p-2 rounded-lg hover:bg-neutral-200 transition-colors shadow-lg">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobile-menu" class="absolute top-20 left-0 right-0 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-6 flex flex-col gap-6 opacity-0 pointer-events-none -translate-y-4 transition-all duration-300 md:hidden shadow-2xl">
+                <a href="#work" class="text-white font-medium text-lg hover:text-[#0000FF]">Work</a>
+                <a href="#expertise" class="text-white font-medium text-lg hover:text-[#0000FF]">Expertise</a>
+                <a href="#showcase" class="text-white font-medium text-lg hover:text-[#0000FF]">Showcase</a>
+                <a href="#about" class="text-white font-medium text-lg hover:text-[#0000FF]">About</a>
+                <a href="#contact" class="text-[#0000FF] font-bold text-xl hover:text-white mt-2 border-t border-white/10 pt-4">Hire Me.</a>
             </div>
         </nav>
     </div>
@@ -178,32 +191,32 @@
         <div class="absolute bottom-10 left-0 w-full overflow-hidden flex z-20">
             <div class="flex w-max animate-marquee">
                 
-                <!-- Set 1 of 10 Logos -->
-                <div class="flex items-center gap-6 pr-6">
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo1.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo2.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo3.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo4.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo5.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo6.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo7.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo8.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo9.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo10.png</div>
+                <!-- Set 1 of 10 Logos (Real Images) -->
+                <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16">
+                    <img src="Logo1.png" alt="Logo 1" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo2.png" alt="Logo 2" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo3.png" alt="Logo 3" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo4.png" alt="Logo 4" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo5.png" alt="Logo 5" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo6.png" alt="Logo 6" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo7.png" alt="Logo 7" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo8.png" alt="Logo 8" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo9.png" alt="Logo 9" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo10.png" alt="Logo 10" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
                 </div>
 
                 <!-- Set 2 of 10 Logos (Duplicate for seamless looping) -->
-                <div class="flex items-center gap-6 pr-6">
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo1.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo2.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo3.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo4.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo5.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo6.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo7.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo8.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo9.png</div>
-                    <div class="flex items-center justify-center gap-3 bg-white/5 border border-white/10 rounded-xl px-8 py-3 text-neutral-400 font-medium hover:text-white hover:border-[#0000FF]/50 transition-all duration-300">Logo10.png</div>
+                <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16">
+                    <img src="Logo1.png" alt="Logo 1" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo2.png" alt="Logo 2" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo3.png" alt="Logo 3" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo4.png" alt="Logo 4" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo5.png" alt="Logo 5" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo6.png" alt="Logo 6" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo7.png" alt="Logo 7" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo8.png" alt="Logo 8" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo9.png" alt="Logo 9" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
+                    <img src="Logo10.png" alt="Logo 10" class="h-10 md:h-12 w-auto object-contain opacity-70 hover:opacity-100 hover:scale-110 transition-all duration-300">
                 </div>
             </div>
         </div>
@@ -344,44 +357,46 @@
                         </div>
                     </div>
 
-                    <!-- Illustrator Card -->
+            <!-- THE CORE TOOLKIT (Real Uploaded Image Files) -->
+            <div class="w-full flex flex-col items-center justify-center reveal">
+                <p class="text-neutral-500 text-xs font-medium tracking-[0.2em] uppercase mb-12">The Core Toolkit</p>
+                
+                <div class="flex flex-wrap justify-center items-center gap-10 md:gap-16">
+                    
+                    <!-- Photoshop -->
+                    <div class="animate-levitate delay-1 group relative">
+                        <div class="absolute inset-0 bg-[#0000FF] blur-[30px] opacity-10 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <img src="Photoshop.png" alt="Photoshop" class="w-16 h-16 md:w-20 md:h-20 relative z-10 transition-transform duration-300 group-hover:scale-110 object-contain">
+                    </div>
+
+                    <!-- Illustrator -->
                     <div class="animate-levitate delay-2 group relative">
-                        <div class="absolute inset-0 bg-[#FF9A00] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#FF9A00] hover:border-[#FF9A00]/40 transition-all duration-300 group-hover:scale-105">
-                            Illustrator.png
-                        </div>
+                        <div class="absolute inset-0 bg-[#0000FF] blur-[30px] opacity-10 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <img src="Illustrator.png" alt="Illustrator" class="w-16 h-16 md:w-20 md:h-20 relative z-10 transition-transform duration-300 group-hover:scale-110 object-contain">
                     </div>
 
-                    <!-- Premiere Pro Card -->
+                    <!-- Premiere Pro -->
                     <div class="animate-levitate delay-3 group relative">
-                        <div class="absolute inset-0 bg-[#EAA8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#EAA8FF] hover:border-[#EAA8FF]/40 transition-all duration-300 group-hover:scale-105">
-                            Premiere Pro.png
-                        </div>
+                        <div class="absolute inset-0 bg-[#0000FF] blur-[30px] opacity-10 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <img src="Premiere Pro.png" alt="Premiere Pro" class="w-16 h-16 md:w-20 md:h-20 relative z-10 transition-transform duration-300 group-hover:scale-110 object-contain">
                     </div>
 
-                    <!-- After Effects Card -->
+                    <!-- After Effects -->
                     <div class="animate-levitate delay-4 group relative">
-                        <div class="absolute inset-0 bg-[#9999FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#9999FF] hover:border-[#9999FF]/40 transition-all duration-300 group-hover:scale-105">
-                            Aftereffect.png
-                        </div>
+                        <div class="absolute inset-0 bg-[#0000FF] blur-[30px] opacity-10 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <img src="Aftereffect.png" alt="After Effects" class="w-16 h-16 md:w-20 md:h-20 relative z-10 transition-transform duration-300 group-hover:scale-110 object-contain">
                     </div>
 
-                    <!-- CapCut Card -->
+                    <!-- CapCut -->
                     <div class="animate-levitate delay-5 group relative">
-                        <div class="absolute inset-0 bg-white blur-[30px] opacity-5 group-hover:opacity-20 transition-opacity duration-500"></div>
-                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-white hover:border-white/40 transition-all duration-300 group-hover:scale-105">
-                            Capcut.png
-                        </div>
+                        <div class="absolute inset-0 bg-[#0000FF] blur-[30px] opacity-10 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <img src="Capcut.png" alt="CapCut" class="w-16 h-16 md:w-20 md:h-20 relative z-10 transition-transform duration-300 group-hover:scale-110 object-contain">
                     </div>
                     
-                    <!-- Figma Card -->
+                    <!-- Figma -->
                     <div class="animate-levitate delay-6 group relative">
-                        <div class="absolute inset-0 bg-[#F24E1E] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <div class="relative z-10 px-6 py-4 bg-white/5 border border-white/10 rounded-xl font-mono text-sm tracking-wide text-neutral-300 hover:text-[#F24E1E] hover:border-[#F24E1E]/40 transition-all duration-300 group-hover:scale-105">
-                            Figma.png
-                        </div>
+                        <div class="absolute inset-0 bg-[#0000FF] blur-[30px] opacity-10 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <img src="Figma.png" alt="Figma" class="w-16 h-16 md:w-20 md:h-20 relative z-10 transition-transform duration-300 group-hover:scale-110 object-contain">
                     </div>
 
                 </div>
@@ -390,7 +405,6 @@
         </div>
     </section>
 
-    <!-- -->
     <!-- 6. SHOWCASE SECTION -->
     <section id="showcase" class="py-24 relative z-10 bg-dark-surface border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6 md:px-12">
@@ -466,25 +480,25 @@
             <div class="w-full md:w-1/2">
                 <h2 class="font-display text-3xl md:text-4xl font-bold mb-6 text-white">Behind the Canvas.</h2>
                 <p class="text-neutral-400 leading-relaxed mb-4">
-                    Based in Yangon, Myanmar, I am a Graphic Designer transitioning into Multimedia Design. I leverage my background in digital marketing, social media, and video creation to build visual content that drives core branding objectives.
+                    Based in Yangon, Myanmar, I am a Graphic Designer with hands-on experience in digital marketing, social media campaigns, motion graphics, and video content creation. Throughout my career, I have worked beyond traditional graphic design responsibilities, developing visual content across both static and multimedia platforms to support marketing and branding objectives.
                 </p>
                 <p class="text-neutral-400 leading-relaxed mb-6">
-                    Currently, I am expanding my skill set in motion graphics, video production, and UI/UX. I am passionate about crafting engaging, multi-channel digital experiences that connect brands effectively with their audiences.
+                    Currently, I am expanding my expertise toward Multimedia Design by strengthening my skills in motion graphics, video production, and UI/UX design. I am passionate about creating engaging visual experiences that combine strong design fundamentals with modern digital communication, helping brands connect effectively with their audiences across multiple channels.
                 </p>
                 <div class="flex gap-4">
                     <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-xs px-3 py-1.5 rounded text-neutral-300">
-                        <span class="text-base leading-none">🇲🇲</span> Native
+                        <img src="https://flagcdn.com/w20/mm.png" alt="Myanmar" class="w-4 h-auto"> Native
                     </span>
                     <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-xs px-3 py-1.5 rounded text-neutral-300">
-                        <span class="text-base leading-none">🇬🇧</span> Intermediate
+                        <img src="https://flagcdn.com/w20/gb.png" alt="UK" class="w-4 h-auto"> Intermediate
                     </span>
                 </div>
             </div>
             
             <div class="w-full md:w-1/2 relative">
-                <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] relative">
-                     <!-- Using actual profile.jpg image -->
-                     <img src="profile.jpg" alt="Aung Myo Myint Bo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] relative cursor-pointer">
+                     <!-- Profile image with B&W default, color on hover/active -->
+                     <img src="profile.jpg" alt="Aung Myo Myint Bo" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0 group-active:grayscale-0 group-active:scale-105">
                      <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl pointer-events-none"></div>
                 </div>
             </div>
