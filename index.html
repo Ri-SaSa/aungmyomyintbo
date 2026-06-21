@@ -142,11 +142,15 @@
         
         /* Hide Scrollbar CSS */
         .no-scrollbar::-webkit-scrollbar {
-            display: none; 
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+            -webkit-appearance: none !important;
         }
         .no-scrollbar {
-            -ms-overflow-style: none;  
-            scrollbar-width: none;  
+            -ms-overflow-style: none !important;  
+            scrollbar-width: none !important;  
         }
         
         ::selection {
@@ -155,7 +159,24 @@
         }
     </style>
 </head>
-<body class="antialiased selection:bg-brand selection:text-white">
+<body class="antialiased selection:bg-brand selection:text-white overflow-hidden">
+
+    <!-- PAGE INITIAL LOADER -->
+    <div id="page-loader" class="fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-center transition-opacity duration-700">
+        <!-- "PORTFOLIO" Typing -->
+        <h1 class="font-display text-xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white mb-8 min-h-[28px] md:min-h-[48px] flex items-center">
+            <span id="loader-typing-text" class="typing-cursor"></span>
+        </h1>
+        
+        <!-- Loading Box -->
+        <div class="bg-[#0000FF] text-white text-xs md:text-sm font-bold px-6 py-3 rounded-xl shadow-[0_0_20px_rgba(0,0,255,0.5)] flex items-center gap-3">
+            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Loading the page...
+        </div>
+    </div>
 
     <!-- 1. THE FLOATING GLASS TASKBAR NAVIGATION -->
     <div class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none">
@@ -186,21 +207,21 @@
     <!-- 2. HERO LANDING SECTION -->
     <section class="relative min-h-screen flex flex-col pt-24 overflow-hidden">
         
-        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full z-10 flex-grow flex flex-col justify-end pb-36 md:pb-44">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full z-10 flex-grow flex flex-col justify-start pt-12 md:pt-20 pb-36 md:pb-44">
             <div class="max-w-3xl reveal active">
-                <p class="text-base md:text-lg text-neutral-400 font-light mb-0">Hello, I'm</p>
+                <p class="text-sm md:text-base text-neutral-400 font-light mb-0">Hello, I'm</p>
                 
-                <!-- Dynamic High-Impact Typing Header -->
-                <h1 class="font-display text-3xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white min-h-[40px] md:min-h-[80px] flex items-center leading-none mt-1 mb-1">
+                <!-- Dynamic High-Impact Typing Header (Scaled down text sizes and min-heights) -->
+                <h1 class="font-display text-xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white min-h-[28px] md:min-h-[48px] flex items-center leading-none mt-1 mb-1">
                     <span id="typing-text" class="typing-cursor"></span>
                 </h1>
                 
-                <!-- Role Scroller Box -->
-                <h2 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-bold text-[#0000FF] mb-6 min-h-[36px] md:min-h-[60px] flex items-center overflow-visible pb-2 -mt-1 md:-mt-2">
+                <!-- Role Scroller Box (Scaled down text sizes) -->
+                <h2 class="text-base sm:text-lg md:text-2xl lg:text-3xl font-display font-bold text-[#0000FF] mb-6 min-h-[24px] md:min-h-[40px] flex items-center overflow-visible pb-2 -mt-1 md:-mt-2">
                     <span id="glass-role" class="role-enter-active inline-block">Graphic Designer</span>
                 </h2>
 
-                <p class="text-base md:text-lg text-neutral-400 max-w-2xl font-light leading-relaxed">
+                <p class="text-sm md:text-base text-neutral-400 max-w-2xl font-light leading-relaxed">
                     Based in Yangon, Myanmar. I am a self-taught creative with over 3 years of experience in Graphic Design and 1 year in Video Editing. I transform complex business strategies into striking visual ecosystems, spearheading end-to-end creative production from digital rollouts to corporate environmental layouts.
                 </p>
             </div>
@@ -417,7 +438,7 @@
                 </div>
             </div>
 
-            <!-- CAMPAIGN DESIGN PART (NEW) -->
+            <!-- CAMPAIGN DESIGN PART -->
             <div class="mb-24">
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Campaign Design</h3>
                 
@@ -429,7 +450,7 @@
                         <i data-lucide="chevron-left" class="w-5 h-5"></i>
                     </button>
                     
-                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2">
+                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2" style="-ms-overflow-style: none; scrollbar-width: none;">
                         <!-- 6 Images -->
                         <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
                             <img src="Campaign1.jpg" alt="Campaign 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
@@ -471,7 +492,7 @@
                         <i data-lucide="chevron-left" class="w-5 h-5"></i>
                     </button>
                     
-                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2">
+                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2" style="-ms-overflow-style: none; scrollbar-width: none;">
                         <!-- Ad 1 -->
                         <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
                             <img src="ads1.jpg" alt="Social Media Ad 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
@@ -530,21 +551,21 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal">
                     <!-- Video Block 1 -->
                     <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video1.mp4', 'video')">
-                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
+                        <video autoplay muted loop playsinline width="100%" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
                             <source src="video1.mp4" type="video/mp4">
                         </video>
                     </div>
                     
                     <!-- Video Block 2 -->
                     <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video2.mp4', 'video')">
-                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
+                        <video autoplay muted loop playsinline width="100%" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
                             <source src="video2.mp4" type="video/mp4">
                         </video>
                     </div>
 
                     <!-- Video Block 3 -->
                     <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video3.mp4', 'video')">
-                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
+                        <video autoplay muted loop playsinline width="100%" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
                             <source src="video3.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -767,7 +788,33 @@
             setTimeout(typeEffect, typingSpeed);
         }
         
-        if (typeElement) setTimeout(typeEffect, 500);
+        // INITIAL PAGE LOADER LOGIC
+        const loaderElement = document.getElementById('page-loader');
+        const loaderTypingText = document.getElementById('loader-typing-text');
+        const loaderWord = "PORTFOLIO.";
+        let loaderCharIndex = 0;
+
+        function typeLoader() {
+            if (!loaderTypingText) return;
+            if (loaderCharIndex < loaderWord.length) {
+                loaderTypingText.textContent += loaderWord.charAt(loaderCharIndex);
+                loaderCharIndex++;
+                setTimeout(typeLoader, 120); 
+            } else {
+                // Done typing loader text, trigger fade out
+                setTimeout(() => {
+                    loaderElement.classList.add('opacity-0', 'pointer-events-none');
+                    document.body.classList.remove('overflow-hidden');
+                    
+                    // Start main hero typing after loader disappears
+                    if (typeElement) setTimeout(typeEffect, 600);
+                    
+                }, 800); // Delay before fading out
+            }
+        }
+        
+        // Start loader immediately
+        setTimeout(typeLoader, 200);
 
         const roles = ["Graphic Designer", "Video Editor", "Digital Designer"];
         let roleIndex = 0;
