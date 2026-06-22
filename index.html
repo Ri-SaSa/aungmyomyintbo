@@ -142,41 +142,61 @@
         
         /* Hide Scrollbar CSS */
         .no-scrollbar::-webkit-scrollbar {
-            display: none !important;
-            width: 0 !important;
-            height: 0 !important;
-            background: transparent !important;
-            -webkit-appearance: none !important;
+            display: none; 
         }
         .no-scrollbar {
-            -ms-overflow-style: none !important;  
-            scrollbar-width: none !important;  
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
         }
         
         ::selection {
             background-color: #0000FF;
             color: white;
         }
+
+        /* Hero Entry Animation */
+        @keyframes heroEnter {
+            0% { opacity: 0; transform: translateY(40px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animate-hero-enter {
+            animation: heroEnter 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Liquid Wave Animation for Loader */
+        .loader-wave-bg {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='%23000000' fill-opacity='1' d='M0,160L48,170.7C96,181,192,203,288,197.3C384,192,480,160,576,165.3C672,171,768,213,864,229.3C960,245,1056,235,1152,208C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: 50% 100%;
+            background-repeat: repeat-x;
+            width: 200%;
+            height: 120px;
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            animation: waveFlow 2s linear infinite;
+            transform: translateY(2px); /* Prevents rendering gap */
+        }
+        @keyframes waveFlow {
+            0% { transform: translateX(0) translateY(2px); }
+            100% { transform: translateX(-50%) translateY(2px); }
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-brand selection:text-white overflow-hidden">
 
-    <!-- PAGE INITIAL LOADER -->
-    <div id="page-loader" class="fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-center transition-opacity duration-700">
-        <!-- "PORTFOLIO" Typing -->
-        <h1 class="font-display text-xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white mb-8 min-h-[28px] md:min-h-[48px] flex items-center">
-            <span id="loader-typing-text" class="typing-cursor"></span>
-        </h1>
-        
-        <!-- Loading Box -->
-        <div class="bg-[#0000FF] text-white text-xs md:text-sm font-bold px-6 py-3 rounded-xl shadow-[0_0_20px_rgba(0,0,255,0.5)] flex items-center gap-3">
-            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Loading the page...
+    <!-- 0. THE LIQUID LOADING SCREEN -->
+    <div id="loader-overlay" class="fixed inset-0 z-[9999] bg-[#0000FF] flex items-center justify-center overflow-hidden transition-opacity duration-1000">
+        <!-- Liquid Black Wave Container -->
+        <div id="loader-liquid" class="absolute left-0 bottom-0 w-full bg-[#000000] z-0" style="height: 0%;">
+            <div class="loader-wave-bg"></div>
         </div>
+        
+        <!-- Percentage Counter -->
+        <h1 id="loader-count" class="relative z-10 font-display font-bold text-7xl md:text-9xl text-white tracking-tighter transition-opacity duration-500">0%</h1>
     </div>
+
+    <!-- MAIN CONTENT WRAPPER (Revealed After Load) -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000 ease-out">
 
     <!-- 1. THE FLOATING GLASS TASKBAR NAVIGATION -->
     <div class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none">
@@ -204,24 +224,24 @@
         </nav>
     </div>
 
-    <!-- 2. HERO LANDING SECTION -->
+        <!-- 2. HERO LANDING SECTION -->
     <section class="relative min-h-screen flex flex-col pt-24 overflow-hidden">
         
-        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full z-10 flex-grow flex flex-col justify-start pt-12 md:pt-20 pb-36 md:pb-44">
-            <div class="max-w-3xl reveal active">
-                <p class="text-sm md:text-base text-neutral-400 font-light mb-0">Hello, I'm</p>
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full z-10 flex-grow flex flex-col justify-end pb-36 md:pb-44">
+            <div id="hero-content" class="max-w-3xl opacity-0">
+                <p class="text-base md:text-lg text-neutral-400 font-light mb-0">Hello, I'm</p>
                 
-                <!-- Dynamic High-Impact Typing Header (Scaled down text sizes and min-heights) -->
-                <h1 class="font-display text-xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white min-h-[28px] md:min-h-[48px] flex items-center leading-none mt-1 mb-1">
+                <!-- Dynamic High-Impact Typing Header -->
+                <h1 class="font-display text-3xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white min-h-[40px] md:min-h-[80px] flex items-center leading-none mt-1 mb-1">
                     <span id="typing-text" class="typing-cursor"></span>
                 </h1>
                 
-                <!-- Role Scroller Box (Scaled down text sizes) -->
-                <h2 class="text-base sm:text-lg md:text-2xl lg:text-3xl font-display font-bold text-[#0000FF] mb-6 min-h-[24px] md:min-h-[40px] flex items-center overflow-visible pb-2 -mt-1 md:-mt-2">
+                <!-- Role Scroller Box -->
+                <h2 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-bold text-[#0000FF] mb-6 min-h-[36px] md:min-h-[60px] flex items-center overflow-visible pb-2 -mt-1 md:-mt-2">
                     <span id="glass-role" class="role-enter-active inline-block">Graphic Designer</span>
                 </h2>
 
-                <p class="text-sm md:text-base text-neutral-400 max-w-2xl font-light leading-relaxed">
+                <p class="text-base md:text-lg text-neutral-400 max-w-2xl font-light leading-relaxed">
                     Based in Yangon, Myanmar. I am a self-taught creative with over 3 years of experience in Graphic Design and 1 year in Video Editing. I transform complex business strategies into striking visual ecosystems, spearheading end-to-end creative production from digital rollouts to corporate environmental layouts.
                 </p>
             </div>
@@ -438,7 +458,7 @@
                 </div>
             </div>
 
-            <!-- CAMPAIGN DESIGN PART -->
+            <!-- CAMPAIGN DESIGN PART (NEW) -->
             <div class="mb-24">
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Campaign Design</h3>
                 
@@ -450,7 +470,7 @@
                         <i data-lucide="chevron-left" class="w-5 h-5"></i>
                     </button>
                     
-                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2" style="-ms-overflow-style: none; scrollbar-width: none;">
+                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2">
                         <!-- 6 Images -->
                         <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
                             <img src="Campaign1.jpg" alt="Campaign 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
@@ -492,7 +512,7 @@
                         <i data-lucide="chevron-left" class="w-5 h-5"></i>
                     </button>
                     
-                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2" style="-ms-overflow-style: none; scrollbar-width: none;">
+                    <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2">
                         <!-- Ad 1 -->
                         <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
                             <img src="ads1.jpg" alt="Social Media Ad 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
@@ -551,21 +571,21 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal">
                     <!-- Video Block 1 -->
                     <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video1.mp4', 'video')">
-                        <video autoplay muted loop playsinline width="100%" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
+                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
                             <source src="video1.mp4" type="video/mp4">
                         </video>
                     </div>
                     
                     <!-- Video Block 2 -->
                     <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video2.mp4', 'video')">
-                        <video autoplay muted loop playsinline width="100%" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
+                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
                             <source src="video2.mp4" type="video/mp4">
                         </video>
                     </div>
 
                     <!-- Video Block 3 -->
                     <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video3.mp4', 'video')">
-                        <video autoplay muted loop playsinline width="100%" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
+                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
                             <source src="video3.mp4" type="video/mp4">
                         </video>
                     </div>
@@ -725,6 +745,8 @@
         </div>
     </div>
 
+    </div> <!-- END OF MAIN CONTENT WRAPPER -->
+
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
         // Initialize Icons
@@ -738,105 +760,158 @@
         document.addEventListener('DOMContentLoaded', safeInitIcons);
         safeInitIcons();
 
-        // 1. Intersection Observer for Scroll Reveals
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    observer.unobserve(entry.target);
-                }
+        // Global fallback for missing images inside the preview environment
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('img').forEach(img => {
+                img.addEventListener('error', function() {
+                    this.onerror = null; 
+                    const altText = this.alt || 'Asset';
+                    this.src = `https://placehold.co/800x800/111111/444444?text=${encodeURIComponent(altText)}`;
+                });
             });
-        }, { threshold: 0.1 });
+        });
 
-        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+        // ==========================================
+        // PAGE LOADING & ENTRANCE ANIMATION LOGIC
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            const loaderOverlay = document.getElementById('loader-overlay');
+            const loaderLiquid = document.getElementById('loader-liquid');
+            const loaderCount = document.getElementById('loader-count');
+            const mainContent = document.getElementById('main-content');
+            const heroSection = document.getElementById('hero-content');
+            
+            let progress = 0;
+            const totalDuration = 2200; // Time in MS it takes to fill
+            const intervalTime = 20; 
+            const step = (100 / (totalDuration / intervalTime));
 
-        // 2. HERO ANIMATIONS
-        const typeElement = document.getElementById('typing-text');
-        const name1 = "Aung Myo Myint Bo.";
-        const name2 = "Ri.";
-        
-        let currentText = "";
-        let isDeleting = false;
-        let isName2 = false; 
-        let charIndex = 0;
-        
-        function typeEffect() {
-            if (!typeElement) return;
-            const fullString = isName2 ? name2 : name1;
-            
-            if (isDeleting) {
-                currentText = fullString.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                currentText = fullString.substring(0, charIndex + 1);
-                charIndex++;
-            }
-            
-            typeElement.textContent = currentText;
-            
-            let typingSpeed = isDeleting ? 40 : 100; 
-            
-            if (!isDeleting && charIndex === fullString.length) {
-                typingSpeed = 3000;
-                isDeleting = true;
-            } 
-            else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                isName2 = !isName2; 
-                typingSpeed = 500; 
-            }
-            setTimeout(typeEffect, typingSpeed);
-        }
-        
-        // INITIAL PAGE LOADER LOGIC
-        const loaderElement = document.getElementById('page-loader');
-        const loaderTypingText = document.getElementById('loader-typing-text');
-        const loaderWord = "PORTFOLIO.";
-        let loaderCharIndex = 0;
-
-        function typeLoader() {
-            if (!loaderTypingText) return;
-            if (loaderCharIndex < loaderWord.length) {
-                loaderTypingText.textContent += loaderWord.charAt(loaderCharIndex);
-                loaderCharIndex++;
-                setTimeout(typeLoader, 120); 
-            } else {
-                // Done typing loader text, trigger fade out
-                setTimeout(() => {
-                    loaderElement.classList.add('opacity-0', 'pointer-events-none');
-                    document.body.classList.remove('overflow-hidden');
+            const loaderInterval = setInterval(() => {
+                progress += step;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(loaderInterval);
                     
-                    // Start main hero typing after loader disappears
-                    if (typeElement) setTimeout(typeEffect, 600);
+                    loaderCount.innerText = "100%";
+                    loaderLiquid.style.height = "100%";
                     
-                }, 800); // Delay before fading out
-            }
-        }
-        
-        // Start loader immediately
-        setTimeout(typeLoader, 200);
+                    // Exit sequence when fully black
+                    setTimeout(() => {
+                        // Fade counter text out
+                        loaderCount.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            // Fade out loader screen and reveal main site underneath (which is also black)
+                            loaderOverlay.style.opacity = '0';
+                            loaderOverlay.style.pointerEvents = 'none';
+                            
+                            mainContent.classList.remove('opacity-0');
+                            document.body.classList.remove('overflow-hidden');
+                            
+                            // Trigger Page in animation for hero text
+                            if(heroSection) {
+                                heroSection.classList.add('animate-hero-enter');
+                            }
+                            
+                            // Kickoff the rest of the site's animations
+                            if(typeof window.initPageAnimations === 'function') {
+                                window.initPageAnimations();
+                            }
+                            
+                            // Cleanup DOM
+                            setTimeout(() => loaderOverlay.remove(), 1000);
+                        }, 400); // Wait for counter to fade
+                    }, 200); // Pause briefly at 100%
+                } else {
+                    loaderCount.innerText = Math.floor(progress) + "%";
+                    loaderLiquid.style.height = progress + "%";
+                }
+            }, intervalTime);
+        });
 
-        const roles = ["Graphic Designer", "Video Editor", "Digital Designer"];
-        let roleIndex = 0;
-        const roleElement = document.getElementById('glass-role');
-        
-        if (roleElement) {
-            setInterval(() => {
-                roleElement.classList.remove('role-enter-active');
-                roleElement.classList.add('role-exit-active');
+        // ==========================================
+        // MAIN PAGE ANIMATIONS & INTERACTIVITY
+        // ==========================================
+        window.initPageAnimations = function() {
+            // 1. Intersection Observer for Scroll Reveals
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+            // 2. HERO ANIMATIONS (Typing Effect)
+            const typeElement = document.getElementById('typing-text');
+            const name1 = "Aung Myo Myint Bo.";
+            const name2 = "Ri.";
+            
+            let currentText = "";
+            let isDeleting = false;
+            let isName2 = false; 
+            let charIndex = 0;
+            
+            function typeEffect() {
+                if (!typeElement) return;
+                const fullString = isName2 ? name2 : name1;
                 
-                setTimeout(() => {
-                    roleIndex = (roleIndex + 1) % roles.length;
-                    roleElement.textContent = roles[roleIndex];
-                    
-                    roleElement.classList.remove('role-exit-active');
-                    void roleElement.offsetWidth; 
-                    roleElement.classList.add('role-enter-active');
-                }, 500); 
-            }, 3500); 
-        }
+                if (isDeleting) {
+                    currentText = fullString.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    currentText = fullString.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+                
+                typeElement.textContent = currentText;
+                
+                let typingSpeed = isDeleting ? 40 : 100; 
+                
+                if (!isDeleting && charIndex === fullString.length) {
+                    typingSpeed = 3000;
+                    isDeleting = true;
+                } 
+                else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    isName2 = !isName2; 
+                    typingSpeed = 500; 
+                }
+                setTimeout(typeEffect, typingSpeed);
+            }
+            
+            if (typeElement) setTimeout(typeEffect, 500);
 
-        // 3. Number Counter Animations
+            // Role Scroller
+            const roles = ["Graphic Designer", "Video Editor", "Digital Designer"];
+            let roleIndex = 0;
+            const roleElement = document.getElementById('glass-role');
+            
+            if (roleElement) {
+                setInterval(() => {
+                    roleElement.classList.remove('role-enter-active');
+                    roleElement.classList.add('role-exit-active');
+                    
+                    setTimeout(() => {
+                        roleIndex = (roleIndex + 1) % roles.length;
+                        roleElement.textContent = roles[roleIndex];
+                        
+                        roleElement.classList.remove('role-exit-active');
+                        void roleElement.offsetWidth; 
+                        roleElement.classList.add('role-enter-active');
+                    }, 500); 
+                }, 3500); 
+            }
+
+            // Start Counters
+            const workSection = document.getElementById('work');
+            if(workSection) counterObserver.observe(workSection);
+        };
+
+        // 3. Number Counter Logic
         function animateValue(obj, start, end, duration, prefix = "", suffix = "") {
             if (!obj) return; 
             let startTimestamp = null;
@@ -867,8 +942,6 @@
             });
         }
 
-        const workSection = document.getElementById('work');
-        
         function triggerCounters() {
             animateValue(document.getElementById('epic-inquiry'), 0, 90, 1500, "+", "%");
             animateValue(document.getElementById('epic-brands'), 1, 3, 1500, "", " Brands");
@@ -889,8 +962,6 @@
             });
         }, { threshold: 0.3 }); 
 
-        if(workSection) counterObserver.observe(workSection);
-        
         // 4. Drag to scroll logic & Arrow triggers for showcase containers
         const sliders = document.querySelectorAll('.draggable-slider');
         sliders.forEach(slider => {
@@ -901,7 +972,7 @@
             slider.addEventListener('mousedown', (e) => {
                 isDown = true;
                 slider.classList.add('active:cursor-grabbing');
-                slider.style.scrollSnapType = 'none'; // Temporarily disable snapping for smooth dragging
+                slider.style.scrollSnapType = 'none';
                 startX = e.pageX - slider.offsetLeft;
                 scrollLeft = slider.scrollLeft;
             });
@@ -922,15 +993,14 @@
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 1.5; // Drag speed multiplier
+                const walk = (x - startX) * 1.5;
                 slider.scrollLeft = scrollLeft - walk;
             });
 
-            // Arrow button setup
             const wrapper = slider.parentElement;
             const leftBtn = wrapper.querySelector('.scroll-left-btn');
             const rightBtn = wrapper.querySelector('.scroll-right-btn');
-            const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 374; // Card width + gap
+            const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 374;
 
             if(leftBtn) {
                 leftBtn.addEventListener('click', () => {
