@@ -733,17 +733,6 @@
 
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        // Global fallback for missing images inside the preview environment
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('img').forEach(img => {
-                img.addEventListener('error', function() {
-                    this.onerror = null; 
-                    const altText = this.alt || 'Asset';
-                    this.src = `https://placehold.co/800x800/111111/444444?text=${encodeURIComponent(altText)}`;
-                });
-            });
-        });
-
         // ==========================================
         // PAGE ENTRANCE ANIMATION LOGIC
         // ==========================================
