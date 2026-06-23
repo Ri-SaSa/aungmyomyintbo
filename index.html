@@ -570,24 +570,22 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal">
                     <!-- Video Block 1 -->
-                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video1.mp4', 'video')">
-                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
-                            <source src="video1.mp4" type="video/mp4">
-                        </video>
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('Q9OExgpdSz4', 'youtube-short')">
+                        <iframe src="https://www.youtube.com/embed/Q9OExgpdSz4?autoplay=1&mute=1&loop=1&playlist=Q9OExgpdSz4&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
+                        <!-- Transparent overlay to catch clicks instead of the iframe -->
+                        <div class="absolute inset-0 z-10 bg-transparent"></div>
                     </div>
                     
                     <!-- Video Block 2 -->
-                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video2.mp4', 'video')">
-                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
-                            <source src="video2.mp4" type="video/mp4">
-                        </video>
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('hiY1v1-H5b0', 'youtube-short')">
+                        <iframe src="https://www.youtube.com/embed/hiY1v1-H5b0?autoplay=1&mute=1&loop=1&playlist=hiY1v1-H5b0&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
+                        <div class="absolute inset-0 z-10 bg-transparent"></div>
                     </div>
 
                     <!-- Video Block 3 -->
-                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('video3.mp4', 'video')">
-                        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 autoplay-on-scroll">
-                            <source src="video3.mp4" type="video/mp4">
-                        </video>
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('oS7ad4jZ3Ks', 'youtube-short')">
+                        <iframe src="https://www.youtube.com/embed/oS7ad4jZ3Ks?autoplay=1&mute=1&loop=1&playlist=oS7ad4jZ3Ks&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
+                        <div class="absolute inset-0 z-10 bg-transparent"></div>
                     </div>
                 </div>
             </div>
@@ -740,7 +738,7 @@
             <!-- Iframe injected via JS -->
         </div>
 
-        <div id="lightbox-video-container" class="hidden w-full max-w-[350px] aspect-[9/16] bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]" onclick="event.stopPropagation()">
+        <div id="lightbox-video-container" class="hidden bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]" onclick="event.stopPropagation()">
             <!-- Video injected via JS -->
         </div>
     </div>
@@ -1138,7 +1136,20 @@
                 tiktokContainer.innerHTML = '';
                 if (videoContainer) {
                     videoContainer.classList.remove('hidden');
+                    videoContainer.className = "w-full max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]";
                     videoContainer.innerHTML = `<video controls autoplay class="w-full h-full object-cover"><source src="${src}" type="video/mp4"></video>`;
+                }
+            } else if (type === 'youtube-short') {
+                imgElement.classList.add('hidden');
+                imgElement.src = '';
+                tiktokContainer.classList.add('hidden');
+                tiktokContainer.innerHTML = '';
+                if (videoContainer) {
+                    videoContainer.classList.remove('hidden');
+                    // Immersive full-screen feel sizing
+                    videoContainer.className = "w-full max-w-[450px] h-[85vh] bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]";
+                    // Embed with controls=1 and allowfullscreen so users can maximize it
+                    videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${src}?autoplay=1&rel=0&playsinline=1&controls=1" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                 }
             }
             
