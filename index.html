@@ -3,13 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aung Myo Myint Bo (Ri) | Lead Multimedia Designer</title>
+    <title>Aung Myo Myint Bo | Portfolio</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons via JSDelivr CDN for extreme stability -->
-    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
 
     <!-- Google Fonts: Syne for premium headings, Inter for high-density reading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -154,15 +152,6 @@
             color: white;
         }
 
-        /* Hero Entry Animation */
-        @keyframes heroEnter {
-            0% { opacity: 0; transform: translateY(40px) scale(0.98); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .animate-hero-enter {
-            animation: heroEnter 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
         /* Page Entrance Animations */
         @keyframes fadeUp {
             0% { opacity: 0; transform: translateY(50px); }
@@ -184,7 +173,8 @@
 
     <!-- 1. THE FLOATING GLASS TASKBAR NAVIGATION -->
     <div class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none page-enter-nav">
-        <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.4)] transition-all duration-300 hover:bg-white/10 hover:border-white/20">
+        <!-- Upgraded Glassmorphism Effect for Menu Bar -->
+        <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-white/10 backdrop-blur-2xl border border-white/20 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all duration-300 hover:bg-white/15 hover:border-white/30">
             <div class="w-full max-w-7xl px-4 md:px-8 flex items-center justify-between">
                 
                 <!-- Left: Portfolio in Blue with White Glow Hover -->
@@ -235,30 +225,30 @@
         <div class="absolute bottom-10 left-0 w-full overflow-hidden flex z-20 page-enter-logos">
             <div class="flex w-max animate-marquee">
                 
-                <!-- Set 1 of 9 Logos -->
+                <!-- Set 1 of 9 Logos (Updated to .webp) -->
                 <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 flex-shrink-0">
-                    <img src="Logo1.png" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo2.png" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo3.png" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo4.png" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo5.png" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo6.png" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo7.png" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo8.png" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo9.png" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo1.webp" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo2.webp" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo3.webp" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo4.webp" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo5.webp" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo6.webp" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo7.webp" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo8.webp" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo9.webp" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
                 </div>
 
-                <!-- Set 2 of 9 Logos -->
+                <!-- Set 2 of 9 Logos (Updated to .webp) -->
                 <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 flex-shrink-0">
-                    <img src="Logo1.png" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo2.png" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo3.png" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo4.png" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo5.png" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo6.png" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo7.png" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo8.png" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo9.png" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo1.webp" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo2.webp" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo3.webp" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo4.webp" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo5.webp" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo6.webp" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo7.webp" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo8.webp" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo9.webp" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
                 </div>
             </div>
         </div>
@@ -363,25 +353,25 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal mb-24">
                 <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                    <i data-lucide="pen-tool" class="w-8 h-8 text-[#0000FF] mb-6"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-[#0000FF] mb-6"><path d="m12 19 7-7 3 3-7 7-3-3z"/><path d="m18 13-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="m2 2 7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
                     <h3 class="text-xl font-bold mb-3">Graphic Design</h3>
                     <p class="text-neutral-400 text-sm leading-relaxed">Corporate identities, signboards, print layouts, brochures, and environmental graphics designed for deep brand authority.</p>
                 </div>
 
                 <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                    <i data-lucide="video" class="w-8 h-8 text-[#0000FF] mb-6"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-[#0000FF] mb-6"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
                     <h3 class="text-xl font-bold mb-3">Video Editing</h3>
                     <p class="text-neutral-400 text-sm leading-relaxed">High-conversion promotional social advertisements, dynamic motion graphics, and full CapCut post-production loops.</p>
                 </div>
                 
                 <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                    <i data-lucide="film" class="w-8 h-8 text-[#0000FF] mb-6"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-[#0000FF] mb-6"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg>
                     <h3 class="text-xl font-bold mb-3">Motion Graphic</h3>
                     <p class="text-neutral-400 text-sm leading-relaxed">Bringing static assets to life through dynamic animations, seamless transitions, and engaging visual storytelling.</p>
                 </div>
 
                 <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                    <i data-lucide="monitor" class="w-8 h-8 text-[#0000FF] mb-6"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 text-[#0000FF] mb-6"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg>
                     <h3 class="text-xl font-bold mb-3">Web Design</h3>
                     <p class="text-neutral-400 text-sm leading-relaxed">Interactive layout systems, professional UI/UX design, and cross-channel marketing collateral optimized for performance metrics.</p>
                 </div>
@@ -432,23 +422,23 @@
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Brand & Identity</h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal">
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand1.webp', 'image')">
                         <img src="Brand1.webp" alt="Brand Identity 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand2.webp', 'image')">
                         <img src="Brand2.webp" alt="Brand Identity 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand3.webp', 'image')">
                         <img src="Brand3.webp" alt="Brand Identity 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
                 </div>
 
-                <div class="w-full max-w-3xl mx-auto aspect-square flex items-center justify-center overflow-visible group reveal">
+                <div class="w-full max-w-3xl mx-auto aspect-square flex items-center justify-center overflow-visible group reveal cursor-pointer" onclick="openLightbox('phone.webp', 'image')">
                     <img src="phone.webp" alt="Phone Mockup Presentation" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                 </div>
             </div>
 
-            <!-- CAMPAIGN DESIGN PART (NEW) -->
+            <!-- CAMPAIGN DESIGN PART -->
             <div class="mb-24">
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Campaign Design</h3>
                 
@@ -457,34 +447,34 @@
                     
                     <!-- Left Arrow -->
                     <button class="absolute left-2 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn hidden sm:flex shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m15 18-6-6 6-6"/></svg>
                     </button>
                     
                     <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2">
                         <!-- 6 Images -->
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign1.webp', 'image')">
                             <img src="Campaign1.webp" alt="Campaign 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign2.webp', 'image')">
                             <img src="Campaign2.webp" alt="Campaign 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign3.webp', 'image')">
                             <img src="Campaign3.webp" alt="Campaign 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign4.webp', 'image')">
                             <img src="Campaign4.webp" alt="Campaign 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign5.webp', 'image')">
                             <img src="Campaign5.webp" alt="Campaign 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign6.webp', 'image')">
                             <img src="Campaign6.webp" alt="Campaign 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                     </div>
                     
                     <!-- Right Arrow -->
                     <button class="absolute right-2 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn hidden sm:flex shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
                     
                 </div>
@@ -499,39 +489,39 @@
                     
                     <!-- Left Arrow -->
                     <button class="absolute left-2 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn hidden sm:flex shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m15 18-6-6 6-6"/></svg>
                     </button>
                     
                     <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2">
                         <!-- Ad 1 -->
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social1.webp', 'image')">
                             <img src="Social1.webp" alt="Social Media Ad 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                         <!-- Ad 2 -->
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social2.webp', 'image')">
                             <img src="Social2.webp" alt="Social Media Ad 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                         <!-- Ad 3 -->
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social3.webp', 'image')">
                             <img src="Social3.webp" alt="Social Media Ad 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                         <!-- Ad 4 -->
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social4.webp', 'image')">
                             <img src="Social4.webp" alt="Social Media Ad 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                         <!-- Ad 5 -->
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social5.webp', 'image')">
                             <img src="Social5.webp" alt="Social Media Ad 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                         <!-- Ad 6 -->
-                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social6.webp', 'image')">
                             <img src="Social6.webp" alt="Social Media Ad 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                     </div>
                     
                     <!-- Right Arrow -->
                     <button class="absolute right-2 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn hidden sm:flex shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="m9 18 6-6-6-6"/></svg>
                     </button>
                     
                 </div>
@@ -542,19 +532,19 @@
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Print Design</h3>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal">
-                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group">
+                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print1.webp', 'image')">
                         <img src="Print1.webp" alt="Print Design 1" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     </div>
-                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group">
+                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print2.webp', 'image')">
                         <img src="Print2.webp" alt="Print Design 2" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     </div>
-                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group">
+                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print3.webp', 'image')">
                         <img src="Print3.webp" alt="Print Design 3" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     </div>
                 </div>
             </div>
 
-            <!-- MANIPULATION PART (NEW) -->
+            <!-- MANIPULATION PART -->
             <div class="mt-24">
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Manipulation</h3>
                 
@@ -618,7 +608,7 @@
                     
                     <div class="flex flex-wrap gap-4">
                         <a href="cv.pdf" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#0000FF] text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-white hover:text-[#0000FF] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] group w-max">
-                            <i data-lucide="eye" class="w-4 h-4 group-hover:-translate-y-1 transition-transform"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 group-hover:-translate-y-1 transition-transform"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
                             View CV
                         </a>
                     </div>
@@ -651,12 +641,12 @@
                     
                     <div class="flex flex-col gap-4 h-full">
                         <a href="mailto:ri.aungmyomyintbo@gmail.com" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                            <i data-lucide="mail" class="w-5 h-5 group-hover:text-[#0000FF] transition-colors"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:text-[#0000FF] transition-colors"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                             <span class="font-medium text-sm">ri.aungmyomyintbo@gmail.com</span>
                         </a>
 
                         <a href="tel:+959669915726" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                            <i data-lucide="phone" class="w-5 h-5 group-hover:text-[#0000FF] transition-colors"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 group-hover:text-[#0000FF] transition-colors"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
                             <span class="font-medium text-sm">+959 669 915 726</span>
                         </a>
 
@@ -694,7 +684,7 @@
                         
                         <button type="submit" class="bg-[#0000FF] text-white px-8 py-4 rounded-2xl font-bold hover:bg-white hover:text-[#0000FF] transition-all duration-300 w-full shadow-[0_0_20px_rgba(0,0,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] flex justify-center items-center gap-3 group mt-1">
                             Send Message
-                            <i data-lucide="send" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform group-hover:text-[#0000FF]"></i>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform group-hover:text-[#0000FF]"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
                         </button>
                     </form>
                 </div>
@@ -743,17 +733,6 @@
 
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        // Initialize Icons
-        function safeInitIcons() {
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
-            } else {
-                setTimeout(safeInitIcons, 50);
-            }
-        }
-        document.addEventListener('DOMContentLoaded', safeInitIcons);
-        safeInitIcons();
-
         // Global fallback for missing images inside the preview environment
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('img').forEach(img => {
@@ -766,10 +745,10 @@
         });
 
         // ==========================================
-        // PAGE LOADING & ENTRANCE ANIMATION LOGIC
+        // PAGE ENTRANCE ANIMATION LOGIC
         // ==========================================
         document.addEventListener('DOMContentLoaded', () => {
-            // Start the page animations immediately on load
+            // Kickoff the rest of the site's animations on load
             if(typeof window.initPageAnimations === 'function') {
                 window.initPageAnimations();
             }
