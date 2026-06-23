@@ -128,21 +128,6 @@
         .delay-5 { animation-delay: 1.2s; }
         .delay-6 { animation-delay: 1.5s; }
         
-        /* Loader Flash Animation */
-        @keyframes flashText {
-            0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(255,255,255,0.8); }
-            50% { opacity: 0.3; text-shadow: none; }
-        }
-        .animate-flash { animation: flashText 1.5s ease-in-out infinite; }
-
-        /* Flashy Thank You Pop */
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            70% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-        .animate-pop-in { animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        
         /* Smooth Entrance scroll animations */
         .reveal {
             opacity: 0;
@@ -172,7 +157,7 @@
         ::selection { background-color: #0000FF; color: white; }
     </style>
 </head>
-<body class="antialiased selection:bg-brand selection:text-white bg-black animate-page-fade">
+<body class="antialiased selection:bg-brand selection:text-white bg-black overflow-hidden">
 
     <!-- 0. FLASHING PORTFOLIO LOADER -->
     <div id="intro-loader" class="fixed inset-0 z-[9999] bg-[#000000] flex items-center justify-center transition-opacity duration-1000">
@@ -181,13 +166,16 @@
         </h1>
     </div>
 
-    <!-- 1. THE FLOATING GLASS TASKBAR NAVIGATION -->
-    <div class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none animate-menu-slide">
-        <!-- Enhanced Glass Effect applied here -->
-        <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-black/60 backdrop-blur-md border border-white/20 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 hover:bg-black/80 hover:border-white/30">
-            <div class="w-full max-w-7xl px-4 md:px-8 flex items-center justify-between">
-                
-                <!-- Left: Portfolio in Blue with White Glow Hover -->
+    <!-- MAIN CONTENT WRAPPER -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-1000 ease-out">
+
+        <!-- 1. THE FLOATING GLASS TASKBAR NAVIGATION -->
+        <div id="nav-container" class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none opacity-0">
+            <!-- Enhanced Heavy Glass Effect applied here -->
+            <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-white/5 backdrop-blur-xl border border-white/10 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 hover:bg-white/10 hover:border-white/20">
+                <div class="w-full max-w-7xl px-4 md:px-8 flex items-center justify-between">
+                    
+                    <!-- Left: Portfolio in Blue with White Glow Hover -->
                     <a href="#" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
                         Portfolio.
                     </a>
@@ -778,27 +766,44 @@
             // Flashy text loading screen duration
             setTimeout(() => {
                 const loader = document.getElementById('intro-loader');
-                if(loader) {
-                    loader.classList.add('opacity-0');
-                    setTimeout(() => {
-                        loader.style.display = 'none';
-                    }, 1000); 
-                }
+                loader.classList.add('opacity-0');
+                
+                // Wait for the fade out to finish before removing from DOM and starting other animations
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    
+                    document.getElementById('main-content').classList.remove('opacity-0');
+                    document.body.classList.remove('overflow-hidden');
+                    
+                    // Trigger the entrance animations via JS so they happen strictly after loading screen
+                    document.getElementById('nav-container').classList.add('animate-menu-slide');
+                    document.getElementById('hero-content').classList.add('animate-hero-up');
+                    document.getElementById('logo-container').classList.add('animate-logos-up');
+
+                    // Kick off typing logic
+                    initTypingEffect();
+
+                }, 1000); 
             }, 2000); 
+        });
 
-            // 1. Intersection Observer for Scroll Reveals
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1 });
+        // ==========================================
+        // MAIN PAGE ANIMATIONS & INTERACTIVITY
+        // ==========================================
+        
+        // Intersection Observer for Scroll Reveals
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
-            document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
-
-            // 2. HERO ANIMATIONS (Typing Effect)
+        // 2. HERO ANIMATIONS (Typing Effect)
+        function initTypingEffect() {
             const typeElement = document.getElementById('typing-text');
             const name1 = "Aung Myo Myint Bo.";
             const name2 = "Ri.";
@@ -835,8 +840,7 @@
                 }
                 setTimeout(typeEffect, typingSpeed);
             }
-            
-            if (typeElement) setTimeout(typeEffect, 1200);
+            if (typeElement) setTimeout(typeEffect, 500);
 
             // Role Scroller
             const roles = ["Graphic Designer", "Video Editor", "Digital Designer"];
@@ -858,12 +862,12 @@
                     }, 500); 
                 }, 3500); 
             }
+        }
 
-            // Start Counters Safely
-            const workSection = document.getElementById('work');
-            if(workSection) counterObserver.observe(workSection);
-        });
-
+        // Start Counters
+        const workSection = document.getElementById('work');
+        if(workSection) counterObserver.observe(workSection);
+        
         // 3. Number Counter Logic
         function animateValue(obj, start, end, duration, prefix = "", suffix = "") {
             if (!obj) return; 
@@ -967,62 +971,46 @@
             }
         });
 
-        // 5. Interactive 5-Star Rating Logic
-        const stars = document.querySelectorAll('.star-btn');
-        const ratingText = document.getElementById('rating-text');
-        const ratingWidget = document.getElementById('rating-widget');
-        let hasRated = false;
-
-        stars.forEach((star, index) => {
-            star.addEventListener('mouseover', () => {
-                if (hasRated) return;
-                stars.forEach((s, i) => {
-                    if (i <= index) {
-                        s.classList.remove('text-neutral-600');
-                        s.classList.add('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
-                    } else {
-                        s.classList.add('text-neutral-600');
-                        s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
-                    }
-                });
-            });
-
-            star.parentElement.addEventListener('mouseleave', () => {
-                if (hasRated) return;
-                stars.forEach(s => {
-                    s.classList.add('text-neutral-600');
-                    s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
-                });
-            });
-
-            star.addEventListener('click', () => {
-                if (hasRated) return;
-                hasRated = true;
-                const rating = index + 1;
+        // 5. Interactive AJAX Contact Form 
+        const contactForm = document.getElementById('contact-form');
+        if(contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); // Stop page reload completely
                 
-                // INSTANT Flashy UI Update
-                ratingText.style.display = "none";
-                ratingWidget.innerHTML = `<h3 class="text-4xl md:text-6xl font-display font-bold text-[#0000FF] animate-pop-in drop-shadow-[0_0_20px_rgba(0,0,255,0.8)] text-center">Thank You So Much!</h3>`;
-
-                fetch("https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com", {
-                    method: "POST",
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        _subject: `New ${rating}-Star Portfolio Rating!`,
-                        rating: `${rating} out of 5 stars`,
-                        message: `A visitor just rated your website ${rating} out of 5 stars.`
-                    })
-                }).catch(e => console.log("Rating successful."));
+                const btn = this.querySelector('button[type="submit"]');
+                const originalContent = btn.innerHTML;
+                
+                btn.innerHTML = 'Sending...';
+                btn.disabled = true;
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    body: new FormData(this),
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+                        btn.innerHTML = 'Message Sent Successfully!';
+                        btn.classList.add('bg-white', 'text-[#0000FF]');
+                        this.reset();
+                        
+                        setTimeout(() => {
+                            btn.innerHTML = originalContent;
+                            btn.classList.remove('bg-white', 'text-[#0000FF]');
+                            btn.disabled = false;
+                        }, 4000);
+                    } else {
+                        btn.innerHTML = 'Error Sending';
+                        btn.disabled = false;
+                        setTimeout(() => { btn.innerHTML = originalContent; }, 3000);
+                    }
+                }).catch(error => {
+                    btn.innerHTML = 'Network Error';
+                    btn.disabled = false;
+                    setTimeout(() => { btn.innerHTML = originalContent; }, 3000);
+                });
             });
-        });
+        }
 
-        // 6. Mobile Dropdown Menu Logic
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        let menuOpen = false;
         // 6. Interactive 5-Star Rating Logic (With Flashy Text)
         const stars = document.querySelectorAll('.star-btn');
         const ratingText = document.getElementById('rating-text');
