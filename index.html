@@ -5,18 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aung Myo Myint Bo | Portfolio</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
 
-    <!-- Tailwind Config -->
     <script>
         window.tailwind = window.tailwind || {};
         window.tailwind.config = {
@@ -41,7 +37,6 @@
         }
     </script>
 
-    <!-- Custom Styles -->
     <style>
         body {
             background-color: #000000;
@@ -49,11 +44,27 @@
             overflow-x: hidden;
         }
 
-        /* --- Professional Entrance Animations --- */
-        @keyframes pageFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        /* --- BULLETPROOF INTRO ANIMATIONS --- */
+        @keyframes introScreenFade {
+            0% { opacity: 1; visibility: visible; }
+            80% { opacity: 1; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; z-index: -1; display: none; }
         }
+        @keyframes introTextFlash {
+            0% { opacity: 0; transform: scale(0.95); }
+            20% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.05); }
+        }
+        
+        #intro-screen {
+            animation: introScreenFade 2.5s ease forwards;
+        }
+        #intro-text {
+            animation: introTextFlash 2.5s ease forwards;
+        }
+
+        /* --- Professional Entrance Animations --- */
         @keyframes menuSlideDown {
             from { transform: translateY(-150%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
@@ -67,10 +78,9 @@
             to { transform: translateY(0) scale(1); opacity: 1; }
         }
 
-        .animate-page-fade { animation: pageFadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .animate-menu-slide { animation: menuSlideDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
-        .animate-hero-up { animation: heroContentUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
-        .animate-logos-up { animation: logosSlideUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        .animate-menu-slide { animation: menuSlideDown 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 1.8s; opacity: 0; }
+        .animate-hero-up { animation: heroContentUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 2.0s; opacity: 0; }
+        .animate-logos-up { animation: logosSlideUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; animation-delay: 2.3s; opacity: 0; }
 
         /* Glass Box Role Animations */
         @keyframes roleEnter {
@@ -142,606 +152,577 @@
         ::selection { background-color: #0000FF; color: white; }
     </style>
 </head>
-<body class="antialiased selection:bg-brand selection:text-white bg-black overflow-hidden">
+<body class="antialiased selection:bg-brand selection:text-white bg-black">
 
-    <!-- 0. INTRO LOADING SCREEN (Flashing Portfolio text) -->
-    <div id="intro-screen" class="fixed inset-0 z-[9999] bg-black flex items-center justify-center transition-opacity duration-1000">
-        <h1 class="font-display font-bold text-4xl md:text-6xl text-white tracking-widest animate-pulse">Portfolio.</h1>
-    </div>
-
-    <!-- MAIN CONTENT WRAPPER -->
-    <div id="main-content" class="opacity-0 transition-opacity duration-1000">
-
-        <!-- 1. THE FLOATING GLASS TASKBAR NAVIGATION -->
-        <!-- Enhanced with exact 80% black glass (bg-black/80) -->
-        <div class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none animate-menu-slide" style="animation-delay: 0.5s;">
-            <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-black/80 backdrop-blur-2xl border border-white/10 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.6)] transition-all duration-300 hover:bg-black/90 hover:border-white/20" style="backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);">
-                <div class="w-full max-w-7xl px-4 md:px-8 flex items-center justify-between">
-                    
-                    <!-- Left: Portfolio in Blue with White Glow Hover -->
-                    <a href="#" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
-                        Portfolio.
-                    </a>
-                    
-                    <!-- Center Links -->
-                    <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-300">
-                        <a href="#work" class="hover:text-[#0000FF] transition-colors duration-300">Work</a>
-                        <a href="#expertise" class="hover:text-[#0000FF] transition-colors duration-300">Expertise</a>
-                        <a href="#showcase" class="hover:text-[#0000FF] transition-colors duration-300">Showcase</a>
-                        <a href="#about" class="hover:text-[#0000FF] transition-colors duration-300">About</a>
-                    </div>
-
-                    <!-- Right: Hire Me in Blue with White Glow Hover -->
-                    <a href="#contact" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
-                        Hire Me.
-                    </a>
-                </div>
-            </nav>
-        </div>
-
-        <!-- 2. HERO LANDING SECTION -->
-        <section class="relative min-h-screen flex flex-col pt-24 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 w-full z-10 flex-grow flex flex-col justify-end pb-36 md:pb-44 animate-hero-up" style="animation-delay: 0.7s;">
-                <div id="hero-content" class="max-w-3xl">
-                    <p class="text-base md:text-lg text-neutral-400 font-light mb-0">Hello, I'm</p>
-                    
-                    <!-- Dynamic High-Impact Typing Header -->
-                    <h1 class="font-display text-3xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white min-h-[40px] md:min-h-[80px] flex items-center leading-none mt-1 mb-1">
-                        <span id="typing-text" class="typing-cursor"></span>
-                    </h1>
-                    
-                    <!-- Role Scroller Box -->
-                    <h2 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-bold text-[#0000FF] mb-6 min-h-[36px] md:min-h-[60px] flex items-center overflow-visible pb-2 -mt-1 md:-mt-2">
-                        <span id="glass-role" class="role-enter-active inline-block">Graphic Designer</span>
-                    </h2>
-
-                    <p class="text-base md:text-lg text-neutral-400 max-w-2xl font-light leading-relaxed">
-                        Based in Yangon, Myanmar. I am a self-taught creative with over 3 years of experience in Graphic Design and 1 year in Video Editing. I transform complex business strategies into striking visual ecosystems, spearheading end-to-end creative production from digital rollouts to corporate environmental layouts.
-                    </p>
-                </div>
-            </div>
-
-            <!-- 3. INFINITE LOGO MARQUEE -->
-            <div class="absolute bottom-10 left-0 w-full overflow-hidden flex z-20 animate-logos-up" style="animation-delay: 0.9s;">
-                <div class="flex w-max animate-marquee">
-                    <!-- Set 1 of Logos -->
-                    <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 flex-shrink-0">
-                        <img src="Logo1.webp" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo2.webp" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo3.webp" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo4.webp" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo5.webp" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo6.webp" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo7.webp" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo8.webp" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo9.webp" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    </div>
-
-                    <!-- Set 2 of Logos -->
-                    <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 flex-shrink-0">
-                        <img src="Logo1.webp" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo2.webp" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo3.webp" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo4.webp" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo5.webp" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo6.webp" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo7.webp" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo8.webp" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                        <img src="Logo9.webp" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. SELECTED WORKS (CASE STUDIES) -->
-        <section id="work" class="py-24 relative z-10 bg-[#0a0a0a] border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-6 md:px-12">
-                <h2 class="font-display text-3xl md:text-5xl font-bold mb-16 reveal">Selected Works.</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
-                    <!-- CASE STUDY 1 -->
-                    <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
-                        <div class="flex flex-row items-stretch w-full mb-6">
-                            <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('Epicworld.webp', 'image')">
-                                <img src="Epicworld.webp" alt="Epic World Travel & Tours" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                            </div>
-                            <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
-                                <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">Epic World<br>Travel & Tours</h3>
-                                <p class="text-neutral-400 text-sm font-medium mb-1">Jun 2025 - Jun 2026</p>
-                                <p class="text-neutral-500 text-[11px] tracking-widest uppercase">Travel Industry</p>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-2 border-t border-b border-white/10 py-4 mb-6">
-                            <div class="text-center">
-                                <p id="epic-inquiry" class="text-lg md:text-xl font-bold text-white">+0%</p>
-                                <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Inquiries Boost</p>
-                            </div>
-                            <div class="text-center border-x border-white/10">
-                                <p id="epic-brands" class="text-lg md:text-xl font-bold text-white">0 Brands</p>
-                                <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Visual Ecosystem</p>
-                            </div>
-                            <div class="text-center">
-                                <p id="epic-engage" class="text-lg md:text-xl font-bold text-white">0k+</p>
-                                <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Engagement</p>
-                            </div>
-                        </div>
-
-                        <div class="w-full">
-                            <p class="text-neutral-300 text-sm leading-relaxed font-light min-h-[100px]">
-                                Directed 2 junior designers, managed a $3K monthly ad budget, and led end-to-end creative pipelines. Designed responsive corporate websites, high-conversion Facebook ads, and expansive physical deliverables including large-format signboards and brochures.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
-                        <div class="flex flex-row items-stretch w-full mb-6">
-                            <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('YC.webp', 'image')">
-                                <img src="YC.webp" alt="YC Entertainment" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                            </div>
-                            <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
-                                <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">YC<br>Entertainment</h3>
-                                <p class="text-neutral-400 text-sm font-medium mb-1">Oct 2023 - Mar 2025</p>
-                                <p class="text-neutral-500 text-[11px] tracking-widest uppercase">Event Industry</p>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-3 gap-2 border-t border-b border-white/10 py-4 mb-6">
-                            <div class="text-center">
-                                <p id="yc-attendance" class="text-lg md:text-xl font-bold text-white">+0%</p>
-                                <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Attendance Lift</p>
-                            </div>
-                            <div class="text-center border-x border-white/10">
-                                <p id="yc-quality" class="text-lg md:text-xl font-bold text-white">Low-End</p>
-                                <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Photo Retouch</p>
-                            </div>
-                            <div class="text-center">
-                                <p id="yc-prep" class="text-lg md:text-xl font-bold text-white">0%</p>
-                                <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Prepress Prep</p>
-                            </div>
-                        </div>
-
-                        <div class="w-full">
-                            <p class="text-neutral-300 text-sm leading-relaxed font-light min-h-[100px]">
-                                Orchestrated the comprehensive visual marketing strategy for high-profile live music events. Executed direct social media ad campaigns, robust physical print assets like X-stands, alongside high-end creative portrait composite retouching for performing DJ artists.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Minimalist Freelance Row -->
-                    <div class="md:col-span-2 flex flex-col md:flex-row md:items-center justify-between py-6 border-t border-b border-white/10 group mt-4">
-                        <div class="mb-4 md:mb-0">
-                            <h3 class="font-display text-xl md:text-2xl font-bold leading-tight text-white group-hover:text-[#0000FF] transition-colors">Freelance<br>Graphic Designer</h3>
-                        </div>
-                        <div class="text-left md:text-right">
-                            <p class="text-neutral-400 text-sm font-medium mb-1">Aug 2022 - Present</p>
-                            <p class="text-neutral-500 text-[11px] tracking-widest uppercase">Local Clients</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        
-        <!-- 5. EXPERTISE & TEXT-ONLY CORE TOOLKIT -->
-        <section id="expertise" class="py-24 relative z-10 bg-[#000000] border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-6 md:px-12">
-                <h2 class="font-display text-3xl md:text-5xl font-bold mb-16 reveal">Expertise.</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 reveal mb-24">
-                    
-                    <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                        <svg class="w-8 h-8 text-[#0000FF] mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
-                            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
-                            <path d="M2 2l7.586 7.586"></path>
-                            <circle cx="11" cy="11" r="2"></circle>
-                        </svg>
-                        <h3 class="text-xl font-bold mb-3">Graphic Design</h3>
-                        <p class="text-neutral-400 text-sm leading-relaxed">Corporate identities, signboards, print layouts, brochures, and environmental graphics designed for deep brand authority.</p>
-                    </div>
-
-                    <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                        <svg class="w-8 h-8 text-[#0000FF] mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polygon points="23 7 16 12 23 17 23 7"></polygon>
-                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
-                        </svg>
-                        <h3 class="text-xl font-bold mb-3">Video Editing</h3>
-                        <p class="text-neutral-400 text-sm leading-relaxed">High-conversion promotional social advertisements, dynamic motion graphics, and full CapCut post-production loops.</p>
-                    </div>
-                    
-                    <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                        <svg class="w-8 h-8 text-[#0000FF] mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
-                            <line x1="7" y1="2" x2="7" y2="22"></line>
-                            <line x1="17" y1="2" x2="17" y2="22"></line>
-                            <line x1="2" y1="12" x2="22" y2="12"></line>
-                            <line x1="2" y1="7" x2="7" y2="7"></line>
-                            <line x1="2" y1="17" x2="7" y2="17"></line>
-                            <line x1="17" y1="17" x2="22" y2="17"></line>
-                            <line x1="17" y1="7" x2="22" y2="7"></line>
-                        </svg>
-                        <h3 class="text-xl font-bold mb-3">Motion Graphic</h3>
-                        <p class="text-neutral-400 text-sm leading-relaxed">Bringing static assets to life through dynamic animations, seamless transitions, and engaging visual storytelling.</p>
-                    </div>
-
-                    <div class="p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                        <svg class="w-8 h-8 text-[#0000FF] mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                            <line x1="8" y1="21" x2="16" y2="21"></line>
-                            <line x1="12" y1="17" x2="12" y2="21"></line>
-                        </svg>
-                        <h3 class="text-xl font-bold mb-3">Web Design</h3>
-                        <p class="text-neutral-400 text-sm leading-relaxed">Interactive layout systems, professional UI/UX design, and cross-channel marketing collateral optimized for performance metrics.</p>
-                    </div>
-                </div>
-
-                <!-- THE CORE TOOLKIT -->
-                <div class="w-full flex flex-col items-center justify-center reveal">
-                    <p class="text-neutral-500 text-xs font-medium tracking-[0.2em] uppercase mb-12">The Core Toolkit</p>
-                    
-                    <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
-                        <div class="animate-levitate delay-1 group relative">
-                            <div class="absolute inset-0 bg-[#31A8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <img src="photoshop.webp" alt="Photoshop" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
-                        </div>
-                        <div class="animate-levitate delay-2 group relative">
-                            <div class="absolute inset-0 bg-[#FF9A00] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <img src="illustrator.webp" alt="Illustrator" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
-                        </div>
-                        <div class="animate-levitate delay-3 group relative">
-                            <div class="absolute inset-0 bg-[#EAA8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <img src="premierepro.webp" alt="Premiere Pro" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
-                        </div>
-                        <div class="animate-levitate delay-4 group relative">
-                            <div class="absolute inset-0 bg-[#9999FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <img src="aftereffects.webp" alt="After Effects" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
-                        </div>
-                        <div class="animate-levitate delay-5 group relative">
-                            <div class="absolute inset-0 bg-white blur-[30px] opacity-5 group-hover:opacity-20 transition-opacity duration-500"></div>
-                            <img src="Capcut.webp" alt="CapCut" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
-                        </div>
-                        <div class="animate-levitate delay-6 group relative">
-                            <div class="absolute inset-0 bg-[#F24E1E] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                            <img src="figma.webp" alt="Figma" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 6. SHOWCASE SECTION -->
-        <section id="showcase" class="py-24 relative z-10 bg-dark-surface border-t border-white/5 overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 md:px-12">
-                <h2 class="font-display text-3xl md:text-5xl font-bold mb-16 reveal">Visual Showcase.</h2>
-                
-                <!-- BRAND & IDENTITY PART -->
-                <div class="mb-24">
-                    <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Brand & Identity</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal">
-                        <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand1.webp', 'image')">
-                            <img src="Brand1.webp" alt="Brand Identity 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        </div>
-                        <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand2.webp', 'image')">
-                            <img src="Brand2.webp" alt="Brand Identity 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        </div>
-                        <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand3.webp', 'image')">
-                            <img src="Brand3.webp" alt="Brand Identity 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        </div>
-                    </div>
-
-                    <div class="w-full max-w-3xl mx-auto aspect-square flex items-center justify-center overflow-visible group reveal cursor-pointer" onclick="openLightbox('phone.webp', 'image')">
-                        <img src="phone.webp" alt="Phone Mockup Presentation" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                    </div>
-                </div>
-
-                <!-- CAMPAIGN DESIGN PART -->
-                <div class="mb-24">
-                    <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Campaign Design</h3>
-                    
-                    <div class="relative group reveal slider-wrapper">
-                        <!-- Left Arrow SVG -->
-                        <button class="absolute left-2 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn hidden sm:flex shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-                        </button>
-                        
-                        <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2">
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign1.webp', 'image')">
-                                <img src="Campaign1.webp" alt="Campaign 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign2.webp', 'image')">
-                                <img src="Campaign2.webp" alt="Campaign 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign3.webp', 'image')">
-                                <img src="Campaign3.webp" alt="Campaign 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign4.webp', 'image')">
-                                <img src="Campaign4.webp" alt="Campaign 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign5.webp', 'image')">
-                                <img src="Campaign5.webp" alt="Campaign 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign6.webp', 'image')">
-                                <img src="Campaign6.webp" alt="Campaign 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                        </div>
-                        
-                        <!-- Right Arrow SVG -->
-                        <button class="absolute right-2 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn hidden sm:flex shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- SOCIAL MEDIA ADS PART -->
-                <div class="mb-24">
-                    <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Social Media Ads</h3>
-                    
-                    <div class="relative group reveal slider-wrapper">
-                        <!-- Left Arrow SVG -->
-                        <button class="absolute left-2 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn hidden sm:flex shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
-                        </button>
-                        
-                        <div class="flex overflow-x-auto gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2">
-                            <!-- Ads -->
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social1.webp', 'image')">
-                                <img src="Social1.webp" alt="Social Media Ad 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social2.webp', 'image')">
-                                <img src="Social2.webp" alt="Social Media Ad 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social3.webp', 'image')">
-                                <img src="Social3.webp" alt="Social Media Ad 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social4.webp', 'image')">
-                                <img src="Social4.webp" alt="Social Media Ad 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social5.webp', 'image')">
-                                <img src="Social5.webp" alt="Social Media Ad 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                            <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social6.webp', 'image')">
-                                <img src="Social6.webp" alt="Social Media Ad 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                            </div>
-                        </div>
-                        
-                        <!-- Right Arrow SVG -->
-                        <button class="absolute right-2 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn hidden sm:flex shadow-[0_0_15px_rgba(0,0,0,0.5)]">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- PRINT DESIGN PART -->
-                <div class="mt-24">
-                    <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Print Design</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal">
-                        <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print1.webp', 'image')">
-                            <img src="Print1.webp" alt="Print Design 1" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                        </div>
-                        <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print2.webp', 'image')">
-                            <img src="Print2.webp" alt="Print Design 2" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                        </div>
-                        <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print3.webp', 'image')">
-                            <img src="Print3.webp" alt="Print Design 3" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MANIPULATION PART -->
-                <div class="mt-24">
-                    <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Manipulation</h3>
-                    
-                    <div class="w-full reveal">
-                        <div class="w-full aspect-[3/2] flex items-center justify-center overflow-hidden group rounded-2xl border border-white/10 bg-[#000000] hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Manipulation.webp', 'image')">
-                            <img src="Manipulation.webp" alt="Manipulation Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- VIDEO PRODUCTION PART -->
-                <div class="mt-24">
-                    <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Video Production</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 reveal">
-                        <!-- Video Block 1 -->
-                        <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('Q9OExgpdSz4', 'youtube-short')">
-                            <iframe src="https://www.youtube.com/embed/Q9OExgpdSz4?autoplay=1&mute=1&loop=1&playlist=Q9OExgpdSz4&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
-                            <!-- Transparent overlay to catch clicks instead of the iframe -->
-                            <div class="absolute inset-0 z-10 bg-transparent"></div>
-                        </div>
-                        
-                        <!-- Video Block 2 -->
-                        <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('hiY1v1-H5b0', 'youtube-short')">
-                            <iframe src="https://www.youtube.com/embed/hiY1v1-H5b0?autoplay=1&mute=1&loop=1&playlist=hiY1v1-H5b0&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
-                            <div class="absolute inset-0 z-10 bg-transparent"></div>
-                        </div>
-
-                        <!-- Video Block 3 -->
-                        <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('oS7ad4jZ3Ks', 'youtube-short')">
-                            <iframe src="https://www.youtube.com/embed/oS7ad4jZ3Ks?autoplay=1&mute=1&loop=1&playlist=oS7ad4jZ3Ks&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
-                            <div class="absolute inset-0 z-10 bg-transparent"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 7. THE HUMAN ABOUT ELEMENT -->
-        <section id="about" class="py-24 bg-black border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-16 items-center reveal">
-                <div class="w-full md:w-3/5">
-                    <h2 class="font-display text-3xl md:text-4xl font-bold mb-6 text-white">Behind the Canvas.</h2>
-                    <p class="text-neutral-400 leading-relaxed mb-4">
-                        Based in Yangon, Myanmar, I am a Graphic Designer transitioning into Multimedia Design. I leverage my background in digital marketing, social media, and video creation to build visual content that drives core branding objectives.
-                    </p>
-                    <p class="text-neutral-400 leading-relaxed mb-6">
-                        Currently, I am expanding my skill set in motion graphics, video production, and UI/UX. I am passionate about crafting engaging, multi-channel digital experiences that connect brands effectively with their audiences.
-                    </p>
-                    
-                    <div class="flex flex-col gap-8 mt-2">
-                        <div class="flex gap-4">
-                            <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-xs px-3 py-1.5 rounded text-neutral-300">
-                                <span class="text-base leading-none">🇲🇲</span> Burmese (Native)
-                            </span>
-                            <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-xs px-3 py-1.5 rounded text-neutral-300">
-                                <span class="text-base leading-none">🇬🇧</span> English (Intermediate)
-                            </span>
-                        </div>
-                        
-                        <div class="flex flex-wrap gap-4">
-                            <a href="cv.pdf" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#0000FF] text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-white hover:text-[#0000FF] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] group w-max">
-                                <svg class="w-4 h-4 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                                View CV
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="w-full md:w-2/5 relative max-w-sm mx-auto">
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] relative">
-                         <img src="Profile.webp" alt="Aung Myo Myint Bo" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0">
-                         <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl pointer-events-none"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 8. THE FOOTER WITH DASHBOARD BUTTONS -->
-        <footer id="contact" class="bg-[#000000] border-t border-white/10 py-24 relative overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 reveal w-full">
-                <div class="w-full flex justify-center mb-16">
-                    <h2 class="font-display text-2xl md:text-4xl font-bold text-white bg-[#0000FF] px-8 py-3 md:px-12 md:py-4 rounded-full shadow-[0_0_30px_rgba(0,0,255,0.6)] hover:shadow-[0_0_50px_rgba(0,0,255,0.8)] transition-shadow duration-300 inline-flex items-center justify-center">
-                        Hire Me.
-                    </h2>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 mb-20 w-full max-w-6xl mx-auto">
-                    
-                    <div class="flex flex-col h-full">
-                        <h3 class="font-display text-xl md:text-3xl font-bold text-white mb-2">Direct Contact.</h3>
-                        <p class="text-neutral-400 text-sm mb-4">Reach out instantly via phone, email, or socials.</p>
-                        
-                        <div class="flex flex-col gap-4 h-full">
-                            <a href="mailto:ri.aungmyomyintbo@gmail.com" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                                <svg class="w-5 h-5 group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                                <span class="font-medium text-sm">ri.aungmyomyintbo@gmail.com</span>
-                            </a>
-
-                            <a href="tel:+959669915726" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                                <svg class="w-5 h-5 group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                </svg>
-                                <span class="font-medium text-sm">+959 669 915 726</span>
-                            </a>
-
-                            <a href="viber://chat?number=%2B959669915726" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                                <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
-                                <span class="font-medium text-sm">+959 669 915 726</span>
-                            </a>
-
-                            <a href="https://t.me/aungmyomyintbo" target="_blank" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                                <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
-                                <span class="font-medium text-sm">@aungmyomyintbo</span>
-                            </a>
-
-                            <a href="https://mm.linkedin.com/in/aung-myo-myint-bo-5a55542a4" target="_blank" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                                <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                                <span class="font-medium text-sm">Aung Myo Myint Bo</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col h-full">
-                        <h3 class="font-display text-xl md:text-3xl font-bold text-white mb-2">Send a Message.</h3>
-                        <p class="text-neutral-400 text-sm mb-4">Tell me about your project and I'll get back to you.</p>
-                        
-                        <form id="contact-form" class="flex flex-col gap-4 h-full">
-                            <input type="text" id="contact-name" placeholder="Your Name" required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full placeholder-neutral-600">
-                            
-                            <input type="email" id="contact-email" placeholder="Your Email Address" required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full placeholder-neutral-600">
-                            
-                            <textarea id="contact-message" rows="4" placeholder="Tell me about your project..." required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full flex-grow resize-none placeholder-neutral-600"></textarea>
-                            
-                            <button type="submit" id="contact-submit" class="bg-[#0000FF] text-white px-8 py-4 rounded-2xl font-bold hover:bg-white hover:text-[#0000FF] transition-all duration-300 w-full shadow-[0_0_20px_rgba(0,0,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] flex justify-center items-center gap-3 group mt-1">
-                                Send Message
-                                <svg class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform group-hover:text-[#0000FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <!-- 9. RATING & COPYRIGHT SECTION -->
-        <section class="bg-[#000000] border-t border-white/10 py-16 relative overflow-hidden">
-            <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center gap-6 reveal w-full">
-                
-                <span id="rating-text" class="text-base md:text-lg font-bold text-neutral-400 tracking-widest uppercase transition-colors">Rate my website</span>
-                
-                <div id="rating-widget" class="flex items-center justify-center transition-all duration-500 h-16">
-                    <div class="flex gap-4 md:gap-6" id="star-container">
-                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
-                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
-                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
-                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
-                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
-                    </div>
-                </div>
-
-                <p class="text-sm text-neutral-500 text-center mt-4">© 2026 Aung Myo Myint Bo. All rights reserved.</p>
-            </div>
-        </section>
-
-        <!-- 10. LIGHTBOX OVERLAY -->
-        <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeLightbox()">
-            <button onclick="closeLightbox()" class="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-[#0000FF] transition-colors z-[101]">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
-            
-            <img id="lightbox-img" src="" class="hidden max-h-[90vh] max-w-[95vw] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
-            
-            <div id="lightbox-tiktok-container" class="hidden w-full max-w-[350px] aspect-[9/16] bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]" onclick="event.stopPropagation()">
-            </div>
-
-            <div id="lightbox-video-container" class="hidden bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]" onclick="event.stopPropagation()">
-            </div>
-        </div>
-
-    </div>
-
-    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 0. Loading Screen Fade Out Logic
+    <div id="intro-screen" class="fixed inset-0 z-[9999] bg-[#000000] flex items-center justify-center pointer-events-none">
+        <h1 id="intro-text" class="font-display font-bold text-5xl md:text-8xl text-white tracking-tighter">
+            Portfolio.
+        </h1>
+        <script>
             setTimeout(() => {
-                const intro = document.getElementById('intro-screen');
-                const mainContent = document.getElementById('main-content');
-                if(intro) {
-                    intro.style.opacity = '0';
-                    mainContent.classList.remove('opacity-0');
-                    document.body.classList.remove('overflow-hidden');
+                const screen = document.getElementById('intro-screen');
+                if (screen) screen.remove();
+            }, 2600);
+        </script>
+    </div>
+
+    <div id="main-content">
+
+    <div class="fixed top-4 md:top-6 left-0 right-0 z-50 px-4 md:px-8 w-full flex justify-center pointer-events-none animate-menu-slide">
+        <nav class="w-full max-w-[90rem] h-16 pointer-events-auto bg-black/80 backdrop-blur-2xl border border-white/10 rounded-full flex justify-center items-center shadow-[0_8px_32px_rgba(0,0,0,0.8)] transition-all duration-300 hover:bg-black/90 hover:border-white/20">
+            <div class="w-full max-w-7xl px-4 md:px-8 flex items-center justify-between">
+                
+                <a href="#" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
+                    Portfolio.
+                </a>
+                
+                <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-300">
+                    <a href="#work" class="hover:text-[#0000FF] transition-colors duration-300">Work</a>
+                    <a href="#expertise" class="hover:text-[#0000FF] transition-colors duration-300">Expertise</a>
+                    <a href="#showcase" class="hover:text-[#0000FF] transition-colors duration-300">Showcase</a>
+                    <a href="#about" class="hover:text-[#0000FF] transition-colors duration-300">About</a>
+                </div>
+
+                <a href="#contact" class="font-display font-bold text-2xl tracking-tight text-[#0000FF] transition-all duration-300 hover:text-white hover:[text-shadow:_0_0_20px_#ffffff]">
+                    Hire Me.
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <section class="relative min-h-screen flex flex-col pt-24 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 w-full z-10 flex-grow flex flex-col justify-end pb-36 md:pb-44 animate-hero-up">
+            <div id="hero-content" class="max-w-3xl">
+                <p class="text-base md:text-lg text-neutral-400 font-light mb-0">Hello, I'm</p>
+                
+                <h1 class="font-display text-3xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white min-h-[40px] md:min-h-[80px] flex items-center leading-none mt-1 mb-1">
+                    <span id="typing-text" class="typing-cursor"></span>
+                </h1>
+                
+                <h2 class="text-xl sm:text-2xl md:text-4xl lg:text-5xl font-display font-bold text-[#0000FF] mb-6 min-h-[36px] md:min-h-[60px] flex items-center overflow-visible pb-2 -mt-1 md:-mt-2">
+                    <span id="glass-role" class="role-enter-active inline-block">Graphic Designer</span>
+                </h2>
+
+                <p class="text-base md:text-lg text-neutral-400 max-w-2xl font-light leading-relaxed">
+                    Based in Yangon, Myanmar. I am a self-taught creative with over 3 years of experience in Graphic Design and 1 year in Video Editing. I transform complex business strategies into striking visual ecosystems, spearheading end-to-end creative production from digital rollouts to corporate environmental layouts.
+                </p>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-0 w-full overflow-hidden flex z-20 animate-logos-up">
+            <div class="flex w-max animate-marquee">
+                <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 flex-shrink-0">
+                    <img src="Logo1.webp" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo2.webp" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo3.webp" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo4.webp" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo5.webp" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo6.webp" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo7.webp" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo8.webp" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo9.webp" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                </div>
+
+                <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 flex-shrink-0">
+                    <img src="Logo1.webp" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo2.webp" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo3.webp" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo4.webp" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo5.webp" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo6.webp" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo7.webp" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo8.webp" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="Logo9.webp" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="py-24 relative z-10 bg-[#0a0a0a] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-16 reveal">Selected Works.</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 reveal">
+                <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
+                    <div class="flex flex-row items-stretch w-full mb-6">
+                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('Epicworld.webp', 'image')">
+                            <img src="Epicworld.webp" alt="Epic World Travel & Tours" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
+                            <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">Epic World<br>Travel & Tours</h3>
+                            <p class="text-neutral-400 text-sm font-medium mb-1">Jun 2025 - Jun 2026</p>
+                            <p class="text-neutral-500 text-[11px] tracking-widest uppercase">Travel Industry</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 border-t border-b border-white/10 py-4 mb-6" id="epic-counter-container">
+                        <div class="text-center">
+                            <p id="epic-inquiry" class="text-lg md:text-xl font-bold text-white">+0%</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Inquiries Boost</p>
+                        </div>
+                        <div class="text-center border-x border-white/10">
+                            <p id="epic-brands" class="text-lg md:text-xl font-bold text-white">0 Brands</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Visual Ecosystem</p>
+                        </div>
+                        <div class="text-center">
+                            <p id="epic-engage" class="text-lg md:text-xl font-bold text-white">0k+</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Engagement</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full">
+                        <p class="text-neutral-300 text-sm leading-relaxed font-light min-h-[100px]">
+                            Directed 2 junior designers, managed a $3K monthly ad budget, and led end-to-end creative pipelines. Designed responsive corporate websites, high-conversion Facebook ads, and expansive physical deliverables including large-format signboards and brochures.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
+                    <div class="flex flex-row items-stretch w-full mb-6">
+                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('YC.webp', 'image')">
+                            <img src="YC.webp" alt="YC Entertainment" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        </div>
+                        <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
+                            <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">YC<br>Entertainment</h3>
+                            <p class="text-neutral-400 text-sm font-medium mb-1">Oct 2023 - Mar 2025</p>
+                            <p class="text-neutral-500 text-[11px] tracking-widest uppercase">Event Industry</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2 border-t border-b border-white/10 py-4 mb-6" id="yc-counter-container">
+                        <div class="text-center">
+                            <p id="yc-attendance" class="text-lg md:text-xl font-bold text-white">+0%</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Attendance Lift</p>
+                        </div>
+                        <div class="text-center border-x border-white/10">
+                            <p id="yc-quality" class="text-lg md:text-xl font-bold text-white">Low-End</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Photo Retouch</p>
+                        </div>
+                        <div class="text-center">
+                            <p id="yc-prep" class="text-lg md:text-xl font-bold text-white">0%</p>
+                            <p class="text-[10px] text-neutral-400 uppercase tracking-wider">Prepress Prep</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full">
+                        <p class="text-neutral-300 text-sm leading-relaxed font-light min-h-[100px]">
+                            Orchestrated the comprehensive visual marketing strategy for high-profile live music events. Executed direct social media ad campaigns, robust physical print assets like X-stands, alongside high-end creative portrait composite retouching for performing DJ artists.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="md:col-span-2 flex flex-col md:flex-row md:items-center justify-between py-6 border-t border-b border-white/10 group mt-4">
+                    <div class="mb-4 md:mb-0">
+                        <h3 class="font-display text-xl md:text-2xl font-bold leading-tight text-white group-hover:text-[#0000FF] transition-colors">Freelance<br>Graphic Designer</h3>
+                    </div>
+                    <div class="text-left md:text-right">
+                        <p class="text-neutral-400 text-sm font-medium mb-1">Aug 2022 - Present</p>
+                        <p class="text-neutral-500 text-[11px] tracking-widest uppercase">Local Clients</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <section id="expertise" class="py-24 relative z-10 bg-[#000000] border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-16 reveal">Expertise.</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 reveal mb-24">
+                
+                <div class="p-4 md:p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
+                    <svg class="w-6 h-6 md:w-8 md:h-8 text-[#0000FF] mb-3 md:mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
+                        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
+                        <path d="M2 2l7.586 7.586"></path>
+                        <circle cx="11" cy="11" r="2"></circle>
+                    </svg>
+                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">Graphic Design</h3>
+                    <p class="text-neutral-400 text-xs md:text-sm leading-relaxed">Corporate identities, signboards, print layouts, brochures, and environmental graphics designed for deep brand authority.</p>
+                </div>
+
+                <div class="p-4 md:p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
+                    <svg class="w-6 h-6 md:w-8 md:h-8 text-[#0000FF] mb-3 md:mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                        <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                    </svg>
+                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">Video Editing</h3>
+                    <p class="text-neutral-400 text-xs md:text-sm leading-relaxed">High-conversion promotional social advertisements, dynamic motion graphics, and full CapCut post-production loops.</p>
+                </div>
+                
+                <div class="p-4 md:p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
+                    <svg class="w-6 h-6 md:w-8 md:h-8 text-[#0000FF] mb-3 md:mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                        <line x1="7" y1="2" x2="7" y2="22"></line>
+                        <line x1="17" y1="2" x2="17" y2="22"></line>
+                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                        <line x1="2" y1="7" x2="7" y2="7"></line>
+                        <line x1="2" y1="17" x2="7" y2="17"></line>
+                        <line x1="17" y1="17" x2="22" y2="17"></line>
+                        <line x1="17" y1="7" x2="22" y2="7"></line>
+                    </svg>
+                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">Motion Graphic</h3>
+                    <p class="text-neutral-400 text-xs md:text-sm leading-relaxed">Bringing static assets to life through dynamic animations, seamless transitions, and engaging visual storytelling.</p>
+                </div>
+
+                <div class="p-4 md:p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
+                    <svg class="w-6 h-6 md:w-8 md:h-8 text-[#0000FF] mb-3 md:mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    <h3 class="text-base md:text-xl font-bold mb-2 md:mb-3">Web Design</h3>
+                    <p class="text-neutral-400 text-xs md:text-sm leading-relaxed">Interactive layout systems, professional UI/UX design, and cross-channel marketing collateral optimized for performance metrics.</p>
+                </div>
+            </div>
+
+            <div class="w-full flex flex-col items-center justify-center reveal">
+                <p class="text-neutral-500 text-xs font-medium tracking-[0.2em] uppercase mb-12">The Core Toolkit</p>
+                
+                <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                    <div class="animate-levitate delay-1 group relative">
+                        <div class="absolute inset-0 bg-[#31A8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <img src="photoshop.webp" alt="Photoshop" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                    </div>
+                    <div class="animate-levitate delay-2 group relative">
+                        <div class="absolute inset-0 bg-[#FF9A00] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <img src="illustrator.webp" alt="Illustrator" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                    </div>
+                    <div class="animate-levitate delay-3 group relative">
+                        <div class="absolute inset-0 bg-[#EAA8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <img src="premierepro.webp" alt="Premiere Pro" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                    </div>
+                    <div class="animate-levitate delay-4 group relative">
+                        <div class="absolute inset-0 bg-[#9999FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <img src="aftereffects.webp" alt="After Effects" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                    </div>
+                    <div class="animate-levitate delay-5 group relative">
+                        <div class="absolute inset-0 bg-white blur-[30px] opacity-5 group-hover:opacity-20 transition-opacity duration-500"></div>
+                        <img src="Capcut.webp" alt="CapCut" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                    </div>
+                    <div class="animate-levitate delay-6 group relative">
+                        <div class="absolute inset-0 bg-[#F24E1E] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
+                        <img src="figma.webp" alt="Figma" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="showcase" class="py-24 relative z-10 bg-dark-surface border-t border-white/5 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-16 reveal">Visual Showcase.</h2>
+            
+            <div class="mb-24">
+                <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Brand & Identity</h3>
+                
+                <div class="grid grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand1.webp', 'image')">
+                        <img src="Brand1.webp" alt="Brand Identity 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand2.webp', 'image')">
+                        <img src="Brand2.webp" alt="Brand Identity 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand3.webp', 'image')">
+                        <img src="Brand3.webp" alt="Brand Identity 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                </div>
+
+                <div class="w-full max-w-3xl mx-auto aspect-square flex items-center justify-center overflow-visible group reveal cursor-pointer" onclick="openLightbox('phone.webp', 'image')">
+                    <img src="phone.webp" alt="Phone Mockup Presentation" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                </div>
+            </div>
+
+            <div class="mb-24">
+                <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Campaign Design</h3>
+                
+                <div class="relative group reveal overflow-visible">
+                    <button class="absolute left-1 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                        <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
                     
-                    setTimeout(() => {
-                        intro.remove();
-                    }, 1000); // Remove from DOM after fade finishes
-                }
-            }, 1800); // Show flashing Portfolio for 1.8 seconds before fading
+                    <div class="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2 md:px-0">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign1.webp', 'image')">
+                            <img src="Campaign1.webp" alt="Campaign 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign2.webp', 'image')">
+                            <img src="Campaign2.webp" alt="Campaign 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign3.webp', 'image')">
+                            <img src="Campaign3.webp" alt="Campaign 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign4.webp', 'image')">
+                            <img src="Campaign4.webp" alt="Campaign 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign5.webp', 'image')">
+                            <img src="Campaign5.webp" alt="Campaign 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign6.webp', 'image')">
+                            <img src="Campaign6.webp" alt="Campaign 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                    </div>
+                    
+                    <button class="absolute right-1 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                        <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                    
+                </div>
+            </div>
+
+            <div class="mb-24">
+                <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Social Media Ads</h3>
+                
+                <div class="relative group reveal overflow-visible">
+                    <button class="absolute left-1 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                        <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    
+                    <div class="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-mandatory minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2 md:px-0">
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social1.webp', 'image')">
+                            <img src="Social1.webp" alt="Social Media Ad 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social2.webp', 'image')">
+                            <img src="Social2.webp" alt="Social Media Ad 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social3.webp', 'image')">
+                            <img src="Social3.webp" alt="Social Media Ad 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social4.webp', 'image')">
+                            <img src="Social4.webp" alt="Social Media Ad 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social5.webp', 'image')">
+                            <img src="Social5.webp" alt="Social Media Ad 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                        <div class="flex-shrink-0 w-[80vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social6.webp', 'image')">
+                            <img src="Social6.webp" alt="Social Media Ad 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        </div>
+                    </div>
+                    
+                    <button class="absolute right-1 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
+                        <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                    
+                </div>
+            </div>
+
+            <div class="mt-24">
+                <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Print Design</h3>
+                
+                <div class="grid grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
+                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print1.webp', 'image')">
+                        <img src="Print1.webp" alt="Print Design 1" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    </div>
+                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print2.webp', 'image')">
+                        <img src="Print2.webp" alt="Print Design 2" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    </div>
+                    <div class="w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print3.webp', 'image')">
+                        <img src="Print3.webp" alt="Print Design 3" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-24">
+                <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Manipulation</h3>
+                
+                <div class="w-full reveal">
+                    <div class="w-full aspect-[3/2] flex items-center justify-center overflow-hidden group rounded-2xl border border-white/10 bg-[#000000] hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Manipulation.webp', 'image')">
+                        <img src="Manipulation.webp" alt="Manipulation Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-24">
+                <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Video Production</h3>
+                
+                <div class="grid grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('Q9OExgpdSz4', 'youtube-short')">
+                        <iframe src="https://www.youtube.com/embed/Q9OExgpdSz4?autoplay=1&mute=1&loop=1&playlist=Q9OExgpdSz4&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
+                        <div class="absolute inset-0 z-10 bg-transparent"></div>
+                    </div>
+                    
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('hiY1v1-H5b0', 'youtube-short')">
+                        <iframe src="https://www.youtube.com/embed/hiY1v1-H5b0?autoplay=1&mute=1&loop=1&playlist=hiY1v1-H5b0&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
+                        <div class="absolute inset-0 z-10 bg-transparent"></div>
+                    </div>
+
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('oS7ad4jZ3Ks', 'youtube-short')">
+                        <iframe src="https://www.youtube.com/embed/oS7ad4jZ3Ks?autoplay=1&mute=1&loop=1&playlist=oS7ad4jZ3Ks&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
+                        <div class="absolute inset-0 z-10 bg-transparent"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="about" class="py-24 bg-black border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row gap-16 items-center reveal">
+            <div class="w-full md:w-3/5">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-6 text-white">Behind the Canvas.</h2>
+                <p class="text-neutral-400 leading-relaxed mb-4">
+                    Based in Yangon, Myanmar, I am a Graphic Designer transitioning into Multimedia Design. I leverage my background in digital marketing, social media, and video creation to build visual content that drives core branding objectives.
+                </p>
+                <p class="text-neutral-400 leading-relaxed mb-6">
+                    Currently, I am expanding my skill set in motion graphics, video production, and UI/UX. I am passionate about crafting engaging, multi-channel digital experiences that connect brands effectively with their audiences.
+                </p>
+                
+                <div class="flex flex-col gap-8 mt-2">
+                    <div class="flex gap-4">
+                        <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-xs px-3 py-1.5 rounded text-neutral-300">
+                            <span class="text-base leading-none">🇲🇲</span> Burmese (Native)
+                        </span>
+                        <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 text-xs px-3 py-1.5 rounded text-neutral-300">
+                            <span class="text-base leading-none">🇬🇧</span> English (Intermediate)
+                        </span>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <a href="cv.pdf" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#0000FF] text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-white hover:text-[#0000FF] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] group w-max">
+                            <svg class="w-4 h-4 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            View CV
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="w-full md:w-2/5 relative max-w-sm mx-auto">
+                <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] relative">
+                     <img src="Profile.webp" alt="Aung Myo Myint Bo" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0">
+                     <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl pointer-events-none"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-[#000000] border-t border-white/10 py-24 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10 reveal w-full">
+            <div class="w-full flex justify-center mb-16">
+                <h2 class="font-display text-2xl md:text-4xl font-bold text-white bg-[#0000FF] px-8 py-3 md:px-12 md:py-4 rounded-full shadow-[0_0_30px_rgba(0,0,255,0.6)] hover:shadow-[0_0_50px_rgba(0,0,255,0.8)] transition-shadow duration-300 inline-flex items-center justify-center">
+                    Hire Me.
+                </h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 mb-20 w-full max-w-6xl mx-auto">
+                
+                <div class="flex flex-col h-full">
+                    <h3 class="font-display text-xl md:text-3xl font-bold text-white mb-2">Direct Contact.</h3>
+                    <p class="text-neutral-400 text-sm mb-4">Reach out instantly via phone, email, or socials.</p>
+                    
+                    <div class="flex flex-col gap-4 h-full">
+                        <a href="mailto:ri.aungmyomyintbo@gmail.com" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <svg class="w-5 h-5 group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            <span class="font-medium text-sm">ri.aungmyomyintbo@gmail.com</span>
+                        </a>
+
+                        <a href="tel:+959669915726" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <svg class="w-5 h-5 group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            <span class="font-medium text-sm">+959 669 915 726</span>
+                        </a>
+
+                        <a href="viber://chat?number=%2B959669915726" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7 .9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+                            <span class="font-medium text-sm">+959 669 915 726</span>
+                        </a>
+
+                        <a href="https://t.me/aungmyomyintbo" target="_blank" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg"><path d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"/></svg>
+                            <span class="font-medium text-sm">@aungmyomyintbo</span>
+                        </a>
+
+                        <a href="https://mm.linkedin.com/in/aung-myo-myint-bo-5a55542a4" target="_blank" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
+                            <svg class="w-5 h-5 fill-current group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                            <span class="font-medium text-sm">Aung Myo Myint Bo</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex flex-col h-full">
+                    <h3 class="font-display text-xl md:text-3xl font-bold text-white mb-2">Send a Message.</h3>
+                    <p class="text-neutral-400 text-sm mb-4">Tell me about your project and I'll get back to you.</p>
+                    
+                    <form action="https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com" method="POST" id="contact-form" class="flex flex-col gap-4 h-full relative">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_subject" value="New inquiry from Aung Myo Myint Bo Portfolio">
+                        
+                        <input type="text" name="name" placeholder="Your Name" required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full placeholder-neutral-600">
+                        
+                        <input type="email" name="email" placeholder="Your Email Address" required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full placeholder-neutral-600">
+                        
+                        <textarea name="message" rows="4" placeholder="Tell me about your project..." required class="bg-neutral-900/50 border border-neutral-800 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full flex-grow resize-none placeholder-neutral-600"></textarea>
+                        
+                        <button type="submit" id="submit-btn" class="bg-[#0000FF] text-white px-8 py-4 rounded-2xl font-bold hover:bg-white hover:text-[#0000FF] transition-all duration-300 w-full shadow-[0_0_20px_rgba(0,0,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] flex justify-center items-center gap-3 group mt-1">
+                            <span>Send Message</span>
+                            <svg class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform group-hover:text-[#0000FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+
+                        <div id="form-success" class="absolute inset-0 bg-black/90 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+                            <svg class="w-12 h-12 text-[#0000FF] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <p class="text-white font-bold text-xl">Message Sent!</p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <section class="bg-[#000000] border-t border-white/10 py-16 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center gap-6 reveal w-full relative h-[150px]">
+            
+            <div id="rating-ui" class="absolute inset-0 flex flex-col items-center justify-center gap-6 transition-opacity duration-500">
+                <span class="text-base md:text-lg font-bold text-neutral-400 tracking-widest uppercase transition-colors">Rate my website</span>
+                <div class="flex items-center justify-center">
+                    <div class="flex gap-4 md:gap-6" id="star-container">
+                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                        <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="thank-you-ui" class="absolute inset-0 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 scale-90">
+                <h3 class="font-display text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#0000FF] to-white drop-shadow-[0_0_20px_rgba(0,0,255,0.5)] animate-pulse">
+                    Thank You So Much!
+                </h3>
+            </div>
+            
+        </div>
+        <p class="text-sm text-neutral-500 text-center mt-12 relative z-10">© 2026 Aung Myo Myint Bo. All rights reserved.</p>
+    </section>
+
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeLightbox()">
+        <button onclick="closeLightbox()" class="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-[#0000FF] transition-colors z-[101]">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+        
+        <img id="lightbox-img" src="" class="hidden max-h-[90vh] max-w-[95vw] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
+        
+        <div id="lightbox-tiktok-container" class="hidden w-full max-w-[350px] aspect-[9/16] bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]" onclick="event.stopPropagation()">
+            </div>
+
+        <div id="lightbox-video-container" class="hidden bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]" onclick="event.stopPropagation()">
+            </div>
+    </div>
+
+    </div> <script>
+        // ==========================================
+        // MAIN PAGE ANIMATIONS & INTERACTIVITY
+        // ==========================================
+        document.addEventListener('DOMContentLoaded', () => {
             
             // 1. Intersection Observer for Scroll Reveals
             const observer = new IntersectionObserver((entries, observer) => {
@@ -793,7 +774,7 @@
                 setTimeout(typeEffect, typingSpeed);
             }
             
-            if (typeElement) setTimeout(typeEffect, 2200); // Delayed slightly to match loading screen
+            if (typeElement) setTimeout(typeEffect, 3000); 
 
             // Role Scroller
             const roles = ["Graphic Designer", "Video Editor", "Digital Designer"];
@@ -815,228 +796,242 @@
                     }, 500); 
                 }, 3500); 
             }
+        });
 
-            // 3. Number Counter Logic
-            function animateValue(obj, start, end, duration, prefix = "", suffix = "") {
-                if (!obj) return; 
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    const easeProgress = 1 - Math.pow(1 - progress, 3);
-                    
-                    let currentValue = Math.floor(easeProgress * (end - start) + start);
-                    obj.innerHTML = prefix + currentValue + suffix;
-                    
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    } else {
-                        obj.innerHTML = prefix + end + suffix; 
-                    }
-                };
-                window.requestAnimationFrame(step);
-            }
+        // 3. Number Counter Logic (Fixed IntersectionObserver)
+        let countersTriggered = false;
 
-            function animateStringValue(obj, sequence, duration) {
-                if (!obj) return; 
-                let stepDuration = duration / sequence.length;
-                sequence.forEach((text, index) => {
-                    setTimeout(() => {
-                        obj.innerHTML = text;
-                    }, index * stepDuration);
-                });
-            }
-
-            function triggerCounters() {
-                animateValue(document.getElementById('epic-inquiry'), 0, 90, 1500, "+", "%");
-                animateValue(document.getElementById('epic-brands'), 1, 3, 1500, "", " Brands");
-                animateValue(document.getElementById('epic-engage'), 0, 40, 1500, "", "k+");
-
-                animateValue(document.getElementById('yc-attendance'), 0, 70, 1500, "+", "%");
-                animateStringValue(document.getElementById('yc-quality'), ["Low-End", "Mid-End", "High-End"], 1500);
-                animateValue(document.getElementById('yc-prep'), 0, 100, 1500, "", "%");
-            }
-
-            let countersTriggered = false;
-            const workSection = document.getElementById('work');
-            const counterObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && !countersTriggered) {
-                        countersTriggered = true;
-                        triggerCounters(); 
-                        setInterval(triggerCounters, 6000); 
-                    }
-                });
-            }, { threshold: 0.1 }); 
-            if(workSection) counterObserver.observe(workSection);
-
-            // 4. Drag to scroll logic & Arrow triggers
-            const sliderWrappers = document.querySelectorAll('.slider-wrapper');
-            sliderWrappers.forEach(wrapper => {
-                const slider = wrapper.querySelector('.draggable-slider');
-                const leftBtn = wrapper.querySelector('.scroll-left-btn');
-                const rightBtn = wrapper.querySelector('.scroll-right-btn');
+        function animateValue(obj, start, end, duration, prefix = "", suffix = "") {
+            if (!obj) return; 
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
                 
-                let isDown = false;
-                let startX;
-                let scrollLeft;
-
-                slider.addEventListener('mousedown', (e) => {
-                    isDown = true;
-                    slider.classList.add('active:cursor-grabbing');
-                    slider.style.scrollSnapType = 'none';
-                    startX = e.pageX - slider.offsetLeft;
-                    scrollLeft = slider.scrollLeft;
-                });
+                let currentValue = Math.floor(easeProgress * (end - start) + start);
+                obj.innerHTML = prefix + currentValue + suffix;
                 
-                slider.addEventListener('mouseleave', () => {
-                    isDown = false;
-                    slider.classList.remove('active:cursor-grabbing');
-                    slider.style.scrollSnapType = ''; 
-                });
-                
-                slider.addEventListener('mouseup', () => {
-                    isDown = false;
-                    slider.classList.remove('active:cursor-grabbing');
-                    slider.style.scrollSnapType = ''; 
-                });
-                
-                slider.addEventListener('mousemove', (e) => {
-                    if (!isDown) return;
-                    e.preventDefault();
-                    const x = e.pageX - slider.offsetLeft;
-                    const walk = (x - startX) * 1.5;
-                    slider.scrollLeft = scrollLeft - walk;
-                });
-
-                const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 374;
-
-                if(leftBtn) {
-                    leftBtn.addEventListener('click', () => {
-                        slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                    });
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                } else {
+                    obj.innerHTML = prefix + end + suffix; 
                 }
-                if(rightBtn) {
-                    rightBtn.addEventListener('click', () => {
-                        slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                    });
-                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        function animateStringValue(obj, sequence, duration) {
+            if (!obj) return; 
+            let stepDuration = duration / sequence.length;
+            sequence.forEach((text, index) => {
+                setTimeout(() => {
+                    obj.innerHTML = text;
+                }, index * stepDuration);
+            });
+        }
+
+        function triggerEpicCounters() {
+            animateValue(document.getElementById('epic-inquiry'), 0, 90, 1500, "+", "%");
+            animateValue(document.getElementById('epic-brands'), 1, 3, 1500, "", " Brands");
+            animateValue(document.getElementById('epic-engage'), 0, 40, 1500, "", "k+");
+        }
+
+        function triggerYcCounters() {
+            animateValue(document.getElementById('yc-attendance'), 0, 70, 1500, "+", "%");
+            animateStringValue(document.getElementById('yc-quality'), ["Low-End", "Mid-End", "High-End"], 1500);
+            animateValue(document.getElementById('yc-prep'), 0, 100, 1500, "", "%");
+        }
+        
+        // Use individual observers for each section to ensure they trigger perfectly on scroll
+        const epicObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                triggerEpicCounters();
+                setInterval(triggerEpicCounters, 6000); 
+                epicObserver.disconnect();
+            }
+        }, { threshold: 0.5 });
+        const epicContainer = document.getElementById('epic-counter-container');
+        if(epicContainer) epicObserver.observe(epicContainer);
+
+        const ycObserver = new IntersectionObserver((entries) => {
+            if(entries[0].isIntersecting) {
+                triggerYcCounters();
+                setInterval(triggerYcCounters, 6000); 
+                ycObserver.disconnect();
+            }
+        }, { threshold: 0.5 });
+        const ycContainer = document.getElementById('yc-counter-container');
+        if(ycContainer) ycObserver.observe(ycContainer);
+
+        // 4. Drag to scroll logic & Arrow triggers for showcase containers
+        const sliders = document.querySelectorAll('.draggable-slider');
+        sliders.forEach(slider => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active:cursor-grabbing');
+                slider.style.scrollSnapType = 'none';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active:cursor-grabbing');
+                slider.style.scrollSnapType = ''; 
+            });
+            
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active:cursor-grabbing');
+                slider.style.scrollSnapType = ''; 
+            });
+            
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                slider.scrollLeft = scrollLeft - walk;
             });
 
-            // 5. Interactive 5-Star Rating Logic
-            const stars = document.querySelectorAll('.star-btn');
-            const ratingWidget = document.getElementById('rating-widget');
-            const ratingText = document.getElementById('rating-text');
-            let hasRated = false;
+            const wrapper = slider.parentElement;
+            const leftBtn = wrapper.querySelector('.scroll-left-btn');
+            const rightBtn = wrapper.querySelector('.scroll-right-btn');
+            const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 374;
 
-            stars.forEach((star, index) => {
-                star.addEventListener('mouseover', () => {
-                    if (hasRated) return;
-                    stars.forEach((s, i) => {
-                        if (i <= index) {
-                            s.classList.remove('text-neutral-600');
-                            s.classList.add('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]', 'scale-110');
-                        } else {
-                            s.classList.add('text-neutral-600');
-                            s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]', 'scale-110');
-                        }
-                    });
+            if(leftBtn) {
+                leftBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
                 });
-
-                star.parentElement.addEventListener('mouseleave', () => {
-                    if (hasRated) return;
-                    stars.forEach(s => {
-                        s.classList.add('text-neutral-600');
-                        s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]', 'scale-110');
-                    });
-                });
-
-                star.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (hasRated) return;
-                    hasRated = true;
-                    const rating = index + 1;
-                    
-                    // Immediately show the flashy thank you
-                    ratingText.style.display = 'none';
-                    ratingWidget.innerHTML = `
-                        <div class="animate-bounce font-display font-bold text-2xl md:text-4xl text-[#FFD700] drop-shadow-[0_0_15px_rgba(255,215,0,0.8)] text-center">
-                            Thank You So Much! ✨
-                        </div>
-                    `;
-
-                    fetch("https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com", {
-                        method: "POST",
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            _subject: `New ${rating}-Star Portfolio Rating!`,
-                            rating: `${rating} out of 5 stars`,
-                            message: `A visitor just rated your website ${rating} out of 5 stars.`
-                        })
-                    }).catch(error => console.log(error));
-                });
-            });
-
-            // 6. Direct Message AJAX Form Logic
-            const contactForm = document.getElementById('contact-form');
-            const submitBtn = document.getElementById('contact-submit');
-
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault(); 
-                    
-                    const name = document.getElementById('contact-name').value;
-                    const email = document.getElementById('contact-email').value;
-                    const message = document.getElementById('contact-message').value;
-
-                    // Button loading state
-                    const originalBtnContent = submitBtn.innerHTML;
-                    submitBtn.innerHTML = 'Sending...';
-                    submitBtn.style.pointerEvents = 'none';
-                    submitBtn.classList.add('opacity-80');
-
-                    fetch("https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com", {
-                        method: "POST",
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'a
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            email: email,
-                            message: message,
-                            _subject: "New inquiry from Aung Myo Myint Bo Portfolio"
-                        })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        submitBtn.innerHTML = 'Message Sent! <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>';
-                        submitBtn.classList.replace('bg-[#0000FF]', 'bg-green-600');
-                        submitBtn.classList.replace('shadow-[0_0_20px_rgba(0,0,255,0.3)]', 'shadow-[0_0_20px_rgba(34,197,94,0.4)]');
-                        contactForm.reset();
-                        
-                        setTimeout(() => {
-                            submitBtn.innerHTML = originalBtnContent;
-                            submitBtn.style.pointerEvents = 'auto';
-                            submitBtn.classList.remove('opacity-80');
-                            submitBtn.classList.replace('bg-green-600', 'bg-[#0000FF]');
-                            submitBtn.classList.replace('shadow-[0_0_20px_rgba(34,197,94,0.4)]', 'shadow-[0_0_20px_rgba(0,0,255,0.3)]');
-                        }, 4000);
-                    })
-                    .catch(error => {
-                        submitBtn.innerHTML = 'Error Sending';
-                        submitBtn.style.pointerEvents = 'auto';
-                        submitBtn.classList.remove('opacity-80');
-                        setTimeout(() => submitBtn.innerHTML = originalBtnContent, 3000);
-                    });
+            }
+            if(rightBtn) {
+                rightBtn.addEventListener('click', () => {
+                    slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
                 });
             }
         });
 
-        // 7. Lightbox Logic (Global Functions)
+        // 5. Interactive 5-Star Rating Logic (Fixed click structure)
+        const stars = document.querySelectorAll('.star-btn');
+        const ratingUI = document.getElementById('rating-ui');
+        const thankYouUI = document.getElementById('thank-you-ui');
+        let hasRated = false;
+
+        stars.forEach((star, index) => {
+            star.addEventListener('mouseover', () => {
+                if (hasRated) return;
+                stars.forEach((s, i) => {
+                    if (i <= index) {
+                        s.classList.remove('text-neutral-600');
+                        s.classList.add('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                    } else {
+                        s.classList.add('text-neutral-600');
+                        s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                    }
+                });
+            });
+
+            star.parentElement.addEventListener('mouseleave', () => {
+                if (hasRated) return;
+                stars.forEach(s => {
+                    s.classList.add('text-neutral-600');
+                    s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                });
+            });
+
+            // Prevent event bubbling if necessary and trigger API call
+            star.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (hasRated) return;
+                hasRated = true;
+                const rating = index + 1;
+                
+                // Keep selected stars yellow
+                stars.forEach((s, i) => {
+                    s.style.pointerEvents = 'none'; 
+                    if (i <= index) {
+                        s.classList.add('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                    } else {
+                        s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
+                        s.classList.add('text-neutral-600');
+                    }
+                });
+
+                fetch("https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        _subject: `New ${rating}-Star Portfolio Rating!`,
+                        rating: `${rating} out of 5 stars`,
+                        message: `A visitor just rated your website ${rating} out of 5 stars.`
+                    })
+                }).catch(error => console.log("Rating error", error));
+
+                // Instantly swap to Thank You state
+                ratingUI.classList.add('opacity-0', 'pointer-events-none');
+                ratingUI.classList.remove('flex');
+                setTimeout(() => {
+                    ratingUI.style.display = 'none';
+                    thankYouUI.classList.remove('opacity-0', 'pointer-events-none', 'scale-90');
+                    thankYouUI.classList.add('scale-100');
+                }, 500);
+            });
+        });
+
+        // 6. Contact Form AJAX Submission
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const btn = document.getElementById('submit-btn');
+                const btnText = btn.querySelector('span');
+                const successOverlay = document.getElementById('form-success');
+                
+                btnText.innerText = "Sending...";
+                btn.style.pointerEvents = 'none';
+
+                fetch(contactForm.action, {
+                    method: "POST",
+                    body: new FormData(contactForm),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                }).then(response => {
+                    if (response.ok) {
+                        successOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                        contactForm.reset();
+                        setTimeout(() => {
+                            successOverlay.classList.add('opacity-0', 'pointer-events-none');
+                            btnText.innerText = "Send Message";
+                            btn.style.pointerEvents = 'auto';
+                        }, 3000);
+                    } else {
+                        btnText.innerText = "Error sending!";
+                        setTimeout(() => {
+                            btnText.innerText = "Send Message";
+                            btn.style.pointerEvents = 'auto';
+                        }, 3000);
+                    }
+                }).catch(error => {
+                    btnText.innerText = "Error sending!";
+                    setTimeout(() => {
+                        btnText.innerText = "Send Message";
+                        btn.style.pointerEvents = 'auto';
+                    }, 3000);
+                });
+            });
+        }
+
+        // 7. Lightbox Logic
         function openLightbox(src, type) {
             const lightbox = document.getElementById('lightbox');
             const imgElement = document.getElementById('lightbox-img');
@@ -1052,6 +1047,25 @@
                     videoContainer.classList.add('hidden');
                     videoContainer.innerHTML = '';
                 }
+            } else if (type === 'tiktok') {
+                imgElement.classList.add('hidden');
+                imgElement.src = '';
+                tiktokContainer.classList.remove('hidden');
+                tiktokContainer.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${src}?autoplay=1" class="w-full h-full" frameborder="0" allow="autoplay; fullscreen"></iframe>`;
+                if (videoContainer) {
+                    videoContainer.classList.add('hidden');
+                    videoContainer.innerHTML = '';
+                }
+            } else if (type === 'video') {
+                imgElement.classList.add('hidden');
+                imgElement.src = '';
+                tiktokContainer.classList.add('hidden');
+                tiktokContainer.innerHTML = '';
+                if (videoContainer) {
+                    videoContainer.classList.remove('hidden');
+                    videoContainer.className = "w-full max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]";
+                    videoContainer.innerHTML = `<video controls autoplay class="w-full h-full object-cover"><source src="${src}" type="video/mp4"></video>`;
+                }
             } else if (type === 'youtube-short') {
                 imgElement.classList.add('hidden');
                 imgElement.src = '';
@@ -1059,7 +1073,9 @@
                 tiktokContainer.innerHTML = '';
                 if (videoContainer) {
                     videoContainer.classList.remove('hidden');
+                    // Immersive full-screen feel sizing
                     videoContainer.className = "w-full max-w-[450px] h-[85vh] bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]";
+                    // Embed with controls=1 and allowfullscreen so users can maximize it
                     videoContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${src}?autoplay=1&rel=0&playsinline=1&controls=1" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>`;
                 }
             }
