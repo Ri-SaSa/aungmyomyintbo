@@ -771,6 +771,17 @@
                 </div>
             </div>
 
+            <!-- NEW: Name Input Form (Hidden by default) -->
+            <form id="name-ui" class="absolute inset-0 flex-col items-center justify-center gap-4 opacity-0 pointer-events-none transition-all duration-500 scale-90 z-10 hidden">
+                <span class="text-base md:text-lg font-bold text-neutral-400 tracking-widest uppercase">Who are you?</span>
+                <div class="flex gap-2 w-full max-w-[280px]">
+                    <input type="text" id="rater-name" placeholder="Your Name" required class="bg-neutral-900/50 border border-neutral-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#0000FF] transition-all duration-300 w-full placeholder-neutral-600 text-center">
+                    <button type="submit" class="bg-[#0000FF] text-white px-6 py-3 rounded-xl font-bold hover:bg-white hover:text-[#0000FF] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,255,0.3)]">
+                        Send
+                    </button>
+                </div>
+            </form>
+
             <!-- Flashy Thank You State -->
             <div id="thank-you-ui" class="absolute inset-0 flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 scale-90">
                 <h3 class="font-display text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#0000FF] to-white drop-shadow-[0_0_20px_rgba(0,0,255,0.5)] animate-pulse">
@@ -1003,9 +1014,12 @@
         // 5. Interactive 5-Star Rating Logic
         const stars = document.querySelectorAll('.star-btn');
         const ratingUI = document.getElementById('rating-ui');
+        const nameUI = document.getElementById('name-ui');
         const thankYouUI = document.getElementById('thank-you-ui');
         let hasRated = false;
+        let selectedRating = 0;
 
+        // Handle Star Hover & Click
         stars.forEach((star, index) => {
             star.addEventListener('mouseover', () => {
                 if (hasRated) return;
@@ -1032,8 +1046,9 @@
                 e.preventDefault();
                 if (hasRated) return;
                 hasRated = true;
-                const rating = index + 1;
+                selectedRating = index + 1; // Save the star amount
                 
+                // Lock in the gold stars visually
                 stars.forEach((s, i) => {
                     s.style.pointerEvents = 'none'; 
                     if (i <= index) {
@@ -1044,6 +1059,34 @@
                     }
                 });
 
+                // Hide Stars, Show Name Input
+                ratingUI.classList.add('opacity-0', 'pointer-events-none');
+                ratingUI.classList.remove('flex');
+                setTimeout(() => {
+                    ratingUI.style.display = 'none';
+                    nameUI.classList.remove('hidden');
+                    nameUI.classList.add('flex');
+                    // Small delay to allow CSS transition to work smoothly
+                    setTimeout(() => {
+                        nameUI.classList.remove('opacity-0', 'pointer-events-none', 'scale-90');
+                        nameUI.classList.add('scale-100');
+                    }, 50);
+                }, 500);
+            });
+        });
+
+        // Handle Name Form Submission
+        if (nameUI) {
+            nameUI.addEventListener('submit', (e) => {
+                e.preventDefault(); // Prevent page reload
+                const raterName = document.getElementById('rater-name').value;
+                const submitBtn = nameUI.querySelector('button');
+                
+                // Change button text while sending
+                submitBtn.innerText = "Sending...";
+                submitBtn.style.pointerEvents = 'none';
+
+                // Send data to your email
                 fetch("https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com", {
                     method: "POST",
                     headers: { 
@@ -1051,21 +1094,23 @@
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify({
-                        _subject: `New ${rating}-Star Portfolio Rating!`,
-                        rating: `${rating} out of 5 stars`,
-                        message: `A visitor just rated your website ${rating} out of 5 stars.`
+                        _subject: `New ${selectedRating}-Star Rating from ${raterName}!`,
+                        rating: `${selectedRating} out of 5 stars`,
+                        Name: raterName,
+                        message: `${raterName} just rated your website ${selectedRating} out of 5 stars.`
                     })
                 }).catch(error => console.log("Rating error", error));
 
-                ratingUI.classList.add('opacity-0', 'pointer-events-none');
-                ratingUI.classList.remove('flex');
+                // Hide Name Input, Show Thank You Message
+                nameUI.classList.remove('scale-100');
+                nameUI.classList.add('opacity-0', 'pointer-events-none', 'scale-90');
                 setTimeout(() => {
-                    ratingUI.style.display = 'none';
+                    nameUI.style.display = 'none';
                     thankYouUI.classList.remove('opacity-0', 'pointer-events-none', 'scale-90');
                     thankYouUI.classList.add('scale-100');
                 }, 500);
             });
-        });
+        }
 
         // 6. Contact Form AJAX Submission
         const contactForm = document.getElementById('contact-form');
