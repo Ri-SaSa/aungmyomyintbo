@@ -68,6 +68,17 @@
             80% { opacity: 1; transform: scale(1); text-shadow: 0 0 20px #0000FF; }
             100% { opacity: 0; transform: scale(1.1); text-shadow: 0 0 0px transparent; }
         }
+
+        /* Loading Dots Animation */
+        @keyframes loadingDots {
+            0% { content: "."; }
+            33% { content: ".."; }
+            66% { content: "..."; }
+        }
+        .loading-text::after {
+            content: ".";
+            animation: loadingDots 1.5s infinite steps(1);
+        }
         
         #intro-screen {
             animation: introScreenFade 2.5s ease forwards;
@@ -176,17 +187,11 @@
 <body class="antialiased selection:bg-brand selection:text-white bg-black">
 
     <!-- 0. BULLET-PROOF FLASHING INTRO SCREEN -->
-    <div id="intro-screen" class="fixed inset-0 z-[9999] bg-[#000000] flex items-center justify-center pointer-events-none">
-        <h1 id="intro-text" class="font-display font-bold text-5xl md:text-8xl text-white tracking-tighter">
+    <div id="intro-screen" class="fixed inset-0 z-[9999] bg-[#000000] flex flex-col items-center justify-center pointer-events-none">
+        <h1 id="intro-text" class="font-display font-bold text-5xl md:text-8xl text-white tracking-tighter mb-4">
             Portfolio.
         </h1>
-        <!-- Direct immediate execution script prevents hanging -->
-        <script>
-            setTimeout(() => {
-                const screen = document.getElementById('intro-screen');
-                if (screen) screen.remove();
-            }, 2600);
-        </script>
+        <p class="text-neutral-500 font-medium tracking-widest text-xs md:text-sm uppercase loading-text absolute mt-24">Loading</p>
     </div>
 
     <!-- MAIN WRAPPER -->
@@ -244,30 +249,22 @@
         <!-- 3. INFINITE LOGO MARQUEE -->
         <div class="absolute bottom-10 left-0 w-full overflow-hidden flex z-20 animate-logos-up">
             <div class="flex w-max animate-marquee">
-                <!-- Set 1 of Logos (Opacities reduced to 30) -->
+                <!-- Set 1 of Logos -->
                 <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 flex-shrink-0">
-                    <img src="Logo1.webp" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo2.webp" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo3.webp" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo4.webp" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo5.webp" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo6.webp" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo7.webp" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo8.webp" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo9.webp" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+1" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+2" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+3" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+4" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+5" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
                 </div>
 
-                <!-- Set 2 of Logos (For seamless looping) -->
+                <!-- Set 2 of Logos -->
                 <div class="flex items-center gap-12 md:gap-16 pr-12 md:pr-16 flex-shrink-0">
-                    <img src="Logo1.webp" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo2.webp" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo3.webp" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo4.webp" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo5.webp" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo6.webp" alt="Logo 6" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo7.webp" alt="Logo 7" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo8.webp" alt="Logo 8" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
-                    <img src="Logo9.webp" alt="Logo 9" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+1" alt="Logo 1" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+2" alt="Logo 2" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+3" alt="Logo 3" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+4" alt="Logo 4" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
+                    <img src="https://via.placeholder.com/150x80/222/666?text=Logo+5" alt="Logo 5" class="h-14 md:h-20 w-auto object-contain grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-110">
                 </div>
             </div>
         </div>
@@ -282,8 +279,8 @@
                 <!-- CASE STUDY 1 -->
                 <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
                     <div class="flex flex-row items-stretch w-full mb-6">
-                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('Epicworld.webp', 'image')">
-                            <img src="Epicworld.webp" alt="Epic World Travel & Tours" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/600x600/333/fff?text=Epic+World', 'image')">
+                            <img src="https://via.placeholder.com/600x600/333/fff?text=Epic+World" alt="Epic World Travel & Tours" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
                             <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">Epic World<br>Travel & Tours</h3>
@@ -317,8 +314,8 @@
                 <!-- Card 2 -->
                 <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
                     <div class="flex flex-row items-stretch w-full mb-6">
-                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('YC.webp', 'image')">
-                            <img src="YC.webp" alt="YC Entertainment" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/600x600/333/fff?text=YC+Entertainment', 'image')">
+                            <img src="https://via.placeholder.com/600x600/333/fff?text=YC+Entertainment" alt="YC Entertainment" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
                         </div>
                         <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
                             <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">YC<br>Entertainment</h3>
@@ -373,7 +370,6 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 reveal mb-24">
                 
                 <div class="p-4 md:p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                    <!-- Inline SVG replacing Pen Tool -->
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-[#0000FF] mb-3 md:mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 19l7-7 3 3-7 7-3-3z"></path>
                         <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path>
@@ -385,7 +381,6 @@
                 </div>
 
                 <div class="p-4 md:p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                    <!-- Inline SVG replacing Video -->
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-[#0000FF] mb-3 md:mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <polygon points="23 7 16 12 23 17 23 7"></polygon>
                         <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
@@ -395,7 +390,6 @@
                 </div>
                 
                 <div class="p-4 md:p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                    <!-- Inline SVG replacing Film -->
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-[#0000FF] mb-3 md:mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
                         <line x1="7" y1="2" x2="7" y2="22"></line>
@@ -411,7 +405,6 @@
                 </div>
 
                 <div class="p-4 md:p-8 border border-white/10 rounded-2xl bg-white/5 hover:border-[#0000FF]/50 transition-colors flex flex-col h-full group hover:shadow-[0_0_30px_rgba(0,0,255,0.15)]">
-                    <!-- Inline SVG replacing Monitor -->
                     <svg class="w-6 h-6 md:w-8 md:h-8 text-[#0000FF] mb-3 md:mb-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
                         <line x1="8" y1="21" x2="16" y2="21"></line>
@@ -429,27 +422,27 @@
                 <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
                     <div class="animate-levitate delay-1 group relative">
                         <div class="absolute inset-0 bg-[#31A8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <img src="photoshop.webp" alt="Photoshop" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <img src="https://via.placeholder.com/64x64/000/31A8FF?text=Ps" alt="Photoshop" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
                     </div>
                     <div class="animate-levitate delay-2 group relative">
                         <div class="absolute inset-0 bg-[#FF9A00] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <img src="illustrator.webp" alt="Illustrator" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <img src="https://via.placeholder.com/64x64/000/FF9A00?text=Ai" alt="Illustrator" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
                     </div>
                     <div class="animate-levitate delay-3 group relative">
                         <div class="absolute inset-0 bg-[#EAA8FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <img src="premierepro.webp" alt="Premiere Pro" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <img src="https://via.placeholder.com/64x64/000/EAA8FF?text=Pr" alt="Premiere Pro" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
                     </div>
                     <div class="animate-levitate delay-4 group relative">
                         <div class="absolute inset-0 bg-[#9999FF] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <img src="aftereffects.webp" alt="After Effects" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <img src="https://via.placeholder.com/64x64/000/9999FF?text=Ae" alt="After Effects" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
                     </div>
                     <div class="animate-levitate delay-5 group relative">
                         <div class="absolute inset-0 bg-white blur-[30px] opacity-5 group-hover:opacity-20 transition-opacity duration-500"></div>
-                        <img src="Capcut.webp" alt="CapCut" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <img src="https://via.placeholder.com/64x64/000/fff?text=CC" alt="CapCut" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
                     </div>
                     <div class="animate-levitate delay-6 group relative">
                         <div class="absolute inset-0 bg-[#F24E1E] blur-[30px] opacity-10 group-hover:opacity-40 transition-opacity duration-500"></div>
-                        <img src="figma.webp" alt="Figma" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
+                        <img src="https://via.placeholder.com/64x64/000/F24E1E?text=Fg" alt="Figma" class="relative z-10 w-12 h-12 md:w-16 md:h-16 object-contain transition-transform duration-300 group-hover:scale-110">
                     </div>
                 </div>
             </div>
@@ -466,21 +459,20 @@
             <div class="mb-24">
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Brand & Identity</h3>
                 
-                <!-- 3x1 Grid on Mobile -->
                 <div class="grid grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand1.webp', 'image')">
-                        <img src="Brand1.webp" alt="Brand Identity 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Brand+1', 'image')">
+                        <img src="https://via.placeholder.com/800x800/111/fff?text=Brand+1" alt="Brand Identity 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand2.webp', 'image')">
-                        <img src="Brand2.webp" alt="Brand Identity 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Brand+2', 'image')">
+                        <img src="https://via.placeholder.com/800x800/111/fff?text=Brand+2" alt="Brand Identity 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand3.webp', 'image')">
-                        <img src="Brand3.webp" alt="Brand Identity 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Brand+3', 'image')">
+                        <img src="https://via.placeholder.com/800x800/111/fff?text=Brand+3" alt="Brand Identity 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
                 </div>
 
-                <div class="w-full max-w-3xl mx-auto aspect-square flex items-center justify-center overflow-visible group reveal cursor-pointer" onclick="openLightbox('phone.webp', 'image')">
-                    <img src="phone.webp" alt="Phone Mockup Presentation" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                <div class="w-full max-w-3xl mx-auto aspect-square flex items-center justify-center overflow-visible group reveal cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Phone+Mockup', 'image')">
+                    <img src="https://via.placeholder.com/800x800/111/fff?text=Phone+Mockup" alt="Phone Mockup Presentation" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                 </div>
             </div>
 
@@ -489,39 +481,31 @@
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Campaign Design</h3>
                 
                 <div class="relative group reveal overflow-visible">
-                    <!-- Left Arrow SVG (Visible on mobile) -->
                     <button class="absolute left-1 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
                     </button>
                     
-                    <!-- Added mobile-no-scrollbar and webkit momentum scroll for butter-smooth mobile swiping -->
                     <div class="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-proximity mobile-no-scrollbar md:minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2 md:px-0" style="-webkit-overflow-scrolling: touch;">
-                        <!-- w-[42vw] on mobile makes 2 cards visible at once with room to peek next -->
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign1.webp', 'image')">
-                            <img src="Campaign1.webp" alt="Campaign 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Campaign+1', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Campaign+1" alt="Campaign 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign2.webp', 'image')">
-                            <img src="Campaign2.webp" alt="Campaign 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Campaign+2', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Campaign+2" alt="Campaign 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign3.webp', 'image')">
-                            <img src="Campaign3.webp" alt="Campaign 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Campaign+3', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Campaign+3" alt="Campaign 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign4.webp', 'image')">
-                            <img src="Campaign4.webp" alt="Campaign 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Campaign+4', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Campaign+4" alt="Campaign 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign5.webp', 'image')">
-                            <img src="Campaign5.webp" alt="Campaign 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                        </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign6.webp', 'image')">
-                            <img src="Campaign6.webp" alt="Campaign 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Campaign+5', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Campaign+5" alt="Campaign 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                     </div>
                     
-                    <!-- Right Arrow SVG (Visible on mobile) -->
                     <button class="absolute right-1 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
                     </button>
-                    
                 </div>
             </div>
 
@@ -530,39 +514,31 @@
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Social Media Ads</h3>
                 
                 <div class="relative group reveal overflow-visible">
-                    <!-- Left Arrow SVG (Visible on mobile) -->
                     <button class="absolute left-1 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
                     </button>
                     
-                    <!-- Added mobile-no-scrollbar and webkit momentum scroll -->
                     <div class="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-proximity mobile-no-scrollbar md:minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2 md:px-0" style="-webkit-overflow-scrolling: touch;">
-                        <!-- Ads: w-[42vw] on mobile to show 2 at once -->
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social1.webp', 'image')">
-                            <img src="Social1.webp" alt="Social Media Ad 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Social+1', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Social+1" alt="Social Media Ad 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social2.webp', 'image')">
-                            <img src="Social2.webp" alt="Social Media Ad 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Social+2', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Social+2" alt="Social Media Ad 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social3.webp', 'image')">
-                            <img src="Social3.webp" alt="Social Media Ad 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Social+3', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Social+3" alt="Social Media Ad 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social4.webp', 'image')">
-                            <img src="Social4.webp" alt="Social Media Ad 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Social+4', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Social+4" alt="Social Media Ad 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social5.webp', 'image')">
-                            <img src="Social5.webp" alt="Social Media Ad 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
-                        </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social6.webp', 'image')">
-                            <img src="Social6.webp" alt="Social Media Ad 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/800x800/111/fff?text=Social+5', 'image')">
+                            <img src="https://via.placeholder.com/800x800/111/fff?text=Social+5" alt="Social Media Ad 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                     </div>
                     
-                    <!-- Right Arrow SVG (Visible on mobile) -->
                     <button class="absolute right-1 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
                     </button>
-                    
                 </div>
             </div>
 
@@ -570,17 +546,15 @@
             <div class="mt-24">
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Print Design</h3>
                 
-                <!-- Print Design Grid: 1x2 row for Print1/Print2 on Mobile, full width for Print3 -->
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
-                    <div class="col-span-1 w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print1.webp', 'image')">
-                        <img src="Print1.webp" alt="Print Design 1" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <div class="col-span-1 w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('https://via.placeholder.com/600x800/111/fff?text=Print+1', 'image')">
+                        <img src="https://via.placeholder.com/600x800/111/fff?text=Print+1" alt="Print Design 1" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     </div>
-                    <div class="col-span-1 w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print2.webp', 'image')">
-                        <img src="Print2.webp" alt="Print Design 2" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <div class="col-span-1 w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('https://via.placeholder.com/600x800/111/fff?text=Print+2', 'image')">
+                        <img src="https://via.placeholder.com/600x800/111/fff?text=Print+2" alt="Print Design 2" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     </div>
-                    <!-- Spans full width (2 columns) on mobile, 1 column on desktop -->
-                    <div class="col-span-2 md:col-span-1 w-full aspect-square md:aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print3.webp', 'image')">
-                        <img src="Print3.webp" alt="Print Design 3" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <div class="col-span-2 md:col-span-1 w-full aspect-square md:aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('https://via.placeholder.com/600x800/111/fff?text=Print+3', 'image')">
+                        <img src="https://via.placeholder.com/600x800/111/fff?text=Print+3" alt="Print Design 3" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
                     </div>
                 </div>
             </div>
@@ -590,8 +564,8 @@
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Manipulation</h3>
                 
                 <div class="w-full reveal">
-                    <div class="w-full aspect-[3/2] flex items-center justify-center overflow-hidden group rounded-2xl border border-white/10 bg-[#000000] hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Manipulation.webp', 'image')">
-                        <img src="Manipulation.webp" alt="Manipulation Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="w-full aspect-[3/2] flex items-center justify-center overflow-hidden group rounded-2xl border border-white/10 bg-[#000000] hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('https://via.placeholder.com/1200x800/111/fff?text=Manipulation', 'image')">
+                        <img src="https://via.placeholder.com/1200x800/111/fff?text=Manipulation" alt="Manipulation Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     </div>
                 </div>
             </div>
@@ -600,12 +574,10 @@
             <div class="mt-24">
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Video Production</h3>
                 
-                <!-- 3x1 Grid on Mobile -->
                 <div class="grid grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
                     <!-- Video Block 1 -->
                     <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('Q9OExgpdSz4', 'youtube-short')">
                         <iframe src="https://www.youtube.com/embed/Q9OExgpdSz4?autoplay=1&mute=1&loop=1&playlist=Q9OExgpdSz4&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
-                        <!-- Transparent overlay to catch clicks instead of the iframe -->
                         <div class="absolute inset-0 z-10 bg-transparent"></div>
                     </div>
                     
@@ -650,7 +622,6 @@
                     
                     <div class="flex flex-wrap gap-4">
                         <a href="cv.pdf" target="_blank" class="inline-flex items-center justify-center gap-2 bg-[#0000FF] text-white text-sm font-bold px-6 py-3 rounded-full hover:bg-white hover:text-[#0000FF] transition-all duration-300 shadow-[0_0_15px_rgba(0,0,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)] group w-max">
-                            <!-- Inline SVG Eye icon -->
                             <svg class="w-4 h-4 group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
@@ -663,7 +634,7 @@
             
             <div class="w-full md:w-2/5 relative max-w-sm mx-auto">
                 <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 flex items-center justify-center overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] relative">
-                     <img src="Profile.webp" alt="Aung Myo Myint Bo" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0">
+                     <img src="https://via.placeholder.com/400x400/222/fff?text=Profile+Photo" alt="Aung Myo Myint Bo" class="w-full h-full object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0">
                      <div class="absolute inset-0 ring-1 ring-inset ring-white/10 rounded-2xl pointer-events-none"></div>
                 </div>
             </div>
@@ -687,7 +658,6 @@
                     
                     <div class="flex flex-col gap-4 h-full">
                         <a href="mailto:ri.aungmyomyintbo@gmail.com" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                            <!-- Inline SVG Mail Icon -->
                             <svg class="w-5 h-5 group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                 <polyline points="22,6 12,13 2,6"></polyline>
@@ -696,7 +666,6 @@
                         </a>
 
                         <a href="tel:+959669915726" class="flex items-center gap-4 bg-neutral-900 border border-neutral-800 text-neutral-400 px-8 py-4 rounded-2xl hover:bg-white hover:text-black hover:border-white transition-all duration-300 group shadow-lg w-full justify-start">
-                            <!-- Inline SVG Phone Icon -->
                             <svg class="w-5 h-5 group-hover:text-[#0000FF] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                             </svg>
@@ -736,14 +705,12 @@
                         
                         <button type="submit" id="submit-btn" class="bg-[#0000FF] text-white px-8 py-4 rounded-2xl font-bold hover:bg-white hover:text-[#0000FF] transition-all duration-300 w-full shadow-[0_0_20px_rgba(0,0,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] flex justify-center items-center gap-3 group mt-1">
                             <span>Send Message</span>
-                            <!-- Inline SVG Send Icon -->
                             <svg class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform group-hover:text-[#0000FF]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="22" y1="2" x2="11" y2="13"></line>
                                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                             </svg>
                         </button>
 
-                        <!-- Form Success Overlay -->
                         <div id="form-success" class="absolute inset-0 bg-black/90 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
                             <svg class="w-12 h-12 text-[#0000FF] mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             <p class="text-white font-bold text-xl">Message Sent!</p>
@@ -756,11 +723,12 @@
 
     <!-- 9. RATING & COPYRIGHT SECTION -->
     <section class="bg-[#000000] border-t border-white/10 py-16 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center gap-6 reveal w-full relative h-[150px]">
+        <div class="max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center justify-center gap-6 reveal w-full relative min-h-[250px]">
             
-            <div id="rating-ui" class="absolute inset-0 flex flex-col items-center justify-center gap-6 transition-opacity duration-500">
-                <span class="text-base md:text-lg font-bold text-neutral-400 tracking-widest uppercase transition-colors">Rate my website</span>
-                <div class="flex items-center justify-center">
+            <div id="rating-ui" class="absolute inset-0 flex flex-col items-center justify-center gap-4 transition-opacity duration-500">
+                <span id="rating-prompt-text" class="text-base md:text-lg font-bold text-neutral-400 tracking-widest uppercase transition-colors">Rate my website</span>
+                
+                <div id="star-wrapper" class="flex items-center justify-center">
                     <div class="flex gap-4 md:gap-6" id="star-container">
                         <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
                         <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
@@ -768,6 +736,12 @@
                         <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
                         <button type="button" class="star-btn text-neutral-600 transition-all duration-200 hover:scale-110 cursor-pointer"><svg class="w-10 h-10 md:w-12 md:h-12 fill-current pointer-events-none" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></button>
                     </div>
+                </div>
+                
+                <!-- Name Input Field (Instantly replaces stars) -->
+                <div id="rating-name-container" class="hidden opacity-0 transition-opacity duration-300 flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="rating-name-input" placeholder="Your Name" required class="bg-neutral-900/80 border border-neutral-700 rounded-2xl px-5 py-3 text-white focus:outline-none focus:border-[#0000FF] transition-colors text-sm w-full sm:w-64 shadow-inner">
+                    <button id="submit-rating-btn" class="bg-[#0000FF] text-white px-8 py-3 rounded-2xl text-sm font-bold hover:bg-white hover:text-[#0000FF] transition-all shadow-[0_0_20px_rgba(0,0,255,0.3)] whitespace-nowrap">Send</button>
                 </div>
             </div>
 
@@ -791,11 +765,9 @@
         <img id="lightbox-img" src="" class="hidden max-h-[90vh] max-w-[95vw] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
         
         <div id="lightbox-tiktok-container" class="hidden w-full max-w-[350px] aspect-[9/16] bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]" onclick="event.stopPropagation()">
-            <!-- Iframe injected via JS -->
         </div>
 
         <div id="lightbox-video-container" class="hidden bg-black rounded-2xl overflow-hidden relative shadow-[0_0_50px_rgba(0,0,255,0.2)]" onclick="event.stopPropagation()">
-            <!-- Video injected via JS -->
         </div>
     </div>
 
@@ -806,6 +778,30 @@
         // ==========================================
         // MAIN PAGE ANIMATIONS & INTERACTIVITY
         // ==========================================
+        
+        // Wait for all assets (images) to load before hiding the loading screen
+        window.addEventListener('load', () => {
+            const intro = document.getElementById('intro-screen');
+            const text = document.getElementById('intro-text');
+            if (intro) {
+                intro.style.transition = 'opacity 0.8s ease';
+                intro.style.opacity = '0';
+                intro.style.pointerEvents = 'none';
+                if(text) text.style.transform = 'scale(1.05)';
+                setTimeout(() => intro.remove(), 1000);
+            }
+        });
+
+        // Failsafe: if the network is too slow, hide it anyway after 5 seconds
+        setTimeout(() => {
+            const intro = document.getElementById('intro-screen');
+            if (intro) {
+                intro.style.opacity = '0';
+                intro.style.pointerEvents = 'none';
+                setTimeout(() => intro.remove(), 1000);
+            }
+        }, 5000);
+
         document.addEventListener('DOMContentLoaded', () => {
             
             // 1. Intersection Observer for Scroll Reveals
@@ -927,7 +923,6 @@
             animateValue(document.getElementById('yc-prep'), 0, 100, 1500, "", "%");
         }
         
-        // Use individual observers for each section to ensure they trigger perfectly on scroll
         const epicObserver = new IntersectionObserver((entries) => {
             if(entries[0].isIntersecting) {
                 triggerEpicCounters();
@@ -1000,11 +995,17 @@
             }
         });
 
-        // 5. Interactive 5-Star Rating Logic
+        // 5. Interactive 5-Star Rating Logic with Name Field
         const stars = document.querySelectorAll('.star-btn');
         const ratingUI = document.getElementById('rating-ui');
         const thankYouUI = document.getElementById('thank-you-ui');
+        const nameContainer = document.getElementById('rating-name-container');
+        const nameInput = document.getElementById('rating-name-input');
+        const submitRatingBtn = document.getElementById('submit-rating-btn');
+        const ratingPromptText = document.getElementById('rating-prompt-text');
+        
         let hasRated = false;
+        let selectedRating = 0;
 
         stars.forEach((star, index) => {
             star.addEventListener('mouseover', () => {
@@ -1032,39 +1033,64 @@
                 e.preventDefault();
                 if (hasRated) return;
                 hasRated = true;
-                const rating = index + 1;
+                selectedRating = index + 1;
                 
-                stars.forEach((s, i) => {
-                    s.style.pointerEvents = 'none'; 
-                    if (i <= index) {
-                        s.classList.add('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
-                    } else {
-                        s.classList.remove('text-[#FFD700]', 'drop-shadow-[0_0_8px_rgba(255,215,0,0.8)]');
-                        s.classList.add('text-neutral-600');
-                    }
-                });
-
-                fetch("https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com", {
-                    method: "POST",
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        _subject: `New ${rating}-Star Portfolio Rating!`,
-                        rating: `${rating} out of 5 stars`,
-                        message: `A visitor just rated your website ${rating} out of 5 stars.`
-                    })
-                }).catch(error => console.log("Rating error", error));
-
-                ratingUI.classList.add('opacity-0', 'pointer-events-none');
-                ratingUI.classList.remove('flex');
-                setTimeout(() => {
-                    ratingUI.style.display = 'none';
-                    thankYouUI.classList.remove('opacity-0', 'pointer-events-none', 'scale-90');
-                    thankYouUI.classList.add('scale-100');
-                }, 500);
+                // Instantly hide the stars wrapper
+                const starWrapper = document.getElementById('star-wrapper');
+                if(starWrapper) starWrapper.classList.add('hidden');
+                
+                // Show Name Input Form exactly in place of the stars
+                ratingPromptText.innerText = "Almost done!";
+                nameContainer.classList.remove('hidden');
+                
+                // Force a reflow so the fade-in transition works smoothly
+                void nameContainer.offsetWidth;
+                
+                nameContainer.classList.remove('opacity-0');
+                nameContainer.classList.add('opacity-100');
             });
+        });
+
+        submitRatingBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            const visitorName = nameInput.value.trim();
+            
+            if (!visitorName) {
+                nameInput.classList.remove('border-neutral-700');
+                nameInput.classList.add('border-red-500', 'placeholder-red-400');
+                nameInput.focus();
+                setTimeout(() => {
+                    nameInput.classList.remove('border-red-500', 'placeholder-red-400');
+                    nameInput.classList.add('border-neutral-700');
+                }, 2000);
+                return;
+            }
+
+            submitRatingBtn.innerText = "Sending...";
+            submitRatingBtn.style.pointerEvents = 'none';
+            nameInput.style.pointerEvents = 'none';
+
+            fetch("https://formsubmit.co/ajax/ri.aungmyomyintbo@gmail.com", {
+                method: "POST",
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    _subject: `New ${selectedRating}-Star Portfolio Rating from ${visitorName}!`,
+                    rating: `${selectedRating} out of 5 stars`,
+                    name: visitorName,
+                    message: `${visitorName} just rated your website ${selectedRating} out of 5 stars.`
+                })
+            }).catch(error => console.log("Rating error", error));
+
+            ratingUI.classList.add('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                ratingUI.style.display = 'none';
+                thankYouUI.classList.remove('opacity-0', 'pointer-events-none', 'scale-90');
+                thankYouUI.classList.add('scale-100');
+            }, 500);
         });
 
         // 6. Contact Form AJAX Submission
