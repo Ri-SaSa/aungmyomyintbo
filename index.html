@@ -282,8 +282,8 @@
                 <!-- CASE STUDY 1 -->
                 <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
                     <div class="flex flex-row items-stretch w-full mb-6">
-                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('Epicworld.webp', 'image')">
-                            <img src="Epicworld.webp" alt="Epic World Travel & Tours" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" data-lightbox="works" data-src="Epicworld.webp" data-type="image">
+                            <img src="Epicworld.webp" alt="Epic World Travel & Tours" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 pointer-events-none">
                         </div>
                         <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
                             <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">Epic World<br>Travel & Tours</h3>
@@ -317,8 +317,8 @@
                 <!-- Card 2 -->
                 <div class="flex flex-col p-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl hover:bg-white/10 hover:border-[#0000FF]/50 hover:shadow-[0_0_30px_rgba(0,0,255,0.15)] transition-all duration-500 group">
                     <div class="flex flex-row items-stretch w-full mb-6">
-                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" onclick="openLightbox('YC.webp', 'image')">
-                            <img src="YC.webp" alt="YC Entertainment" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="w-1/3 aspect-square overflow-hidden rounded-2xl border border-white/10 bg-[#000000] flex items-center justify-center flex-shrink-0 cursor-pointer" data-lightbox="works" data-src="YC.webp" data-type="image">
+                            <img src="YC.webp" alt="YC Entertainment" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 pointer-events-none">
                         </div>
                         <div class="w-2/3 pl-5 md:pl-6 flex flex-col justify-end">
                             <h3 class="font-display text-xl md:text-2xl lg:text-3xl font-bold leading-tight mb-2">YC<br>Entertainment</h3>
@@ -468,19 +468,19 @@
                 
                 <!-- 3x1 Grid on Mobile -->
                 <div class="grid grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand1.webp', 'image')">
-                        <img src="Brand1.webp" alt="Brand Identity 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="brand" data-src="Brand1.webp" data-type="image">
+                        <img src="Brand1.webp" alt="Brand Identity 1" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none">
                     </div>
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand2.webp', 'image')">
-                        <img src="Brand2.webp" alt="Brand Identity 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="brand" data-src="Brand2.webp" data-type="image">
+                        <img src="Brand2.webp" alt="Brand Identity 2" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none">
                     </div>
-                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Brand3.webp', 'image')">
-                        <img src="Brand3.webp" alt="Brand Identity 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="brand" data-src="Brand3.webp" data-type="image">
+                        <img src="Brand3.webp" alt="Brand Identity 3" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none">
                     </div>
                 </div>
 
-                <div class="w-full max-w-3xl mx-auto aspect-square flex items-center justify-center overflow-visible group reveal cursor-pointer" onclick="openLightbox('phone.webp', 'image')">
-                    <img src="phone.webp" alt="Phone Mockup Presentation" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                <div class="w-full max-w-3xl mx-auto aspect-square flex items-center justify-center overflow-visible group reveal cursor-pointer" data-lightbox="brand" data-src="phone.webp" data-type="image">
+                    <img src="phone.webp" alt="Phone Mockup Presentation" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-none">
                 </div>
             </div>
 
@@ -489,35 +489,34 @@
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Campaign Design</h3>
                 
                 <div class="relative group reveal overflow-visible">
-                    <!-- Left Arrow SVG (Visible on mobile) -->
+                    <!-- Left Arrow SVG -->
                     <button class="absolute left-1 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
                     </button>
                     
-                    <!-- Added mobile-no-scrollbar and webkit momentum scroll for butter-smooth mobile swiping -->
-                    <div class="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-proximity mobile-no-scrollbar md:minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2 md:px-0" style="-webkit-overflow-scrolling: touch;">
-                        <!-- w-[42vw] on mobile makes 2 cards visible at once with room to peek next -->
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign1.webp', 'image')">
+                    <!-- Slider Container -->
+                    <div class="flex overflow-x-auto gap-4 md:gap-6 pb-8 mobile-no-scrollbar md:minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2 md:px-0" style="-webkit-overflow-scrolling: touch;">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="campaign" data-src="Campaign1.webp" data-type="image">
                             <img src="Campaign1.webp" alt="Campaign 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign2.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="campaign" data-src="Campaign2.webp" data-type="image">
                             <img src="Campaign2.webp" alt="Campaign 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign3.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="campaign" data-src="Campaign3.webp" data-type="image">
                             <img src="Campaign3.webp" alt="Campaign 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign4.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="campaign" data-src="Campaign4.webp" data-type="image">
                             <img src="Campaign4.webp" alt="Campaign 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign5.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="campaign" data-src="Campaign5.webp" data-type="image">
                             <img src="Campaign5.webp" alt="Campaign 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Campaign6.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="campaign" data-src="Campaign6.webp" data-type="image">
                             <img src="Campaign6.webp" alt="Campaign 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                     </div>
                     
-                    <!-- Right Arrow SVG (Visible on mobile) -->
+                    <!-- Right Arrow SVG -->
                     <button class="absolute right-1 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
                     </button>
@@ -530,35 +529,34 @@
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Social Media Ads</h3>
                 
                 <div class="relative group reveal overflow-visible">
-                    <!-- Left Arrow SVG (Visible on mobile) -->
+                    <!-- Left Arrow SVG -->
                     <button class="absolute left-1 md:-left-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-left-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
                     </button>
                     
-                    <!-- Added mobile-no-scrollbar and webkit momentum scroll -->
-                    <div class="flex overflow-x-auto gap-4 md:gap-6 pb-8 snap-x snap-proximity mobile-no-scrollbar md:minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2 md:px-0" style="-webkit-overflow-scrolling: touch;">
-                        <!-- Ads: w-[42vw] on mobile to show 2 at once -->
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social1.webp', 'image')">
+                    <!-- Slider Container -->
+                    <div class="flex overflow-x-auto gap-4 md:gap-6 pb-8 mobile-no-scrollbar md:minimal-scrollbar cursor-grab active:cursor-grabbing draggable-slider px-2 md:px-0" style="-webkit-overflow-scrolling: touch;">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="social" data-src="Social1.webp" data-type="image">
                             <img src="Social1.webp" alt="Social Media Ad 1" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social2.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="social" data-src="Social2.webp" data-type="image">
                             <img src="Social2.webp" alt="Social Media Ad 2" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social3.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="social" data-src="Social3.webp" data-type="image">
                             <img src="Social3.webp" alt="Social Media Ad 3" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social4.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="social" data-src="Social4.webp" data-type="image">
                             <img src="Social4.webp" alt="Social Media Ad 4" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social5.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="social" data-src="Social5.webp" data-type="image">
                             <img src="Social5.webp" alt="Social Media Ad 5" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
-                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card snap-center hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Social6.webp', 'image')">
+                        <div class="flex-shrink-0 w-[42vw] md:w-[350px] aspect-square bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group/card hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="social" data-src="Social6.webp" data-type="image">
                             <img src="Social6.webp" alt="Social Media Ad 6" class="w-full h-full object-cover transition-transform duration-700 group-hover/card:scale-105 pointer-events-none">
                         </div>
                     </div>
                     
-                    <!-- Right Arrow SVG (Visible on mobile) -->
+                    <!-- Right Arrow SVG -->
                     <button class="absolute right-1 md:-right-4 top-[calc(50%-1rem)] -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 flex items-center justify-center bg-black/60 backdrop-blur-md border border-white/20 text-white rounded-full opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-300 scroll-right-btn shadow-[0_0_15px_rgba(0,0,0,0.5)]">
                         <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
                     </button>
@@ -572,15 +570,15 @@
                 
                 <!-- Print Design Grid: 1x2 row for Print1/Print2 on Mobile, full width for Print3 -->
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
-                    <div class="col-span-1 w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print1.webp', 'image')">
-                        <img src="Print1.webp" alt="Print Design 1" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <div class="col-span-1 w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" data-lightbox="print" data-src="Print1.webp" data-type="image">
+                        <img src="Print1.webp" alt="Print Design 1" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-none">
                     </div>
-                    <div class="col-span-1 w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print2.webp', 'image')">
-                        <img src="Print2.webp" alt="Print Design 2" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <div class="col-span-1 w-full aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" data-lightbox="print" data-src="Print2.webp" data-type="image">
+                        <img src="Print2.webp" alt="Print Design 2" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-none">
                     </div>
                     <!-- Spans full width (2 columns) on mobile, 1 column on desktop -->
-                    <div class="col-span-2 md:col-span-1 w-full aspect-square md:aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" onclick="openLightbox('Print3.webp', 'image')">
-                        <img src="Print3.webp" alt="Print Design 3" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+                    <div class="col-span-2 md:col-span-1 w-full aspect-square md:aspect-[3/4] flex items-center justify-center overflow-visible group cursor-pointer" data-lightbox="print" data-src="Print3.webp" data-type="image">
+                        <img src="Print3.webp" alt="Print Design 3" class="w-full h-full object-contain transition-transform duration-700 group-hover:-translate-y-4 drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)] pointer-events-none">
                     </div>
                 </div>
             </div>
@@ -590,8 +588,8 @@
                 <h3 class="font-display text-2xl font-bold mb-8 text-white reveal tracking-wide">Manipulation</h3>
                 
                 <div class="w-full reveal">
-                    <div class="w-full aspect-[3/2] flex items-center justify-center overflow-hidden group rounded-2xl border border-white/10 bg-[#000000] hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" onclick="openLightbox('Manipulation.webp', 'image')">
-                        <img src="Manipulation.webp" alt="Manipulation Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="w-full aspect-[3/2] flex items-center justify-center overflow-hidden group rounded-2xl border border-white/10 bg-[#000000] hover:border-[#0000FF]/50 transition-all duration-500 cursor-pointer" data-lightbox="manipulation" data-src="Manipulation.webp" data-type="image">
+                        <img src="Manipulation.webp" alt="Manipulation Design" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none">
                     </div>
                 </div>
             </div>
@@ -603,20 +601,20 @@
                 <!-- 3x1 Grid on Mobile -->
                 <div class="grid grid-cols-3 gap-2 md:gap-6 mb-8 reveal">
                     <!-- Video Block 1 -->
-                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('Q9OExgpdSz4', 'youtube-short')">
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" data-lightbox="videos" data-src="Q9OExgpdSz4" data-type="youtube-short">
                         <iframe src="https://www.youtube.com/embed/Q9OExgpdSz4?autoplay=1&mute=1&loop=1&playlist=Q9OExgpdSz4&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
                         <!-- Transparent overlay to catch clicks instead of the iframe -->
                         <div class="absolute inset-0 z-10 bg-transparent"></div>
                     </div>
                     
                     <!-- Video Block 2 -->
-                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('hiY1v1-H5b0', 'youtube-short')">
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" data-lightbox="videos" data-src="hiY1v1-H5b0" data-type="youtube-short">
                         <iframe src="https://www.youtube.com/embed/hiY1v1-H5b0?autoplay=1&mute=1&loop=1&playlist=hiY1v1-H5b0&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
                         <div class="absolute inset-0 z-10 bg-transparent"></div>
                     </div>
 
                     <!-- Video Block 3 -->
-                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" onclick="openLightbox('oS7ad4jZ3Ks', 'youtube-short')">
+                    <div class="relative aspect-[9/16] bg-[#000000] rounded-2xl border border-white/10 overflow-hidden group hover:border-[#0000FF]/50 transition-all duration-500 flex items-center justify-center cursor-pointer" data-lightbox="videos" data-src="oS7ad4jZ3Ks" data-type="youtube-short">
                         <iframe src="https://www.youtube.com/embed/oS7ad4jZ3Ks?autoplay=1&mute=1&loop=1&playlist=oS7ad4jZ3Ks&controls=0&modestbranding=1&playsinline=1&rel=0" class="absolute inset-0 w-full h-full object-cover pointer-events-none opacity-100 scale-[1.05]" frameborder="0" allow="autoplay; fullscreen" tabindex="-1"></iframe>
                         <div class="absolute inset-0 z-10 bg-transparent"></div>
                     </div>
@@ -795,8 +793,18 @@
 
     <!-- 10. LIGHTBOX OVERLAY -->
     <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4 backdrop-blur-sm" onclick="closeLightbox()">
+        
+        <!-- Close Button -->
         <button onclick="closeLightbox()" class="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-[#0000FF] transition-colors z-[101]">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+
+        <!-- Navigation Arrows -->
+        <button id="lightbox-prev" class="absolute left-2 md:left-8 top-1/2 -translate-y-1/2 text-white hover:text-[#0000FF] transition-colors z-[101] hidden p-2 bg-black/50 rounded-full backdrop-blur-md border border-white/10" onclick="prevLightboxItem(event)">
+            <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button id="lightbox-next" class="absolute right-2 md:right-8 top-1/2 -translate-y-1/2 text-white hover:text-[#0000FF] transition-colors z-[101] hidden p-2 bg-black/50 rounded-full backdrop-blur-md border border-white/10" onclick="nextLightboxItem(event)">
+            <svg class="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
         </button>
         
         <img id="lightbox-img" src="" class="hidden max-h-[90vh] max-w-[95vw] object-contain rounded-lg shadow-2xl" onclick="event.stopPropagation()">
@@ -938,7 +946,6 @@
             animateValue(document.getElementById('yc-prep'), 0, 100, 1500, "", "%");
         }
         
-        // Use individual observers for each section to ensure they trigger perfectly on scroll
         const epicObserver = new IntersectionObserver((entries) => {
             if(entries[0].isIntersecting) {
                 triggerEpicCounters();
@@ -959,54 +966,139 @@
         const ycContainer = document.getElementById('yc-counter-container');
         if(ycContainer) ycObserver.observe(ycContainer);
 
-        // 4. Drag to scroll logic & Arrow triggers for showcase containers
+        // =========================================================================
+        // 4. INFINITE AUTO-SCROLL & DRAG LOGIC FOR SHOWCASE CONTAINERS
+        // =========================================================================
         const sliders = document.querySelectorAll('.draggable-slider');
-        sliders.forEach(slider => {
-            let isDown = false;
-            let startX;
-            let scrollLeft;
 
+        sliders.forEach(slider => {
+            // Remove snap classes from container so they don't fight the smooth JS scroll
+            slider.classList.remove('snap-x', 'snap-proximity');
+
+            const cards = Array.from(slider.children);
+            if(cards.length === 0) return;
+
+            // Remove snap-center from the children to ensure buttery smoothness
+            cards.forEach(card => card.classList.remove('snap-center'));
+
+            // Clone the original set of cards twice to ensure seamless backward/forward looping
+            cards.forEach(card => slider.appendChild(card.cloneNode(true)));
+            cards.forEach(card => slider.appendChild(card.cloneNode(true)));
+
+            let originalWidth = 0;
+            let autoScrollSpeed = 1; // Adjust this to make it faster/slower
+            let isDown = false;
+            let isHovered = false;
+            let startX, scrollLeft;
+            let animationId;
+
+            function initSlider() {
+                if (cards.length < 2) return;
+                const cardWidth = cards[0].offsetWidth;
+                const gap = cards[1].offsetLeft - (cards[0].offsetLeft + cards[0].offsetWidth);
+                
+                // This gives us the exact width of ONE complete set (cards + gaps)
+                originalWidth = cards.length * (cardWidth + gap);
+
+                // Start safely in the middle of our 3 sets so we can drag forwards OR backwards infinitely
+                slider.scrollLeft = originalWidth;
+                startAutoScroll();
+            }
+
+            function checkLoop() {
+                if (originalWidth === 0) return;
+                // If we've scrolled into the 3rd set, invisibly jump back to the identical point in the 2nd set
+                if (slider.scrollLeft >= originalWidth * 2) {
+                    slider.scrollLeft -= originalWidth;
+                }
+                // If we've scrolled backward into the 1st set, invisibly jump forward to the identical point in the 2nd set
+                else if (slider.scrollLeft <= 0) {
+                    slider.scrollLeft += originalWidth;
+                }
+            }
+
+            function startAutoScroll() {
+                cancelAnimationFrame(animationId);
+                function step() {
+                    // Only autoscroll if user isn't hovering or dragging
+                    if (!isDown && !isHovered) {
+                        slider.scrollLeft += autoScrollSpeed;
+                        checkLoop();
+                    }
+                    animationId = requestAnimationFrame(step);
+                }
+                animationId = requestAnimationFrame(step);
+            }
+
+            // Desktop Drag Handlers
             slider.addEventListener('mousedown', (e) => {
                 isDown = true;
                 slider.classList.add('active:cursor-grabbing');
-                slider.style.scrollSnapType = 'none';
+                slider.style.scrollBehavior = 'auto'; // Prevent CSS smooth scroll from fighting native drag
                 startX = e.pageX - slider.offsetLeft;
                 scrollLeft = slider.scrollLeft;
             });
-            
+
             slider.addEventListener('mouseleave', () => {
                 isDown = false;
+                isHovered = false;
                 slider.classList.remove('active:cursor-grabbing');
-                slider.style.scrollSnapType = ''; 
             });
-            
+
             slider.addEventListener('mouseup', () => {
                 isDown = false;
                 slider.classList.remove('active:cursor-grabbing');
-                slider.style.scrollSnapType = ''; 
             });
-            
+
             slider.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
                 e.preventDefault();
                 const x = e.pageX - slider.offsetLeft;
-                const walk = (x - startX) * 1.5;
+                const walk = (x - startX) * 1.5; // Controls drag speed
                 slider.scrollLeft = scrollLeft - walk;
+                checkLoop();
             });
 
+            // Pause on hover
+            slider.addEventListener('mouseenter', () => isHovered = true);
+
+            // Mobile Touch Support: Stop auto scroll on touch, let native scroll behavior take over
+            slider.addEventListener('touchstart', () => {
+                isDown = true;
+                slider.style.scrollBehavior = 'auto';
+            }, {passive: true});
+
+            slider.addEventListener('touchend', () => {
+                isDown = false;
+            });
+
+            // Native scroll catcher (captures trackpad sweeps and mobile finger swipes)
+            slider.addEventListener('scroll', () => {
+                checkLoop();
+            }, {passive: true});
+
+            // Init and Recalculate on window resize
+            window.addEventListener('resize', initSlider);
+            // Allow layout/images a fraction of a second to compute real offsetWidths
+            setTimeout(initSlider, 150);
+
+            // Left/Right Button logic
             const wrapper = slider.parentElement;
             const leftBtn = wrapper.querySelector('.scroll-left-btn');
             const rightBtn = wrapper.querySelector('.scroll-right-btn');
-            const scrollAmount = window.innerWidth < 768 ? window.innerWidth * 0.8 : 374;
 
-            if(leftBtn) {
+            if (leftBtn) {
                 leftBtn.addEventListener('click', () => {
-                    slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                    const scrollAmount = cards[0].offsetWidth + (cards[1].offsetLeft - (cards[0].offsetLeft + cards[0].offsetWidth));
+                    slider.style.scrollBehavior = 'smooth';
+                    slider.scrollBy({ left: -scrollAmount });
                 });
             }
-            if(rightBtn) {
+            if (rightBtn) {
                 rightBtn.addEventListener('click', () => {
-                    slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    const scrollAmount = cards[0].offsetWidth + (cards[1].offsetLeft - (cards[0].offsetLeft + cards[0].offsetWidth));
+                    slider.style.scrollBehavior = 'smooth';
+                    slider.scrollBy({ left: scrollAmount });
                 });
             }
         });
@@ -1157,8 +1249,94 @@
             });
         }
 
-        // 7. Lightbox Logic
-        function openLightbox(src, type) {
+        // ==========================================
+        // 7. LIGHTBOX WITH GALLERY NAVIGATION
+        // ==========================================
+        let currentGallery = [];
+        let currentGalleryIndex = 0;
+
+        // Event Delegation for Lightbox Clicks (Handles dynamically cloned nodes automatically)
+        document.body.addEventListener('click', (e) => {
+            const trigger = e.target.closest('[data-lightbox]');
+            if (!trigger) return;
+            
+            e.preventDefault();
+            const galleryName = trigger.getAttribute('data-lightbox');
+            const src = trigger.getAttribute('data-src');
+            const type = trigger.getAttribute('data-type');
+            
+            // Gather all items in this specific gallery (e.g. all "campaign" images)
+            const allItems = Array.from(document.querySelectorAll(`[data-lightbox="${galleryName}"]`));
+            const uniqueItems = [];
+            const seenSrcs = new Set();
+            
+            // Filter out clones created by the infinite slider based on unique data-src values
+            allItems.forEach(item => {
+                const itemSrc = item.getAttribute('data-src');
+                if (!seenSrcs.has(itemSrc)) {
+                    seenSrcs.add(itemSrc);
+                    uniqueItems.push(item);
+                }
+            });
+            
+            currentGallery = uniqueItems;
+            
+            // Find the index of the clicked item
+            currentGalleryIndex = currentGallery.findIndex(item => item.getAttribute('data-src') === src);
+            if(currentGalleryIndex === -1) currentGalleryIndex = 0; // Fallback
+            
+            openLightboxDisplay(src, type);
+            updateLightboxControls();
+        });
+
+        // Show/Hide Next/Prev arrows based on gallery size
+        function updateLightboxControls() {
+            const prevBtn = document.getElementById('lightbox-prev');
+            const nextBtn = document.getElementById('lightbox-next');
+            
+            if (currentGallery.length > 1) {
+                prevBtn.classList.remove('hidden');
+                nextBtn.classList.remove('hidden');
+            } else {
+                prevBtn.classList.add('hidden');
+                nextBtn.classList.add('hidden');
+            }
+        }
+
+        function prevLightboxItem(e) {
+            if (e) e.stopPropagation();
+            if (currentGallery.length <= 1) return;
+            // Go to previous index, loop around if at the beginning
+            currentGalleryIndex = (currentGalleryIndex - 1 + currentGallery.length) % currentGallery.length;
+            const item = currentGallery[currentGalleryIndex];
+            openLightboxDisplay(item.getAttribute('data-src'), item.getAttribute('data-type'));
+        }
+
+        function nextLightboxItem(e) {
+            if (e) e.stopPropagation();
+            if (currentGallery.length <= 1) return;
+            // Go to next index, loop around if at the end
+            currentGalleryIndex = (currentGalleryIndex + 1) % currentGallery.length;
+            const item = currentGallery[currentGalleryIndex];
+            openLightboxDisplay(item.getAttribute('data-src'), item.getAttribute('data-type'));
+        }
+
+        // Global Keyboard Event Listener for Lightbox
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            // Check if lightbox is open
+            if (lightbox && !lightbox.classList.contains('opacity-0')) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    prevLightboxItem();
+                } else if (e.key === 'ArrowRight') {
+                    nextLightboxItem();
+                }
+            }
+        });
+
+        function openLightboxDisplay(src, type) {
             const lightbox = document.getElementById('lightbox');
             const imgElement = document.getElementById('lightbox-img');
             const tiktokContainer = document.getElementById('lightbox-tiktok-container');
@@ -1218,6 +1396,8 @@
 
             lightbox.classList.add('opacity-0', 'pointer-events-none');
             document.body.style.overflow = ''; 
+            
+            currentGallery = []; // Clean up session
             
             setTimeout(() => {
                 imgElement.src = '';
